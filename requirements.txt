@@ -2,3 +2,7 @@
 # Add your dependencies here, e.g.:
 # requests==2.31.0
 hyperon
+uagents
+openai
+python-dotenv
+uagents-core
