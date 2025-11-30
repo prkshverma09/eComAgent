@@ -76,18 +76,28 @@ load_dotenv()
 AGENT_NAME = os.getenv("AGENT_NAME", "PIM Agent")
 AGENT_PORT = int(os.getenv("AGENT_PORT", "8006"))
 AGENT_SEED = os.getenv("AGENT_SEED", "pim_agent_seed_phrase")
+AGENTVERSE_MAILBOX_KEY = os.getenv("AGENTVERSE_MAILBOX_KEY")
 ASI_ONE_API_KEY = os.getenv("ASI_ONE_API_KEY")
 
 if not ASI_ONE_API_KEY:
     print("WARNING: ASI_ONE_API_KEY is not set. LLM features will fail.")
 
 # Initialize Agent
-agent = Agent(
-    name=AGENT_NAME,
-    port=AGENT_PORT,
-    seed=AGENT_SEED,
-    mailbox=True
-)
+agent_args = {
+    "name": AGENT_NAME,
+    "port": AGENT_PORT,
+    "seed": AGENT_SEED,
+}
+
+# Add mailbox configuration if key is present
+if AGENTVERSE_MAILBOX_KEY:
+    print("Configuring agent with Agentverse Mailbox...")
+    agent_args["mailbox"] = f"{AGENTVERSE_MAILBOX_KEY}@https://agentverse.ai"
+else:
+    print("WARNING: No Agentverse Mailbox Key found. Agent will strictly run locally.")
+    agent_args["mailbox"] = True # Default local mailbox behavior if desired, or remove to just bind locally
+
+agent = Agent(**agent_args)
 
 # Initialize Components
 metta = MeTTa()
