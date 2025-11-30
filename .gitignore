@@ -148,3 +148,5 @@ cython_debug/
 # OS Specific
 .DS_Store
 
+# example code
+example/
