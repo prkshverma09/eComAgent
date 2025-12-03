@@ -8,8 +8,10 @@ sys.path.append(os.path.join(os.path.dirname(__file__), '..', 'src'))
 
 from pim_rag import PIMRAG
 from pim_utils import process_pim_query, LLM
+from vector_store import PIMVectorStore
 from hyperon import MeTTa
 from pim_knowledge import initialize_pim_knowledge_graph
+import json
 
 # Load environment variables (expecting .env file at project root)
 load_dotenv(os.path.join(os.path.dirname(__file__), '..', '.env'))
@@ -28,11 +30,17 @@ class TestPIMAgentLive(unittest.TestCase):
         self.rag = PIMRAG(self.metta)
         self.llm = LLM(api_key=self.api_key)
 
+        # Setup Vector Store
+        self.vector_store = PIMVectorStore(db_path="./test_chroma_db_live")
+        with open(self.data_path, 'r') as f:
+            data = json.load(f)
+            self.vector_store.ingest_pim_data(data)
+
     def test_live_family_query(self):
         query = "What family does product fc24e6c3-933c-4a93-8a81-e5c703d134d5 belong to?"
         print(f"\n[Live Test] Sending query: '{query}'")
 
-        response = process_pim_query(query, self.rag, self.llm)
+        response = process_pim_query(query, self.rag, self.llm, vector_store=self.vector_store)
         print(f"[Live Test] Response: {response}")
 
         # Verify the response contains relevant info
@@ -43,7 +51,7 @@ class TestPIMAgentLive(unittest.TestCase):
         query = "Which category is product fc24e6c3-933c-4a93-8a81-e5c703d134d5 in?"
         print(f"\n[Live Test] Sending query: '{query}'")
 
-        response = process_pim_query(query, self.rag, self.llm)
+        response = process_pim_query(query, self.rag, self.llm, vector_store=self.vector_store)
         print(f"[Live Test] Response: {response}")
 
         self.assertTrue("tshirts" in response.lower(), f"Expected 'tshirts' in response, got: {response}")
@@ -52,7 +60,7 @@ class TestPIMAgentLive(unittest.TestCase):
         query = "What is the color of product fc24e6c3-933c-4a93-8a81-e5c703d134d5?"
         print(f"\n[Live Test] Sending query: '{query}'")
 
-        response = process_pim_query(query, self.rag, self.llm)
+        response = process_pim_query(query, self.rag, self.llm, vector_store=self.vector_store)
         print(f"[Live Test] Response: {response}")
 
         self.assertTrue("brown" in response.lower(), f"Expected 'brown' in response, got: {response}")

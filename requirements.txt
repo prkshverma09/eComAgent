@@ -6,3 +6,5 @@ uagents
 openai
 python-dotenv
 uagents-core
+chromadb
+sentence-transformers

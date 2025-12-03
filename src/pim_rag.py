@@ -9,14 +9,8 @@ class PIMRAG:
         Get the family of a product.
         Query: (is_a <uuid> $family)
         """
-        # uuid is passed as a string, but in the graph it acts as a symbol.
-        # We need to ensure we don't wrap it in quotes if it's stored as a symbol.
-        # Based on pim_knowledge.py: S(product_uuid) -> stored as Symbol.
-
         query_str = f'!(match &self (is_a {uuid} $family) $family)'
         results = self.metta.run(query_str)
-        # Results are a list of lists of atoms.
-        # Extract the family name (Symbol or String).
         families = []
         if results:
             for result in results:
@@ -43,19 +37,16 @@ class PIMRAG:
         Get value of a specific attribute.
         Query: (has_attribute <uuid> <attribute_name> $val)
         """
-        # attribute_name is a string in python, but a symbol in the graph S(attribute_name).
         query_str = f'!(match &self (has_attribute {uuid} {attribute_name} $val) $val)'
         results = self.metta.run(query_str)
         values = []
         if results:
             for result in results:
                 for atom in result:
-                    # The value is a ValueAtom, so we get the underlying object
                     try:
                         val = atom.get_object().value
                         values.append(val)
                     except AttributeError:
-                        # Fallback if it's a Symbol or other atom type
                         values.append(str(atom))
         return values
 
@@ -76,27 +67,18 @@ class PIMRAG:
     def find_products_by_attribute(self, attribute_name: str, value):
         """
         Find products that have a specific attribute value.
-        Query: (has_attribute $uuid <attribute_name> <value>)
-        Note: Matching exact ValueAtoms in queries might be tricky depending on type.
-        For now, this assumes simple string match or we might need to iterate if strict matching fails.
         """
-        # This is complex because 'value' needs to be represented exactly as it is in the atom.
-        # For simplicity in this iteration, we might stick to category/family lookups
-        # or implement a filter in python if the graph query is too rigid for complex ValueAtoms.
-
-        # Let's try a broad query and filter in Python for safety
         query_str = f'!(match &self (has_attribute $uuid {attribute_name} $val) ($uuid $val))'
         results = self.metta.run(query_str)
         matched_uuids = []
 
         if results:
             for result in results:
-                if len(result) == 2: # ($uuid $val)
+                if len(result) == 2:
                     uuid_atom = result[0]
                     val_atom = result[1]
                     try:
                         val_obj = val_atom.get_object().value
-                        # loose comparison (e.g. string vs int handling)
                         if str(val_obj) == str(value):
                             matched_uuids.append(str(uuid_atom))
                     except AttributeError:
@@ -105,3 +87,65 @@ class PIMRAG:
 
         return list(set(matched_uuids))
 
+    def get_full_product_context(self, uuid: str):
+        """
+        Retrieve all known structured facts about a product from MeTTa.
+        Returns a formatted string suitable for LLM context.
+        """
+        # Get Family
+        families = self.get_product_family(uuid)
+
+        # Get Categories
+        categories = self.get_product_categories(uuid)
+
+        # Get All Attributes
+        # Query: (has_attribute <uuid> $attr $val)
+        # We need to iterate over results properly.
+        # Metta match returns a list of results, where each result is a tuple of matched atoms.
+        query_str = f'!(match &self (has_attribute {uuid} $attr $val) ($attr $val))'
+        results = self.metta.run(query_str)
+
+        attributes = {}
+        # results structure: [[(col, val), (col2, val2)], ...] or something similar depending on run()
+        # MeTTa.run() returns a list of lists of Atoms.
+        # Since our query returns a tuple ($attr $val), each 'result' in 'results'
+        # is a list containing ONE ExpressionAtom which is the tuple.
+        # Example: [ [ (attr val) ], [ (attr2 val2) ] ]
+
+        if results:
+            for result_list in results:
+                for atom in result_list:
+                    # atom is likely an ExpressionAtom: (attr val)
+                    children = atom.get_children()
+                    if len(children) == 2:
+                        attr_name_atom = children[0]
+                        val_atom = children[1]
+
+                        attr_name = str(attr_name_atom)
+                        try:
+                            val = val_atom.get_object().value
+                        except AttributeError:
+                            val = str(val_atom)
+
+                        if attr_name in attributes:
+                            if isinstance(attributes[attr_name], list):
+                                attributes[attr_name].append(val)
+                            else:
+                                attributes[attr_name] = [attributes[attr_name], val]
+                        else:
+                            attributes[attr_name] = val
+
+        # Format Context
+        context_parts = [f"Product UUID: {uuid}"]
+        if families:
+            context_parts.append(f"Family: {', '.join(families)}")
+        if categories:
+            context_parts.append(f"Categories: {', '.join(categories)}")
+
+        if attributes:
+            attr_strs = []
+            for k, v in attributes.items():
+                attr_strs.append(f"{k}: {v}")
+            context_parts.append("Attributes: " + "; ".join(attr_strs))
+
+        return "\n".join(context_parts)
