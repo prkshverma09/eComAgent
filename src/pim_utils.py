@@ -23,8 +23,8 @@ def process_pim_query(query: str, rag: PIMRAG, llm: LLM, vector_store: PIMVector
     Process the user query using the Hybrid RAG system (Vector DB + MeTTa).
     """
     if vector_store:
-        print(f"DEBUG: Using Hybrid RAG for query: '{query}'")
-
+        # print(f"DEBUG: Using Hybrid RAG for query: '{query}'") # Silencing log for cleaner output
+        
         # 1. Semantic Search to find relevant products
         # Get top 3 results
         search_results = vector_store.search(query, k=3)

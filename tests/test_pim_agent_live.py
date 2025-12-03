@@ -38,31 +38,28 @@ class TestPIMAgentLive(unittest.TestCase):
 
     def test_live_family_query(self):
         query = "What family does product fc24e6c3-933c-4a93-8a81-e5c703d134d5 belong to?"
-        print(f"\n[Live Test] Sending query: '{query}'")
-
+        
         response = process_pim_query(query, self.rag, self.llm, vector_store=self.vector_store)
-        print(f"[Live Test] Response: {response}")
-
+        print(f"\nQ: {query}\nA: {response}\n")
+        
         # Verify the response contains relevant info
         # We expect "clothing" to be mentioned in the humanized response
         self.assertTrue("clothing" in response.lower(), f"Expected 'clothing' in response, got: {response}")
 
     def test_live_category_query(self):
         query = "Which category is product fc24e6c3-933c-4a93-8a81-e5c703d134d5 in?"
-        print(f"\n[Live Test] Sending query: '{query}'")
-
+        
         response = process_pim_query(query, self.rag, self.llm, vector_store=self.vector_store)
-        print(f"[Live Test] Response: {response}")
-
+        print(f"\nQ: {query}\nA: {response}\n")
+        
         self.assertTrue("tshirts" in response.lower(), f"Expected 'tshirts' in response, got: {response}")
 
     def test_live_attribute_query(self):
         query = "What is the color of product fc24e6c3-933c-4a93-8a81-e5c703d134d5?"
-        print(f"\n[Live Test] Sending query: '{query}'")
-
+        
         response = process_pim_query(query, self.rag, self.llm, vector_store=self.vector_store)
-        print(f"[Live Test] Response: {response}")
-
+        print(f"\nQ: {query}\nA: {response}\n")
+        
         self.assertTrue("brown" in response.lower(), f"Expected 'brown' in response, got: {response}")
 
 if __name__ == '__main__':

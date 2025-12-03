@@ -99,7 +99,7 @@ class PIMVectorStore:
                 embeddings=embeddings,
                 metadatas=metadatas
             )
-            print(f"Ingested {len(documents)} products into Vector Store.")
+            # print(f"Ingested {len(documents)} products into Vector Store.") # Silencing log for cleaner output
 
     def search(self, query: str, k: int = 3):
         """
