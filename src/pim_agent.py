@@ -64,7 +64,7 @@ agent = Agent(**agent_args)
 
 # Initialize Components
 metta = MeTTa()
-DATA_PATH = os.path.join(os.getcwd(), 'data', 'Example_PIM_Data.json')
+DATA_PATH = os.path.join(os.getcwd(), 'data', 'Dummy_catalog_runningshoes.json')
 if not os.path.exists(DATA_PATH):
     print(f"ERROR: Data file not found at {DATA_PATH}")
 
@@ -73,6 +73,10 @@ rag = PIMRAG(metta)
 
 # Initialize Vector Store & Ingest Data
 print("Initializing Vector Store...")
+# Use a new persistence dir for the backfill to avoid conflict with old schema if desired,
+# or assume the ingest logic handles upserts/replacements gracefully.
+# Here we stick to 'chroma_db' but clean it might be better if schemas conflict significantly.
+# For simplicity, we just use default.
 vector_store = PIMVectorStore()
 
 # Load JSON to ingest (simple check to avoid re-ingesting every restart if needed,

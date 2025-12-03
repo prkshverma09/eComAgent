@@ -25,7 +25,8 @@ class TestPIMAgentLive(unittest.TestCase):
 
         # Setup real components
         self.metta = MeTTa()
-        self.data_path = os.path.join(os.path.dirname(__file__), '..', 'data', 'Example_PIM_Data.json')
+        # Updated to use the new running shoes catalog
+        self.data_path = os.path.join(os.path.dirname(__file__), '..', 'data', 'Dummy_catalog_runningshoes.json')
         initialize_pim_knowledge_graph(self.metta, self.data_path)
         self.rag = PIMRAG(self.metta)
         self.llm = LLM(api_key=self.api_key)
@@ -42,38 +43,35 @@ class TestPIMAgentLive(unittest.TestCase):
         print(f"A: {response}\n")
         return response.lower()
 
-    # --- Baseline Structural Tests ---
-    def test_live_family_query(self):
-        response = self._ask_and_print("What family does product fc24e6c3-933c-4a93-8a81-e5c703d134d5 belong to?")
-        self.assertTrue("clothing" in response, f"Expected 'clothing' in response, got: {response}")
-
-    def test_live_category_query(self):
-        response = self._ask_and_print("Which category is product fc24e6c3-933c-4a93-8a81-e5c703d134d5 in?")
-        self.assertTrue("tshirts" in response, f"Expected 'tshirts' in response, got: {response}")
+    # --- Updated Tests for Running Shoes Catalog ---
+    
+    def test_live_brand_query(self):
+        # "Brand" is a key attribute in the new schema
+        response = self._ask_and_print("What brand is the 'Horizon Pro 3'?")
+        self.assertTrue("aerostride" in response, f"Expected 'AeroStride' in response, got: {response}")
 
     def test_live_attribute_query(self):
-        response = self._ask_and_print("What is the color of product fc24e6c3-933c-4a93-8a81-e5c703d134d5?")
-        self.assertTrue("brown" in response, f"Expected 'brown' in response, got: {response}")
+        # Check for specific attribute like 'Material'
+        response = self._ask_and_print("What material is the 'Tempest Race' made of?")
+        self.assertTrue("atomknit" in response or "zoomx" in response, f"Expected material details, got: {response}")
 
-    # --- Semantic / Vector DB Tests ---
-    def test_semantic_season_query(self):
-        # "Summer" is in the collection data, "Hot weather" is the semantic query.
-        response = self._ask_and_print("Do you have anything suitable for hot weather?")
-        # Expecting it to find the 'summer_2017' collection item
-        self.assertTrue("jack" in response or "t-shirt" in response or "tshirt" in response, 
-                        f"Expected product recommendation for hot weather, got: {response}")
+    def test_semantic_usage_query(self):
+        # "Marathon" should map to "Tempest Race" or "Velocity Sprint" which have "Marathon" in description
+        # Also accepting "Ignite Elite" and "PacePro Race" as valid semantic matches for long distance/marathon
+        response = self._ask_and_print("I need a shoe good for running a marathon.")
+        self.assertTrue("tempest race" in response or "velocity sprint" in response or "ignite elite" in response or "pacepro race" in response, 
+                        f"Expected marathon shoe recommendation, got: {response}")
 
-    def test_semantic_weight_query(self):
-        # User asks vaguely about "heavy" or specific weight without mentioning exact attribute name
-        response = self._ask_and_print("I am looking for something that weighs around 800g.")
-        self.assertTrue("800" in response or "gram" in response, 
-                        f"Expected weight confirmation (800g), got: {response}")
-
-    def test_semantic_vague_category(self):
-        # "Casual tops" -> should map to "tshirts" via vector similarity
-        response = self._ask_and_print("Show me some casual tops.")
-        self.assertTrue("tshirts" in response or "t-shirt" in response, 
-                        f"Expected 'tshirts' recommendation for 'casual tops', got: {response}")
+    def test_semantic_feature_query(self):
+        # "Waterproof" maps to "FluxRide XT" (Gore-Tex)
+        # Debug: Check if FluxRide XT is even retrieved
+        # The prompt might fail if retrieval misses.
+        query = "Do you have any waterproof shoes?"
+        response = self._ask_and_print(query)
+        
+        # If vector search fails, we might need to debug embeddings or k value
+        # But let's assert strictly for now
+        self.assertTrue("fluxride xt" in response, f"Expected FluxRide XT recommendation, got: {response}")
 
 if __name__ == '__main__':
     unittest.main()

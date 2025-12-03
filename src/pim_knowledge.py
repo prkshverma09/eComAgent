@@ -19,42 +19,65 @@ def initialize_pim_knowledge_graph(metta: MeTTa, file_path: str):
         print(f"Error: Invalid JSON in {file_path}")
         return
 
-    # Extract UUID (Central Node)
-    product_uuid = data.get("uuid")
-    if not product_uuid:
-        return
+    # Handle list of products (backfill support)
+    products = data if isinstance(data, list) else [data]
 
-    # Family -> (is_a <uuid> <family>)
-    family = data.get("family")
-    if family:
-        metta.space().add_atom(E(S("is_a"), S(product_uuid), S(family)))
-
-    # Categories -> (has_category <uuid> <category>)
-    categories = data.get("categories", [])
-    for category in categories:
-        metta.space().add_atom(E(S("has_category"), S(product_uuid), S(category)))
-
-    # Values -> (has_attribute <uuid> <attribute_name> <value>)
-    values = data.get("values", {})
-    for attribute_name, entries in values.items():
-        if not isinstance(entries, list):
+    for product in products:
+        # Schema adaptation: Check if using old UUID-based schema or new Brand/Product Name schema
+        # Generate a synthetic UUID if missing but Product Name exists (for reproducibility)
+        product_uuid = product.get("uuid")
+        if not product_uuid and "Product Name" in product:
+            import hashlib
+            # Create a deterministic UUID from Brand + Product Name
+            unique_str = f"{product.get('Brand', '')}_{product.get('Product Name', '')}"
+            product_uuid = hashlib.md5(unique_str.encode()).hexdigest()
+            # Store it back in product dict so we can use it later if needed (though local scope)
+        
+        if not product_uuid:
             continue
 
-        for entry in entries:
-            val_data = entry.get("data")
-            if val_data is None:
-                continue
+        # Family -> (is_a <uuid> <family>)
+        # Map "Type" to Family if "family" key is missing
+        family = product.get("family") or product.get("Type")
+        if family:
+            metta.space().add_atom(E(S("is_a"), S(product_uuid), S(str(family))))
 
-            # Determine Atom type based on value nature
-            # For complex structures (dicts, lists) or non-string primitives, use ValueAtom
-            # For simple strings that might be used as identifiers, we could use S, but
-            # to be consistent with the plan's flexibility, we'll use ValueAtom for specific data values.
-            # However, for simple categorical attributes like 'color' or 'size', Symbols might be better for reasoning.
-            # Given the plan says "Use S(<value>) or ValueAtom(<value>)", I will use ValueAtom for consistency
-            # with the 'values' semantics of PIM data, unless it's a very simple string.
+        # Categories -> (has_category <uuid> <category>)
+        # Map "Type", "Gender", "Season" to categories if explicit "categories" list missing
+        categories = product.get("categories", [])
+        if not categories:
+            if product.get("Type"): categories.append(product.get("Type"))
+            if product.get("Gender"): categories.append(product.get("Gender"))
+            if product.get("Season"): categories.append(product.get("Season"))
+            
+        for category in categories:
+            metta.space().add_atom(E(S("has_category"), S(product_uuid), S(str(category))))
 
-            # Implementation decision: Use ValueAtom for all attribute values to handle types correctly.
-            val_atom = ValueAtom(val_data)
-
-            metta.space().add_atom(E(S("has_attribute"), S(product_uuid), S(attribute_name), val_atom))
+        # Values -> (has_attribute <uuid> <attribute_name> <value>)
+        # Old Schema: values dict with list of entries
+        # New Schema: flat keys like "Brand", "Price", "Material"
+        
+        values_dict = product.get("values", {})
+        if values_dict:
+            # Old Schema Handler
+            for attribute_name, entries in values_dict.items():
+                if not isinstance(entries, list):
+                    continue
+                for entry in entries:
+                    val_data = entry.get("data")
+                    if val_data is None:
+                        continue
+                    val_atom = ValueAtom(val_data)
+                    metta.space().add_atom(E(S("has_attribute"), S(product_uuid), S(attribute_name), val_atom))
+        else:
+            # New Schema Handler (Flat keys)
+            # Exclude keys we already processed or are structural
+            exclude_keys = ["uuid", "family", "categories", "Type", "Gender", "Season", "values"]
+            for key, val in product.items():
+                if key not in exclude_keys and val is not None:
+                    # Clean key for usage as symbol (remove spaces/special chars if needed, but S() handles strings)
+                    # Ideally standardize keys to lowercase/snake_case
+                    clean_key = key.lower().replace(" ", "_").replace("(", "").replace(")", "")
+                    val_atom = ValueAtom(val)
+                    metta.space().add_atom(E(S("has_attribute"), S(product_uuid), S(clean_key), val_atom))
 

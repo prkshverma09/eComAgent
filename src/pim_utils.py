@@ -11,12 +11,21 @@ class LLM:
         )
 
     def create_completion(self, prompt, max_tokens=300):
-        completion = self.client.chat.completions.create(
-            messages=[{"role": "user", "content": prompt}],
-            model="asi1-mini",
-            max_tokens=max_tokens
-        )
-        return completion.choices[0].message.content
+        import time
+        max_retries = 3
+        for attempt in range(max_retries):
+            try:
+                completion = self.client.chat.completions.create(
+                    messages=[{"role": "user", "content": prompt}],
+                    model="asi1-mini",
+                    max_tokens=max_tokens
+                )
+                return completion.choices[0].message.content
+            except Exception as e:
+                if attempt == max_retries - 1:
+                    print(f"LLM API Error after {max_retries} attempts: {e}")
+                    return "I apologize, but I'm having trouble connecting to my brain right now. Please try again later."
+                time.sleep(2) # Wait 2 seconds before retry
 
 def process_pim_query(query: str, rag: PIMRAG, llm: LLM, vector_store: PIMVectorStore = None):
     """
@@ -26,9 +35,9 @@ def process_pim_query(query: str, rag: PIMRAG, llm: LLM, vector_store: PIMVector
         # print(f"DEBUG: Using Hybrid RAG for query: '{query}'") # Silencing log for cleaner output
         
         # 1. Semantic Search to find relevant products
-        # Get top 3 results
-        search_results = vector_store.search(query, k=3)
-
+        # Get top 10 results to ensure we capture specific features like "waterproof"
+        search_results = vector_store.search(query, k=10)
+        
         if not search_results:
             return "I couldn't find any relevant products in our catalog matching your query."
 

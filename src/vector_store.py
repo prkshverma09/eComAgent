@@ -19,56 +19,71 @@ class PIMVectorStore:
     def _generate_description(self, product: dict) -> str:
         """
         Generate a natural language description of the product for embedding.
+        Supports both old hierarchical schema and new flat schema.
         """
-        # Extract fields
+        # --- Common Identity ---
         uuid = product.get("uuid", "")
+        # If no explicit UUID, try to identify by Name/Brand (New Schema)
+        if not uuid:
+            uuid = f"{product.get('Brand', 'Unknown')} {product.get('Product Name', 'Unknown')}"
+
+        # --- Old Schema Extraction ---
         family = product.get("family", "")
-        categories = ", ".join(product.get("categories", []))
-
-        # Flatten values
-        values_dict = product.get("values", {})
+        categories = list(product.get("categories", []))
         attributes = []
+        
+        values_dict = product.get("values", {})
+        if values_dict:
+            # Old Schema Logic
+            for attr_name, entries in values_dict.items():
+                if not isinstance(entries, list): continue
+                for entry in entries:
+                    val = entry.get("data")
+                    if isinstance(val, dict): val_str = " ".join([str(v) for v in val.values()])
+                    else: val_str = str(val)
+                    attributes.append(f"{attr_name} is {val_str}")
+        else:
+            # --- New Schema Logic ---
+            # Map specific keys to Family/Categories if not present
+            if not family: family = product.get("Type", "Product")
+            
+            # Add structural tags to categories
+            if product.get("Type"): categories.append(product.get("Type"))
+            if product.get("Gender"): categories.append(product.get("Gender"))
+            if product.get("Season"): categories.append(product.get("Season"))
+            
+            # Treat other keys as attributes
+            exclude = ["uuid", "family", "categories", "Type", "Gender", "Season", "values"]
+            for k, v in product.items():
+                if k not in exclude and v is not None:
+                    attributes.append(f"{k} is {v}")
+                    # Explicitly add Description (Short) again if it exists to be safe, 
+                    # but it is covered by the loop. 
+                    # Note: keys like "Description (Short)" will be added as "Description (Short) is ...".
 
-        for attr_name, entries in values_dict.items():
-            if not isinstance(entries, list):
-                continue
-            for entry in entries:
-                val = entry.get("data")
-                # Handle dictionary values (e.g. weight with unit)
-                if isinstance(val, dict):
-                     val_str = " ".join([str(v) for v in val.values()])
-                else:
-                    val_str = str(val)
-                attributes.append(f"{attr_name} is {val_str}")
-
+        # --- Construct Description ---
+        cat_str = ", ".join([str(c) for c in categories if c])
+        
         description = f"Product {uuid} is a {family} item. "
-        if categories:
-            description += f"It belongs to categories: {categories}. "
+        if cat_str:
+            description += f"It belongs to categories: {cat_str}. "
         if attributes:
             description += f"Attributes: {', '.join(attributes)}."
-
+            
         return description
 
     def ingest_pim_data(self, json_data: dict):
         """
         Ingest PIM data into the vector store.
         """
-        # If input is the root dict, it might be a single product or we might need to handle list.
-        # Example_PIM_Data.json seems to contain a single product object based on previous reads.
-        # But usually PIM data is a list. We will handle single dict or list of dicts.
-
         products = []
         if isinstance(json_data, dict):
-            # Check if it's a single product (has uuid) or a wrapper
             if "uuid" in json_data:
                 products = [json_data]
-            else:
-                # If it's a wrapper, maybe "products" key?
-                # For now assume single product as per example file content.
-                pass
+            # Handle new schema list wrapped in dict if ever happens, but mostly list
         elif isinstance(json_data, list):
             products = json_data
-
+            
         if not products:
             print("No products found to ingest.")
             return
@@ -76,22 +91,32 @@ class PIMVectorStore:
         ids = []
         documents = []
         metadatas = []
-
+        
+        import hashlib
+        
         for product in products:
+            # Determine UUID (consistent with pim_knowledge.py)
             uuid = product.get("uuid")
+            if not uuid and "Product Name" in product:
+                unique_str = f"{product.get('Brand', '')}_{product.get('Product Name', '')}"
+                uuid = hashlib.md5(unique_str.encode()).hexdigest()
+            
             if not uuid:
                 continue
-
+                
             desc = self._generate_description(product)
-
+            
+            # Determine Family for metadata
+            family = product.get("family") or product.get("Type", "Unknown")
+            
             ids.append(uuid)
             documents.append(desc)
-            metadatas.append({"family": product.get("family", ""), "uuid": uuid})
-
+            metadatas.append({"family": str(family), "uuid": uuid})
+            
         # Compute embeddings
         if documents:
             embeddings = self.model.encode(documents).tolist()
-
+            
             # Upsert into ChromaDB
             self.collection.upsert(
                 ids=ids,
