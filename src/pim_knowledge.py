@@ -32,7 +32,7 @@ def initialize_pim_knowledge_graph(metta: MeTTa, file_path: str):
             unique_str = f"{product.get('Brand', '')}_{product.get('Product Name', '')}"
             product_uuid = hashlib.md5(unique_str.encode()).hexdigest()
             # Store it back in product dict so we can use it later if needed (though local scope)
-        
+
         if not product_uuid:
             continue
 
@@ -49,14 +49,14 @@ def initialize_pim_knowledge_graph(metta: MeTTa, file_path: str):
             if product.get("Type"): categories.append(product.get("Type"))
             if product.get("Gender"): categories.append(product.get("Gender"))
             if product.get("Season"): categories.append(product.get("Season"))
-            
+
         for category in categories:
             metta.space().add_atom(E(S("has_category"), S(product_uuid), S(str(category))))
 
         # Values -> (has_attribute <uuid> <attribute_name> <value>)
         # Old Schema: values dict with list of entries
         # New Schema: flat keys like "Brand", "Price", "Material"
-        
+
         values_dict = product.get("values", {})
         if values_dict:
             # Old Schema Handler

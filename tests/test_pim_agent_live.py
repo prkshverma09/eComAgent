@@ -30,7 +30,7 @@ class TestPIMAgentLive(unittest.TestCase):
         initialize_pim_knowledge_graph(self.metta, self.data_path)
         self.rag = PIMRAG(self.metta)
         self.llm = LLM(api_key=self.api_key)
-        
+
         # Setup Vector Store
         self.vector_store = PIMVectorStore(db_path="./test_chroma_db_live")
         with open(self.data_path, 'r') as f:
@@ -44,7 +44,7 @@ class TestPIMAgentLive(unittest.TestCase):
         return response.lower()
 
     # --- Updated Tests for Running Shoes Catalog ---
-    
+
     def test_live_brand_query(self):
         # "Brand" is a key attribute in the new schema
         response = self._ask_and_print("What brand is the 'Horizon Pro 3'?")
@@ -59,7 +59,7 @@ class TestPIMAgentLive(unittest.TestCase):
         # "Marathon" should map to "Tempest Race" or "Velocity Sprint" which have "Marathon" in description
         # Also accepting "Ignite Elite" and "PacePro Race" as valid semantic matches for long distance/marathon
         response = self._ask_and_print("I need a shoe good for running a marathon.")
-        self.assertTrue("tempest race" in response or "velocity sprint" in response or "ignite elite" in response or "pacepro race" in response, 
+        self.assertTrue("tempest race" in response or "velocity sprint" in response or "ignite elite" in response or "pacepro race" in response,
                         f"Expected marathon shoe recommendation, got: {response}")
 
     def test_semantic_feature_query(self):
@@ -68,7 +68,7 @@ class TestPIMAgentLive(unittest.TestCase):
         # The prompt might fail if retrieval misses.
         query = "Do you have any waterproof shoes?"
         response = self._ask_and_print(query)
-        
+
         # If vector search fails, we might need to debug embeddings or k value
         # But let's assert strictly for now
         self.assertTrue("fluxride xt" in response, f"Expected FluxRide XT recommendation, got: {response}")

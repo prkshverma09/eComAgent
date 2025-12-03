@@ -31,7 +31,7 @@ class PIMVectorStore:
         family = product.get("family", "")
         categories = list(product.get("categories", []))
         attributes = []
-        
+
         values_dict = product.get("values", {})
         if values_dict:
             # Old Schema Logic
@@ -46,30 +46,30 @@ class PIMVectorStore:
             # --- New Schema Logic ---
             # Map specific keys to Family/Categories if not present
             if not family: family = product.get("Type", "Product")
-            
+
             # Add structural tags to categories
             if product.get("Type"): categories.append(product.get("Type"))
             if product.get("Gender"): categories.append(product.get("Gender"))
             if product.get("Season"): categories.append(product.get("Season"))
-            
+
             # Treat other keys as attributes
             exclude = ["uuid", "family", "categories", "Type", "Gender", "Season", "values"]
             for k, v in product.items():
                 if k not in exclude and v is not None:
                     attributes.append(f"{k} is {v}")
-                    # Explicitly add Description (Short) again if it exists to be safe, 
-                    # but it is covered by the loop. 
+                    # Explicitly add Description (Short) again if it exists to be safe,
+                    # but it is covered by the loop.
                     # Note: keys like "Description (Short)" will be added as "Description (Short) is ...".
 
         # --- Construct Description ---
         cat_str = ", ".join([str(c) for c in categories if c])
-        
+
         description = f"Product {uuid} is a {family} item. "
         if cat_str:
             description += f"It belongs to categories: {cat_str}. "
         if attributes:
             description += f"Attributes: {', '.join(attributes)}."
-            
+
         return description
 
     def ingest_pim_data(self, json_data: dict):
@@ -83,7 +83,7 @@ class PIMVectorStore:
             # Handle new schema list wrapped in dict if ever happens, but mostly list
         elif isinstance(json_data, list):
             products = json_data
-            
+
         if not products:
             print("No products found to ingest.")
             return
@@ -91,32 +91,32 @@ class PIMVectorStore:
         ids = []
         documents = []
         metadatas = []
-        
+
         import hashlib
-        
+
         for product in products:
             # Determine UUID (consistent with pim_knowledge.py)
             uuid = product.get("uuid")
             if not uuid and "Product Name" in product:
                 unique_str = f"{product.get('Brand', '')}_{product.get('Product Name', '')}"
                 uuid = hashlib.md5(unique_str.encode()).hexdigest()
-            
+
             if not uuid:
                 continue
-                
+
             desc = self._generate_description(product)
-            
+
             # Determine Family for metadata
             family = product.get("family") or product.get("Type", "Unknown")
-            
+
             ids.append(uuid)
             documents.append(desc)
             metadatas.append({"family": str(family), "uuid": uuid})
-            
+
         # Compute embeddings
         if documents:
             embeddings = self.model.encode(documents).tolist()
-            
+
             # Upsert into ChromaDB
             self.collection.upsert(
                 ids=ids,

@@ -33,11 +33,11 @@ def process_pim_query(query: str, rag: PIMRAG, llm: LLM, vector_store: PIMVector
     """
     if vector_store:
         # print(f"DEBUG: Using Hybrid RAG for query: '{query}'") # Silencing log for cleaner output
-        
+
         # 1. Semantic Search to find relevant products
         # Get top 10 results to ensure we capture specific features like "waterproof"
         search_results = vector_store.search(query, k=10)
-        
+
         if not search_results:
             return "I couldn't find any relevant products in our catalog matching your query."
 
