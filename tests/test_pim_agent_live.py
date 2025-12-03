@@ -29,39 +29,51 @@ class TestPIMAgentLive(unittest.TestCase):
         initialize_pim_knowledge_graph(self.metta, self.data_path)
         self.rag = PIMRAG(self.metta)
         self.llm = LLM(api_key=self.api_key)
-
+        
         # Setup Vector Store
         self.vector_store = PIMVectorStore(db_path="./test_chroma_db_live")
         with open(self.data_path, 'r') as f:
             data = json.load(f)
             self.vector_store.ingest_pim_data(data)
 
-    def test_live_family_query(self):
-        query = "What family does product fc24e6c3-933c-4a93-8a81-e5c703d134d5 belong to?"
-        
+    def _ask_and_print(self, query):
+        print(f"\nQ: {query}")
         response = process_pim_query(query, self.rag, self.llm, vector_store=self.vector_store)
-        print(f"\nQ: {query}\nA: {response}\n")
-        
-        # Verify the response contains relevant info
-        # We expect "clothing" to be mentioned in the humanized response
-        self.assertTrue("clothing" in response.lower(), f"Expected 'clothing' in response, got: {response}")
+        print(f"A: {response}\n")
+        return response.lower()
+
+    # --- Baseline Structural Tests ---
+    def test_live_family_query(self):
+        response = self._ask_and_print("What family does product fc24e6c3-933c-4a93-8a81-e5c703d134d5 belong to?")
+        self.assertTrue("clothing" in response, f"Expected 'clothing' in response, got: {response}")
 
     def test_live_category_query(self):
-        query = "Which category is product fc24e6c3-933c-4a93-8a81-e5c703d134d5 in?"
-        
-        response = process_pim_query(query, self.rag, self.llm, vector_store=self.vector_store)
-        print(f"\nQ: {query}\nA: {response}\n")
-        
-        self.assertTrue("tshirts" in response.lower(), f"Expected 'tshirts' in response, got: {response}")
+        response = self._ask_and_print("Which category is product fc24e6c3-933c-4a93-8a81-e5c703d134d5 in?")
+        self.assertTrue("tshirts" in response, f"Expected 'tshirts' in response, got: {response}")
 
     def test_live_attribute_query(self):
-        query = "What is the color of product fc24e6c3-933c-4a93-8a81-e5c703d134d5?"
-        
-        response = process_pim_query(query, self.rag, self.llm, vector_store=self.vector_store)
-        print(f"\nQ: {query}\nA: {response}\n")
-        
-        self.assertTrue("brown" in response.lower(), f"Expected 'brown' in response, got: {response}")
+        response = self._ask_and_print("What is the color of product fc24e6c3-933c-4a93-8a81-e5c703d134d5?")
+        self.assertTrue("brown" in response, f"Expected 'brown' in response, got: {response}")
+
+    # --- Semantic / Vector DB Tests ---
+    def test_semantic_season_query(self):
+        # "Summer" is in the collection data, "Hot weather" is the semantic query.
+        response = self._ask_and_print("Do you have anything suitable for hot weather?")
+        # Expecting it to find the 'summer_2017' collection item
+        self.assertTrue("jack" in response or "t-shirt" in response or "tshirt" in response, 
+                        f"Expected product recommendation for hot weather, got: {response}")
+
+    def test_semantic_weight_query(self):
+        # User asks vaguely about "heavy" or specific weight without mentioning exact attribute name
+        response = self._ask_and_print("I am looking for something that weighs around 800g.")
+        self.assertTrue("800" in response or "gram" in response, 
+                        f"Expected weight confirmation (800g), got: {response}")
+
+    def test_semantic_vague_category(self):
+        # "Casual tops" -> should map to "tshirts" via vector similarity
+        response = self._ask_and_print("Show me some casual tops.")
+        self.assertTrue("tshirts" in response or "t-shirt" in response, 
+                        f"Expected 'tshirts' recommendation for 'casual tops', got: {response}")
 
 if __name__ == '__main__':
     unittest.main()
-
