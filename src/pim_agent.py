@@ -56,15 +56,24 @@ agent_args = {
     "seed": AGENT_SEED,
 }
 
-if AGENTVERSE_MAILBOX_KEY:
+if AGENTVERSE_MAILBOX_KEY and not os.getenv("DISABLE_MAILBOX"):
     print("Configuring agent with Agentverse Mailbox...")
-    agent_args["mailbox"] = f"{AGENTVERSE_MAILBOX_KEY}@https://agentverse.ai"
+    # agent_args["mailbox"] = f"{AGENTVERSE_MAILBOX_KEY}@https://agentverse.ai"
+    agent_args["mailbox"] = True
+else:
+    print("Configuring agent for local execution (Mailbox disabled)...")
+    # Explicitly define local endpoint for Almanac registration when running locally
+    # This allows other local agents (like sender.py) to find us via Almanac if they use the same network/config
+    # Note: For strict local-only without Almanac, sender needs to know the endpoint URL directly,
+    # or we rely on uagents broadcasting/discovery on localhost if supported.
+    # But defining it here helps.
+    agent_args["endpoint"] = [f"http://127.0.0.1:{AGENT_PORT}/submit"]
 
 agent = Agent(**agent_args)
 
 # Initialize Components
 metta = MeTTa()
-DATA_PATH = os.path.join(os.getcwd(), 'data', 'Dummy_catalog_runningshoes.json')
+DATA_PATH = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), 'data', 'Dummy_catalog_runningshoes.json')
 if not os.path.exists(DATA_PATH):
     print(f"ERROR: Data file not found at {DATA_PATH}")
 
