@@ -77,6 +77,14 @@ You can interact with your running agent via:
 - **Agentverse**: Search for your agent address in the Explorer and click "Message".
 - **Another uAgent**: Write a script to send messages to your agent's address.
 
+### Alternative (via Explorer):
+1. Copy your Agent's Address from your terminal output (starts with agent1...).
+2. Go to the "Explorer" tab in Agentverse.
+3. Paste your address in the search bar.
+4. Click on your agent result.
+5. Click the "Message" button.
+6. Type: "Do you have any summer clothing?" and hit Send.
+
 **Example Queries:**
 - "What family does product fc24e6c3... belong to?"
 - "Do you have any summer clothing?"

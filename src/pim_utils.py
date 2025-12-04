@@ -27,6 +27,32 @@ class LLM:
                     return "I apologize, but I'm having trouble connecting to my brain right now. Please try again later."
                 time.sleep(2) # Wait 2 seconds before retry
 
+def retrieve_pim_context(query: str, rag: PIMRAG, vector_store: PIMVectorStore) -> str:
+    """
+    Retrieve and format context from Vector DB and MeTTa for a given query.
+    Returns the formatted context string or None if no results found.
+    """
+    if not vector_store:
+        return "Vector Store not initialized. Cannot perform semantic search."
+
+    # 1. Semantic Search to find relevant products
+    # Get top 10 results to ensure we capture specific features like "waterproof"
+    search_results = vector_store.search(query, k=10)
+
+    if not search_results:
+        return None
+
+    # 2. Enrich with structured data from MeTTa
+    context_blocks = []
+    for result in search_results:
+        uuid = result['uuid']
+        # Fetch structured context from MeTTa
+        metta_context = rag.get_full_product_context(uuid)
+        context_blocks.append(f"--- Product Context ---\n{metta_context}\n-----------------------")
+
+    full_context = "\n\n".join(context_blocks)
+    return full_context
+
 def process_pim_query(query: str, rag: PIMRAG, llm: LLM, vector_store: PIMVectorStore = None):
     """
     Process the user query using the Hybrid RAG system (Vector DB + MeTTa).
@@ -34,22 +60,13 @@ def process_pim_query(query: str, rag: PIMRAG, llm: LLM, vector_store: PIMVector
     if vector_store:
         # print(f"DEBUG: Using Hybrid RAG for query: '{query}'") # Silencing log for cleaner output
 
-        # 1. Semantic Search to find relevant products
-        # Get top 10 results to ensure we capture specific features like "waterproof"
-        search_results = vector_store.search(query, k=10)
+        full_context = retrieve_pim_context(query, rag, vector_store)
 
-        if not search_results:
-            return "I couldn't find any relevant products in our catalog matching your query."
+        if not full_context:
+             return "I couldn't find any relevant products in our catalog matching your query."
 
-        # 2. Enrich with structured data from MeTTa
-        context_blocks = []
-        for result in search_results:
-            uuid = result['uuid']
-            # Fetch structured context from MeTTa
-            metta_context = rag.get_full_product_context(uuid)
-            context_blocks.append(f"--- Product Context ---\n{metta_context}\n-----------------------")
-
-        full_context = "\n\n".join(context_blocks)
+        if full_context == "Vector Store not initialized. Cannot perform semantic search.":
+            return full_context
 
         # 3. LLM Synthesis
         prompt = (
