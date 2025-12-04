@@ -3,7 +3,14 @@ import os
 import sys
 
 # Ensure src is in path for imports within context_agent to work if needed
-sys.path.append(os.path.join(os.getcwd(), 'src'))
+sys.path.append(os.path.join(os.path.dirname(__file__), '..', 'src'))
+
+# Add the parent directory to sys.path so we can import 'src' as a module if needed,
+# OR we can just import directly if 'src' is in path.
+# However, the import below `from src.context_agent ...` implies 'src' is a package or we are at root.
+# If we appended `.../src` to path, we should import `context_agent` directly.
+# Let's add the PROJECT ROOT to sys.path so `from src.context_agent` works.
+sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
 
 from src.context_agent import agent as context_agent, ContextRequest, ContextResponse
 

@@ -1,10 +1,10 @@
 # Project dependencies
 # Add your dependencies here, e.g.:
 # requests==2.31.0
-hyperon
-uagents
-openai
+hyperon>=0.2.0
+uagents>=0.20.1 # Latest compatible with Python 3.9
+openai>=1.0.0
 python-dotenv
-uagents-core
+uagents-core>=0.4.0
 chromadb
 sentence-transformers
