@@ -2,10 +2,7 @@
 MCP Server for Product Context Retrieval
 
 This server exposes the PIM context retrieval functionality as an MCP tool.
-When added to Claude Desktop, it allows Claude to query the product knowledge base.
-
-NOTE: This server does NOT depend on context_agent.py running. It directly uses
-the underlying retrieval functions (PIMRAG, VectorStore, retrieve_pim_context).
+It directly uses the RAG system to retrieve product context.
 
 Usage:
   Add to Claude Desktop config (~/Library/Application Support/Claude/claude_desktop_config.json):
@@ -29,6 +26,11 @@ from datetime import datetime
 src_path = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, src_path)
 
+# Suppress any stdout from imports - MCP uses stdout for JSON-RPC
+import io
+_real_stdout = sys.stdout
+sys.stdout = io.StringIO()
+
 from mcp.server.fastmcp import FastMCP
 from dotenv import load_dotenv
 from hyperon import MeTTa
@@ -38,11 +40,14 @@ from pim_knowledge import initialize_pim_knowledge_graph
 from pim_utils import retrieve_pim_context
 from vector_store import PIMVectorStore
 
+# Restore stdout
+sys.stdout = _real_stdout
+
 
 def log(message: str):
     """Log message to stderr with timestamp."""
     timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    print(f"[{timestamp}] {message}", file=sys.stderr)
+    print(f"[{timestamp}] {message}", file=sys.stderr, flush=True)
 
 
 # Load environment
@@ -53,36 +58,38 @@ load_dotenv(env_path)
 log("=" * 60)
 log("PIM Context MCP Server Starting...")
 log("=" * 60)
-log(f"Project root: {project_root}")
-log(f"Env path: {env_path}")
 
-# Initialize components
+# Initialize MeTTa and knowledge graph
+log("Initializing MeTTa Knowledge Graph...")
 metta = MeTTa()
-DATA_PATH = os.path.join(project_root, 'data', 'updated_running_shoes_full_catalog.json')
+data_path = os.path.join(project_root, "data", "Dummy_catalog_runningshoes.json")
 
-if not os.path.exists(DATA_PATH):
-    log(f"ERROR: Data file not found at {DATA_PATH}")
-    sys.exit(1)
+if not os.path.exists(data_path):
+    log(f"ERROR: Data file not found at {data_path}")
+else:
+    initialize_pim_knowledge_graph(metta, data_path)
+    log("MeTTa knowledge graph initialized")
 
-log(f"Loading data from: {DATA_PATH}")
-initialize_pim_knowledge_graph(metta, DATA_PATH)
+# Initialize RAG
 rag = PIMRAG(metta)
+log("RAG initialized")
 
+# Initialize Vector Store with absolute path
 log("Initializing Vector Store...")
-vector_store = PIMVectorStore(db_path=os.path.join(project_root, "chroma_db_mcp"))
+db_path = os.path.join(project_root, "chroma_db_mcp")
+vector_store = PIMVectorStore(db_path=db_path)
 
 try:
-    with open(DATA_PATH, 'r') as f:
+    with open(data_path, 'r') as f:
         data = json.load(f)
         vector_store.ingest_pim_data(data)
-    log(f"SUCCESS: Loaded {len(data)} products into knowledge base")
+    log(f"Vector store initialized with {len(data)} products")
 except Exception as e:
-    log(f"ERROR ingesting data: {e}")
-    sys.exit(1)
+    log(f"Error initializing vector store: {e}")
+    vector_store = None
 
 log("=" * 60)
 log("PIM Context MCP Server READY")
-log("Waiting for requests from Claude Desktop...")
 log("=" * 60)
 
 # Create MCP Server using FastMCP
@@ -90,7 +97,7 @@ mcp = FastMCP("PIM Context Server")
 
 
 @mcp.tool()
-def get_product_context(query: str) -> str:
+async def get_product_context(query: str) -> str:
     """
     Retrieves relevant product information from the running shoes catalog.
 
@@ -110,7 +117,7 @@ def get_product_context(query: str) -> str:
         Structured product context with details about matching products.
     """
     log("=" * 60)
-    log("RECEIVED REQUEST FROM CLAUDE DESKTOP")
+    log(">>> RECEIVED REQUEST FROM CLAUDE DESKTOP <<<")
     log(f"Query: '{query}'")
     log("=" * 60)
 
@@ -118,20 +125,25 @@ def get_product_context(query: str) -> str:
         log("ERROR: No query provided")
         return "Error: No query provided"
 
+    if not vector_store:
+        log("ERROR: Vector store not initialized")
+        return "Error: Vector store not initialized"
+
     try:
-        log("Processing query with Hybrid RAG (Vector Store + MeTTa)...")
+        log("Retrieving product context...")
         context = retrieve_pim_context(query, rag, vector_store)
 
         if not context:
-            log("No relevant products found")
-            return "No relevant products found for your query. Try a different search term."
+            log("No matching products found")
+            return "No matching products found for your query."
 
-        log(f"SUCCESS: Found context with {len(context)} characters")
         log("-" * 40)
+        log(f"SUCCESS: Retrieved {len(context)} characters of context")
         log("RESPONSE PREVIEW (first 500 chars):")
-        log(context[:500] + "..." if len(context) > 500 else context)
+        preview = context[:500] + "..." if len(context) > 500 else context
+        log(preview)
         log("-" * 40)
-        log("Sending response back to Claude Desktop...")
+        log(">>> SENDING RESPONSE BACK TO CLAUDE DESKTOP <<<")
 
         return context
 
@@ -143,4 +155,5 @@ def get_product_context(query: str) -> str:
 
 
 if __name__ == "__main__":
+    log("Waiting for requests from Claude Desktop...")
     mcp.run()
