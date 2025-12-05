@@ -158,4 +158,6 @@ test_chroma_db/
 test_chroma_db_live/
 src/agent1q*_data.json
 chroma_db_mcp/
+chroma_db_mcp_agent/
+chroma_db_mcp_test*/
 chroma_db/
