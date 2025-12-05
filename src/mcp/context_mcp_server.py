@@ -17,7 +17,6 @@ Usage:
   }
 """
 
-import asyncio
 import os
 import sys
 import json
@@ -26,10 +25,7 @@ import json
 src_path = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, src_path)
 
-from mcp.server import Server
-from mcp.types import Tool, TextContent
-from mcp.server.stdio import stdio_server
-
+from mcp.server.fastmcp import FastMCP
 from dotenv import load_dotenv
 from hyperon import MeTTa
 
@@ -68,75 +64,49 @@ except Exception as e:
     print(f"Error ingesting data: {e}", file=sys.stderr)
     sys.exit(1)
 
-# Create MCP Server
-server = Server("pim-context-server")
+print("PIM Context MCP Server ready", file=sys.stderr)
+
+# Create MCP Server using FastMCP
+mcp = FastMCP("PIM Context Server")
 
 
-@server.list_tools()
-async def list_tools() -> list[Tool]:
-    """List available tools."""
-    return [
-        Tool(
-            name="get_product_context",
-            description=(
-                "Retrieves relevant product information from the running shoes catalog. "
-                "Use this tool when users ask about running shoes, athletic footwear, "
-                "specific brands (AeroStride, CloudTrail, FleetStep, etc.), or product features "
-                "(cushioning, stability, trail, road, waterproof, etc.). "
-                "Returns structured product data including brand, name, type, materials, "
-                "price, ratings, and reviews."
-            ),
-            inputSchema={
-                "type": "object",
-                "properties": {
-                    "query": {
-                        "type": "string",
-                        "description": "The search query to find relevant products (e.g., 'waterproof trail shoes', 'best marathon running shoes', 'shoes under $200')"
-                    }
-                },
-                "required": ["query"]
-            }
-        )
-    ]
-
-
-@server.call_tool()
-async def call_tool(name: str, arguments: dict) -> list[TextContent]:
-    """Handle tool calls."""
-    if name == "get_product_context":
-        query = arguments.get("query", "")
-        
-        if not query:
-            return [TextContent(type="text", text="Error: No query provided")]
-        
-        try:
-            context = retrieve_pim_context(query, rag, vector_store)
-            
-            if not context:
-                return [TextContent(
-                    type="text", 
-                    text="No relevant products found for your query. Try a different search term."
-                )]
-            
-            return [TextContent(type="text", text=context)]
-            
-        except Exception as e:
-            return [TextContent(type="text", text=f"Error retrieving context: {str(e)}")]
+@mcp.tool()
+def get_product_context(query: str) -> str:
+    """
+    Retrieves relevant product information from the running shoes catalog.
     
-    return [TextContent(type="text", text=f"Unknown tool: {name}")]
-
-
-async def main():
-    """Run the MCP server."""
-    print("PIM Context MCP Server ready", file=sys.stderr)
-    async with stdio_server() as (read_stream, write_stream):
-        await server.run(
-            read_stream,
-            write_stream,
-            initialization_options=None,
-        )
+    Use this tool when users ask about running shoes, athletic footwear,
+    specific brands (AeroStride, CloudTrail, FleetStep, NimbusPath, NovaStride, 
+    PulseTrack, RoadRift, TerraSprint, UrbanTempo, VelociRun), or product features 
+    (cushioning, stability, trail, road, waterproof, marathon, race, etc.).
+    
+    Returns structured product data including brand, name, type, materials,
+    price, ratings, and reviews.
+    
+    Args:
+        query: The search query to find relevant products 
+               (e.g., 'waterproof trail shoes', 'best marathon running shoes', 'shoes under $200')
+    
+    Returns:
+        Structured product context with details about matching products.
+    """
+    if not query:
+        return "Error: No query provided"
+    
+    try:
+        print(f"Processing query: {query}", file=sys.stderr)
+        context = retrieve_pim_context(query, rag, vector_store)
+        
+        if not context:
+            return "No relevant products found for your query. Try a different search term."
+        
+        print(f"Found context with {len(context)} characters", file=sys.stderr)
+        return context
+        
+    except Exception as e:
+        print(f"Error: {e}", file=sys.stderr)
+        return f"Error retrieving context: {str(e)}"
 
 
 if __name__ == "__main__":
-    asyncio.run(main())
-
+    mcp.run()
