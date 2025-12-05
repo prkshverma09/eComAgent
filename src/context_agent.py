@@ -59,7 +59,7 @@ agent = Agent(**agent_args)
 
 # Initialize Components
 metta = MeTTa()
-DATA_PATH = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), 'data', 'Dummy_catalog_runningshoes.json')
+DATA_PATH = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), 'data', 'updated_running_shoes_full_catalog.json')
 if not os.path.exists(DATA_PATH):
     print(f"ERROR: Data file not found at {DATA_PATH}")
 

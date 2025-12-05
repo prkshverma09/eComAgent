@@ -26,7 +26,7 @@ class TestPIMAgentLive(unittest.TestCase):
         # Setup real components
         self.metta = MeTTa()
         # Updated to use the new running shoes catalog
-        self.data_path = os.path.join(os.path.dirname(__file__), '..', 'data', 'Dummy_catalog_runningshoes.json')
+        self.data_path = os.path.join(os.path.dirname(__file__), '..', 'data', 'updated_running_shoes_full_catalog.json')
         initialize_pim_knowledge_graph(self.metta, self.data_path)
         self.rag = PIMRAG(self.metta)
         self.llm = LLM(api_key=self.api_key)
