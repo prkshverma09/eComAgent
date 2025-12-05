@@ -1,44 +1,69 @@
 import asyncio
+import sys
+import os
+from datetime import datetime, timezone
+from uuid import uuid4
+from typing import List, Union, Optional, Literal
+
 from uagents import Agent, Context, Model
 from uagents.setup import fund_agent_if_low
-import os
+from pydantic import UUID4
 from dotenv import load_dotenv
 
 load_dotenv()
 
-# Define the message model (must match the agent's expected format if strict,
-# but we are using the standard ChatMessage structure which uAgents supports or we mimic it)
-# Since the agent uses the `chat_protocol` from `uagents` (or our definition of it),
-# we should construct a compatible message.
-# However, for simplicity, uAgents `ctx.send` wraps models.
-# The agent expects `ChatMessage`.
-
-# We need to replicate the models defined in pim_agent.py to send the right structure
-from datetime import datetime, timezone
-from uuid import uuid4
-from typing import List, Union
-
+# --- Agent Chat Protocol Models (Matching Agent) ---
 class TextContent(Model):
-    type: str = "text"
+    type: Literal['text'] = 'text'
     text: str
 
+class Resource(Model):
+    uri: str
+    metadata: Optional[dict[str, str]] = None
+
+class ResourceContent(Model):
+    type: Literal['resource'] = 'resource'
+    resource_id: UUID4
+    resource: Union[Resource, List[Resource]]
+
+class MetadataContent(Model):
+    type: Literal['metadata'] = 'metadata'
+    metadata: dict[str, str]
+
 class StartSessionContent(Model):
-    type: str = "start-session"
+    type: Literal['start-session'] = 'start-session'
 
 class EndSessionContent(Model):
-    type: str = "end-session"
+    type: Literal['end-session'] = 'end-session'
+
+class StartStreamContent(Model):
+    type: Literal['start-stream'] = 'start-stream'
+    stream_id: UUID4
+
+class EndStreamContent(Model):
+    type: Literal['end-stream'] = 'end-stream'
+    stream_id: UUID4
+
+AgentContent = Union[
+    TextContent,
+    ResourceContent,
+    MetadataContent,
+    StartSessionContent,
+    EndSessionContent,
+    StartStreamContent,
+    EndStreamContent
+]
 
 class ChatMessage(Model):
     timestamp: datetime
-    msg_id: str
-    content: List[Union[TextContent, StartSessionContent, EndSessionContent]]
+    msg_id: UUID4
+    content: List[AgentContent]
 
-# Recipient Address (The address printed by src/pim_agent.py)
-# We need to know this address.
-# Since I cannot see the terminal output of the user's running agent,
-# I will create a sender that prints its own address and instructions
-# on how to pair, or I can try to run the agent in the background.
-# Better strategy for this tool: Run the agent in background, capture its address, then run sender.
+class ChatAcknowledgement(Model):
+    timestamp: datetime
+    acknowledged_msg_id: UUID4
+    metadata: Optional[dict[str, str]] = None
+# ---------------------------------------------------
 
 async def run_sender(recipient_address: str, query_text: str = "Do you have any summer clothing?"):
     sender = Agent(
@@ -55,10 +80,10 @@ async def run_sender(recipient_address: str, query_text: str = "Do you have any 
     async def say_hello(ctx: Context):
         ctx.logger.info(f"Sending message to {recipient_address}...")
 
-        # 1. Send Start Session
+        # 1. Send Start Session (Optional - kept commented as per user preference)
         # start_msg = ChatMessage(
         #     timestamp=datetime.now(timezone.utc),
-        #     msg_id=str(uuid4()),
+        #     msg_id=uuid4(),
         #     content=[StartSessionContent()]
         # )
         # await ctx.send(recipient_address, start_msg)
@@ -66,7 +91,7 @@ async def run_sender(recipient_address: str, query_text: str = "Do you have any 
         # 2. Send Query
         query_msg = ChatMessage(
             timestamp=datetime.now(timezone.utc),
-            msg_id=str(uuid4()),
+            msg_id=uuid4(),
             content=[TextContent(text=query_text)]
         )
         await ctx.send(recipient_address, query_msg)
@@ -86,21 +111,13 @@ async def run_sender(recipient_address: str, query_text: str = "Do you have any 
                 # Exit after receiving the actual response
                 os._exit(0)
 
-    # sender.run()
-    # If using asyncio.run(), we should use run_async directly or setup properly.
-    # uAgents Agent.run() starts its own loop if not provided, or uses existing.
-    # But calling it inside an async function (run_sender) which is run by asyncio.run() causes conflict.
-
-    # Correct pattern:
     await sender.run_async()
 
 if __name__ == "__main__":
-    import sys
     if len(sys.argv) < 2:
-        print("Usage: python sender.py <agent_address> [query_text]")
+        print("Usage: python src/pim_agent_client.py <agent_address> [query_text]")
         sys.exit(1)
 
     recipient = sys.argv[1]
     user_query = sys.argv[2] if len(sys.argv) > 2 else "Do you have any summer clothing?"
     asyncio.run(run_sender(recipient, user_query))
-

@@ -9,35 +9,28 @@ sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 
 from dotenv import load_dotenv
 from uagents import Context, Model, Protocol, Agent
-from typing import List, Union
-# Re-define message models since imports might be tricky without uagents_core installed in env
-class TextContent(Model):
-    type: str = "text"
-    text: str
-
-class StartSessionContent(Model):
-    type: str = "start-session"
-
-class EndSessionContent(Model):
-    type: str = "end-session"
-
-class ChatMessage(Model):
-    timestamp: datetime
-    msg_id: str
-    content: List[Union[TextContent, StartSessionContent, EndSessionContent]]
-
-class ChatAcknowledgement(Model):
-    timestamp: datetime
-    acknowledged_msg_id: str
-
 from hyperon import MeTTa
+
+# Import official chat protocol from uagents_core (requires Python 3.10+)
+from uagents_core.contrib.protocols.chat import (
+    ChatMessage,
+    ChatAcknowledgement,
+    TextContent,
+    EndSessionContent,
+    StartSessionContent,
+    chat_protocol_spec,
+)
 
 from pim_rag import PIMRAG
 from pim_knowledge import initialize_pim_knowledge_graph
 from pim_utils import LLM, process_pim_query
 from vector_store import PIMVectorStore
 
-load_dotenv()
+# Load .env from project root
+env_path = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), '.env')
+print(f"Loading .env from: {env_path}")
+print(f".env exists: {os.path.exists(env_path)}")
+load_dotenv(env_path)
 
 # Configuration
 AGENT_NAME = os.getenv("AGENT_NAME", "PIM Agent")
@@ -56,17 +49,13 @@ agent_args = {
     "seed": AGENT_SEED,
 }
 
-if AGENTVERSE_MAILBOX_KEY and not os.getenv("DISABLE_MAILBOX"):
+# Always try to use Mailbox if Key is present (Required for Agentverse UI)
+if AGENTVERSE_MAILBOX_KEY:
     print("Configuring agent with Agentverse Mailbox...")
-    # agent_args["mailbox"] = f"{AGENTVERSE_MAILBOX_KEY}@https://agentverse.ai"
     agent_args["mailbox"] = True
 else:
-    print("Configuring agent for local execution (Mailbox disabled)...")
-    # Explicitly define local endpoint for Almanac registration when running locally
-    # This allows other local agents (like sender.py) to find us via Almanac if they use the same network/config
-    # Note: For strict local-only without Almanac, sender needs to know the endpoint URL directly,
-    # or we rely on uagents broadcasting/discovery on localhost if supported.
-    # But defining it here helps.
+    print("WARNING: AGENTVERSE_MAILBOX_KEY not found in environment.")
+    print("Configuring agent for local execution (Mailbox disabled). Agentverse UI will NOT work.")
     agent_args["endpoint"] = [f"http://127.0.0.1:{AGENT_PORT}/submit"]
 
 agent = Agent(**agent_args)
@@ -80,16 +69,9 @@ if not os.path.exists(DATA_PATH):
 initialize_pim_knowledge_graph(metta, DATA_PATH)
 rag = PIMRAG(metta)
 
-# Initialize Vector Store & Ingest Data
 print("Initializing Vector Store...")
-# Use a new persistence dir for the backfill to avoid conflict with old schema if desired,
-# or assume the ingest logic handles upserts/replacements gracefully.
-# Here we stick to 'chroma_db' but clean it might be better if schemas conflict significantly.
-# For simplicity, we just use default.
 vector_store = PIMVectorStore()
 
-# Load JSON to ingest (simple check to avoid re-ingesting every restart if needed,
-# but for now we ingest to ensure sync)
 try:
     with open(DATA_PATH, 'r') as f:
         data = json.load(f)
@@ -103,24 +85,32 @@ else:
     print("WARNING: Running without LLM. Agent will fail to process intent.")
     llm = None
 
-# Chat Protocol
-chat_proto = Protocol(name="pim_chat_protocol", version="1.0.0")
+# ========================================
+# OFFICIAL Chat Protocol (AgentChatProtocol v0.3.0)
+# Using the official spec from uagents_core
+# ========================================
+chat_proto = Protocol(spec=chat_protocol_spec)
+
 
 def create_text_chat(text: str, end_session: bool = False) -> ChatMessage:
-    """Create a text chat message."""
-    content = [TextContent(type="text", text=text)]
+    """Create a text chat message using official protocol."""
+    content: list = [TextContent(type="text", text=text)]
     if end_session:
         content.append(EndSessionContent(type="end-session"))
     return ChatMessage(
         timestamp=datetime.now(timezone.utc),
-        msg_id=str(uuid4()),
+        msg_id=uuid4(),
         content=content,
     )
 
+
 @chat_proto.on_message(ChatMessage)
 async def handle_message(ctx: Context, sender: str, msg: ChatMessage):
-    """Handle incoming chat messages."""
+    """Handle incoming chat messages from ASI:One Chat UI."""
+    ctx.logger.info(f"Received ChatMessage from {sender}")
     ctx.storage.set(str(ctx.session), sender)
+
+    # Send Acknowledgement
     await ctx.send(
         sender,
         ChatAcknowledgement(timestamp=datetime.now(timezone.utc), acknowledged_msg_id=msg.msg_id),
@@ -129,7 +119,8 @@ async def handle_message(ctx: Context, sender: str, msg: ChatMessage):
     for item in msg.content:
         if isinstance(item, StartSessionContent):
             ctx.logger.info(f"Session started with {sender}")
-            await ctx.send(sender, create_text_chat("Hello! I am your Hybrid PIM Agent. Ask me anything about our products!"))
+            # Note: Cannot send ChatMessage as reply per protocol spec, only ChatAcknowledgement is allowed
+            # The greeting will be sent when user sends first text message
 
         elif isinstance(item, TextContent):
             user_query = item.text.strip()
@@ -138,6 +129,7 @@ async def handle_message(ctx: Context, sender: str, msg: ChatMessage):
             try:
                 # Pass vector_store to enable Hybrid RAG
                 response_text = process_pim_query(user_query, rag, llm, vector_store=vector_store)
+                # Send response back - the protocol spec allows this via a separate interaction
                 await ctx.send(sender, create_text_chat(response_text))
             except Exception as e:
                 ctx.logger.error(f"Error processing query: {e}")
@@ -146,12 +138,24 @@ async def handle_message(ctx: Context, sender: str, msg: ChatMessage):
         elif isinstance(item, EndSessionContent):
             ctx.logger.info(f"Session ended with {sender}")
 
+
 @chat_proto.on_message(ChatAcknowledgement)
 async def handle_ack(ctx: Context, sender: str, msg: ChatAcknowledgement):
-    pass
+    ctx.logger.debug(f"Received acknowledgement for {msg.acknowledged_msg_id}")
 
+
+# Include the official chat protocol with manifest publishing
 agent.include(chat_proto, publish_manifest=True)
+
+# Print startup info
+@agent.on_event("startup")
+async def startup(ctx: Context):
+    ctx.logger.info(f"PIM Agent started with address: {agent.address}")
+    ctx.logger.info(f"Using official AgentChatProtocol v{chat_protocol_spec.version}")
+    ctx.logger.info(f"Protocol digest: {chat_protocol_spec.digest}")
+
 
 if __name__ == "__main__":
     print(f"Starting PIM Agent on port {AGENT_PORT}...")
+    print(f"Using official AgentChatProtocol v{chat_protocol_spec.version}")
     agent.run()
