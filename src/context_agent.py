@@ -119,10 +119,10 @@ async def handle_chat_message(ctx: Context, sender: str, msg: ChatMessage):
             try:
                 # Retrieve context using hybrid RAG
                 context_str = retrieve_pim_context(user_query, rag, vector_store)
-                
+
                 if not context_str:
                     context_str = "No relevant context found for your query."
-                
+
                 # Format response for chat
                 response_text = f"**Context Retrieved:**\n\n{context_str}"
                 await ctx.send(sender, create_text_chat(response_text))
