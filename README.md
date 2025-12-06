@@ -31,11 +31,20 @@
 | **Purpose** | Fast, deterministic raw product data retrieval for agent-to-agent communication and MCP Server integration |
 | **Agentverse** | [View Profile](https://agentverse.ai/agents/details/agent1q05xsy54st3hpq09nqjznp2vs3dqhatdk0vknk0gxzm47gt94k5wklpj5h8/profile) |
 
+### MCP Server: Consumer Preferences (Membase)
+
+| | |
+|---|---|
+| **Name** | Consumer Preferences MCP Server |
+| **Storage** | Local JSON + BNB Chain (Membase) |
+| **Purpose** | Store user shopping preferences on blockchain for persistent, decentralized memory |
+| **Hub URL** | https://testnet.hub.membase.io |
+
 ---
 
 ## 📖 Project Overview
 
-A multi-agent e-commerce system built on the **Fetch.ai uAgents framework** that provides intelligent product information retrieval using a **Hybrid RAG (Retrieval Augmented Generation)** architecture combining **MeTTa Knowledge Graphs**, **ChromaDB Vector Database**, and **ASI-1 LLM**.
+A multi-agent e-commerce system built on the **Fetch.ai uAgents framework** that provides intelligent product information retrieval using a **Hybrid RAG (Retrieval Augmented Generation)** architecture combining **MeTTa Knowledge Graphs**, **ChromaDB Vector Database**, and **ASI-1 LLM**. The system also includes **Consumer Preferences** storage on **BNB Chain** via **Unibase Membase** for persistent, decentralized user preference management.
 
 ---
 
@@ -44,7 +53,8 @@ A multi-agent e-commerce system built on the **Fetch.ai uAgents framework** that
 - **🤖 Two Specialized Agents** - PIM Agent (conversational) and Context Agent (data retrieval)
 - **🔍 Hybrid RAG** - Combines semantic search with structured knowledge graphs
 - **💬 Agent Chat Protocol** - Chat via Agentverse UI or ASI:One
-- **🔌 MCP Server** - Claude Desktop integration for AI-powered product queries
+- **🔌 MCP Servers** - Claude Desktop integration for AI-powered product queries and consumer preferences
+- **⛓️ Blockchain Memory** - Consumer preferences stored on BNB Chain via Unibase Membase
 - **🧠 MeTTa Knowledge Graph** - Symbolic reasoning for structured product data
 - **📊 ChromaDB Vector Store** - Semantic similarity search
 - **⚡ ASI-1 LLM** - Natural language response synthesis
@@ -88,6 +98,14 @@ A multi-agent e-commerce system built on the **Fetch.ai uAgents framework** that
 │  │              │    Product Catalog      │                             │   │
 │  │              │  (50 Running Shoes)     │                             │   │
 │  │              └─────────────────────────┘                             │   │
+│  └──────────────────────────────────────────────────────────────────────┘   │
+│                                                                             │
+│  ┌──────────────────────────────────────────────────────────────────────┐   │
+│  │                   Consumer Preferences (MCP Server)                  │   │
+│  │  ┌─────────────────────┐         ┌─────────────────────────────┐     │   │
+│  │  │   Local JSON        │         │   Unibase Membase           │     │   │
+│  │  │   (Instant Save)    │────────▶│   (BNB Chain Sync)          │     │   │
+│  │  └─────────────────────┘         └─────────────────────────────┘     │   │
 │  └──────────────────────────────────────────────────────────────────────┘   │
 │                                                                             │
 │  ┌──────────────────────────────────────────────────────────────────────┐   │
@@ -167,6 +185,31 @@ Attributes: brand: TerraSprint; product_name: Trail Master; price: 179.99; ...
 
 ---
 
+### Consumer Preferences MCP Server
+
+**Purpose**: Store user shopping preferences on BNB Chain via Unibase Membase
+
+| Feature | Details |
+|---------|---------|
+| **Storage** | Local JSON + BNB Chain (Membase) |
+| **Protocol** | MCP (Model Context Protocol) |
+| **Blockchain** | BNB Chain Testnet |
+| **Hub URL** | https://testnet.hub.membase.io |
+| **Tools** | 6 MCP tools for preference management |
+
+**Example Interaction:**
+```
+User: "I wear size 10 shoes and my budget is under £200"
+
+Claude: Preference saved! ⛓️ (syncing to BNB Chain in background)
+- shoe_size: 10
+- max_budget: 200
+```
+
+📖 **Detailed Documentation**: [docs/USER_GUIDE_CONSUMER_PREFERENCES.md](docs/USER_GUIDE_CONSUMER_PREFERENCES.md)
+
+---
+
 ## 🔄 Agent Comparison
 
 | Feature | PIM Agent | Context Agent |
@@ -198,6 +241,7 @@ Attributes: brand: TerraSprint; product_name: Trail Master; price: 179.99; ...
 
 ### Integration
 - **[MCP (Model Context Protocol)](https://modelcontextprotocol.io/)** - Claude Desktop integration via FastMCP
+- **[Unibase Membase](https://membase.io/)** - Decentralized AI memory on BNB Chain for consumer preferences
 
 ---
 
@@ -207,6 +251,8 @@ Attributes: brand: TerraSprint; product_name: Trail Master; price: 179.99; ...
 eComAgent/
 ├── data/
 │   └── updated_running_shoes_full_catalog.json  # Product catalog (50 shoes)
+├── docs/
+│   └── USER_GUIDE_CONSUMER_PREFERENCES.md       # Consumer preferences guide
 ├── src/
 │   ├── pim_agent.py          # PIM Agent - Conversational assistant
 │   ├── context_agent.py      # Context Agent - Raw data retrieval
@@ -218,11 +264,13 @@ eComAgent/
 │   ├── PIM_AGENT_README.md   # PIM Agent documentation
 │   ├── CONTEXT_AGENT_README.md # Context Agent documentation
 │   └── mcp/
-│       └── context_mcp_server_agent.py  # MCP server for Claude Desktop
+│       ├── context_mcp_server_agent.py  # MCP server for product search
+│       └── consumer_mcp_server.py       # MCP server for consumer preferences (Membase)
 ├── tests/
 │   ├── test_pim_agent.py             # Unit tests (mocked)
 │   ├── test_pim_agent_live.py        # Live integration tests
-│   └── test_context_agent_integration.py
+│   ├── test_context_agent_integration.py
+│   └── test_consumer_preferences.py  # Consumer preferences tests
 ├── .env                      # Environment variables (create from env.example)
 ├── env.example               # Example environment file
 ├── requirements.txt          # Python dependencies
@@ -349,6 +397,37 @@ python pim_agent_client.py "Show me waterproof trail running shoes"
 
 4. Ask Claude about products - it will query the Context Agent
 
+### Via Claude Desktop (Consumer Preferences)
+
+1. Locate Claude Desktop config file:
+   - **macOS**: `~/Library/Application Support/Claude/claude_desktop_config.json`
+   - **Windows**: `%APPDATA%\Claude\claude_desktop_config.json`
+
+2. Add the consumer-preferences MCP server:
+   ```json
+   {
+     "mcpServers": {
+       "consumer-preferences": {
+         "command": "python",
+         "args": ["/path/to/eComAgent/src/mcp/consumer_mcp_server.py"]
+       }
+     }
+   }
+   ```
+
+3. Restart Claude Desktop completely (check system tray)
+
+4. Tell Claude your preferences - they sync to BNB Chain via Membase:
+   ```
+   "I wear size 10 shoes and my budget is under £200"
+   ```
+
+5. Verify blockchain sync:
+   ```bash
+   curl -X POST https://testnet.hub.membase.io/api/conversation \
+     -d "owner=default_user"
+   ```
+
 ---
 
 ## 🧪 Testing
@@ -369,6 +448,17 @@ python tests/test_pim_agent_live.py
 
 # Test Context Agent
 python tests/test_context_agent_integration.py
+```
+
+### Consumer Preferences Tests
+
+```bash
+# Test consumer preferences with blockchain sync
+python tests/test_consumer_preferences.py
+
+# Verify blockchain storage
+curl -X POST https://testnet.hub.membase.io/api/conversation \
+  -d "owner=default_user"
 ```
 
 ---
@@ -422,6 +512,17 @@ The agents use `data/updated_running_shoes_full_catalog.json` containing:
 - Check that the product catalog JSON file exists
 - Verify ChromaDB was initialized correctly
 
+### "Consumer preferences not syncing to blockchain"
+- Verify internet connectivity to `https://testnet.hub.membase.io`
+- Check that the MCP server started without errors
+- Preferences are saved locally first, blockchain sync happens in background
+- Use `check_blockchain_sync` tool to verify sync status
+
+### "MCP server disconnected"
+- Ensure MCP server file path is correct in `claude_desktop_config.json`
+- Restart Claude Desktop completely (check system tray)
+- Check MCP server logs for errors
+
 ---
 
 ## 🔗 Extra Resources Required
@@ -433,6 +534,7 @@ To run this project, you will need:
 | **ASI-1 API Key** | Required for LLM-powered responses in PIM Agent | [Get API Key](https://asi1.ai) |
 | **Agentverse Account** | Required for Mailbox and cloud chat functionality | [Sign Up](https://agentverse.ai) |
 | **Python 3.10+** | Required for `uagents-core` package | [Download](https://www.python.org/downloads/) |
+| **Unibase Membase** | Blockchain memory for consumer preferences (BNB Chain) | [Documentation](https://membase.io/) |
 
 ---
 
@@ -445,6 +547,8 @@ To run this project, you will need:
 - [ChromaDB Documentation](https://docs.trychroma.com/)
 - [ASI-1 API](https://asi1.ai/docs)
 - [Model Context Protocol](https://modelcontextprotocol.io/)
+- [Unibase Membase SDK](https://github.com/unibaseio/membase-sdk-python)
+- [Membase Documentation](https://membase.io/)
 
 ---
 
@@ -493,3 +597,4 @@ SOFTWARE.
 - [Hyperon](https://hyperon.io) for MeTTa knowledge graph
 - [ChromaDB](https://www.trychroma.com/) for vector database
 - [Anthropic](https://anthropic.com) for Claude and MCP
+- [Unibase](https://membase.io/) for Membase blockchain memory SDK
