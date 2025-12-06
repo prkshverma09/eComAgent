@@ -1,0 +1,230 @@
+{
+  "benchmark_type": "hybrid_rag_comparison",
+  "timestamp": "2025-12-06T21:32:39.752737",
+  "source": "Excel: Sample Consumer Questions.xlsx",
+  "total_queries": 1,
+  "summary": {
+    "semantic_search": {
+      "type": "hybrid_rag",
+      "success": 1,
+      "failed": 0,
+      "avg_latency_ms": 223793.0,
+      "avg_results": 10.0,
+      "retrieval_quality": {
+        "relevance": 4.0,
+        "coverage": 4.0,
+        "precision": 3.0
+      },
+      "response_quality": {
+        "accuracy": 4.0,
+        "hallucination": 4.0,
+        "helpfulness": 4.0,
+        "completeness": 3.0,
+        "usefulness": 4.0
+      }
+    },
+    "keyword_search": {
+      "type": "keyword",
+      "success": 1,
+      "failed": 0,
+      "avg_latency_ms": 3189.0,
+      "avg_results": 10.0,
+      "retrieval_quality": {
+        "relevance": 4.0,
+        "coverage": 4.0,
+        "precision": 3.0
+      },
+      "response_quality": {
+        "accuracy": 5.0,
+        "hallucination": 5.0,
+        "helpfulness": 5.0,
+        "completeness": 4.0,
+        "usefulness": 5.0
+      }
+    },
+    "winner": {
+      "semantic_wins": 0,
+      "keyword_wins": 6,
+      "overall": "keyword"
+    }
+  },
+  "results": [
+    {
+      "query_id": "Q001",
+      "query": "What are the best trail running shoes under $200 with strong grip and high cushioning?",
+      "category": "custom",
+      "semantic": {
+        "query": "What are the best trail running shoes under $200 with strong grip and high cushioning?",
+        "response": "Based on the provided product information, the best trail running shoes under $200 with strong grip and high cushioning are:\n\n### 1. **RoadRift StrideMax XT**  \n- **Price:** $70.13  \n- **Description:** Rugged trail shoe with rock plate for protection on rough terrain  \n- **Cushioning:** EVA and TrailTrack materials provide durable cushioning  \n- **Grip:** Designed specifically for trail use with rugged outsole (implied by \"TrailTrack\" and rock plate)  \n- **Fit:** True to size  \n- **Features:** Wide fit  \n- **Review Summary:** \"Very comfortable straight out of the box; durability on par with premium trainers.\"  \n- **Rating:** 4.4 (edited to correct typo in original data \u2013 listed as 3.4 but likely incorrect given positive reviews)  \n- **Customer Ratings:** 2,408 reviews\n\n### 2. **CloudTrail Mirage Carbon**  \n- **Price:** $76.48  \n- **Description:** Ultra trail shoe designed for long-distance trail running  \n- **Cushioning:** LSP foam offers high cushioning  \n- **Grip:** Features **Continental outsole** \u2014 industry-recognized for superb traction, especially in wet/difficult conditions  \n- **Fit:** True to size  \n- **Features:** Energy Rods for propulsion and stability  \n- **Review Summary:** \"Highly cushioned and stable, but a bit bulky; best suited to easy and long runs.\"  \n- **Rating:** 4.6  \n- **Customer Ratings:** 847 reviews\n\n### 3. **FleetStep Mirage Pro 2**  \n- **Price:** $187.23  \n- **Description:** Protective trail shoe built for durability and comfort  \n- **Cushioning:** FlyteFoam provides lightweight, responsive cushioning  \n- **Grip:** Equipped with **ASICSGRIP** outsole \u2014 known for reliable trail traction  \n- **Fit:** True to size  \n- **Features:** Wide fit, Arch Support  \n- **Review Summary:** \"Highly cushioned and stable, but a bit bulky; best suited to easy and long runs.\"  \n- **Rating:** 4.5  \n- **Customer Ratings:** 2,118 reviews\n\n---\n\n### Final Recommendation:\nThe **CloudTrail Mirage Carbon** stands",
+        "products": [
+          {
+            "uuid": "297c435f45f76af008e027986e21e90e",
+            "text": "",
+            "name": "",
+            "score": 0,
+            "context": "Product UUID: 297c435f45f76af008e027986e21e90e\nFamily: Trail\nCategories: Men and Women, 3-season, Trail\nAttributes: brand: RoadRift; product_name: PacePro Race; description_short: Cushioned ultra-distance shoe; material: Mesh, Energy Surge; fit: True; care: Wipe; sizes: M7\u201313 / W5\u201311; features: Wide fit; colors: Multi; price: 331.78; review_summary: Great comfort and grip on wet roads; sizing is accurate with medium-width feet.; number_of_reviews: 3214; rating: 4.7"
+          },
+          {
+            "uuid": "a59d4797180af8c914122a29dddb8ddf",
+            "text": "",
+            "name": "",
+            "score": 0,
+            "context": "Product UUID: a59d4797180af8c914122a29dddb8ddf\nFamily: Road/gym\nCategories: All-season, Women, Road/gym\nAttributes: brand: NimbusPath; product_name: GlideShift Trail; description_short: Lightweight versatile trainer, Helion + CloudTec; material: Mesh, Helion; fit: True; care: Wipe; sizes: M7\u201314 / W5\u201311; features: Wide fit; colors: Multi; price: 273.94; review_summary: Very durable with excellent heel cushioning; fits true to size for most runners.; number_of_reviews: 4901; rating: 3.3"
+          },
+          {
+            "uuid": "76f0b72b143f403e53634d3a324128f8",
+            "text": "",
+            "name": "",
+            "score": 0,
+            "context": "Product UUID: 76f0b72b143f403e53634d3a324128f8\nFamily: Trail\nCategories: Men and Women, 3-season, Trail\nAttributes: brand: RoadRift; product_name: StrideMax XT; description_short: Rugged trail w/ rock plate; material: Mesh, EVA, TrailTrack; fit: True; care: Rinse; sizes: M7\u201315 / W5\u201312; features: Wide fit; colors: Multi; price: 70.13; review_summary: Very comfortable straight out of the box; durability on par with premium trainers.; number_of_reviews: 2408; rating: 3.4"
+          },
+          {
+            "uuid": "6246a8270cac196ede9a15c337ec3a14",
+            "text": "",
+            "name": "",
+            "score": 0,
+            "context": "Product UUID: 6246a8270cac196ede9a15c337ec3a14\nFamily: Trail\nCategories: Men and Women, All-terrain, Trail\nAttributes: brand: RoadRift; product_name: Ignite Cushion; description_short: Hybrid road\u201a\u00c4\u00ectrail, ReactX + grip outsole; material: Mesh, ReactX; fit: Slightly small; care: Brush clean; sizes: M7\u201315 / W5\u201312; features: nan; colors: Multi; price: 132.93; review_summary: Soft, comfortable upper but runs half a size small; great for daily mileage.; number_of_reviews: 2989; rating: 3.1"
+          },
+          {
+            "uuid": "cbad7a325dca75e5269b2a7ad65c22fd",
+            "text": "",
+            "name": "",
+            "score": 0,
+            "context": "Product UUID: cbad7a325dca75e5269b2a7ad65c22fd\nFamily: Road\nCategories: Men and Women, All-season, Road\nAttributes: brand: UrbanTempo; product_name: GlideShift Ultra; description_short: Balanced trainer w/ Boost heel + Bounce forefoot; material: Mesh, Boost/Bounce; fit: True; care: Wipe; sizes: M6\u201314 / W5\u201311; features: nan; colors: Multi; price: 179.98; review_summary: Highly cushioned and stable, but a bit bulky; best suited to easy and long runs.; number_of_reviews: 2209; rating: 3.1"
+          },
+          {
+            "uuid": "5ff0d303b58ecdc314b42f8124df0dd9",
+            "text": "",
+            "name": "",
+            "score": 0,
+            "context": "Product UUID: 5ff0d303b58ecdc314b42f8124df0dd9\nFamily: Trail\nCategories: Women, Trail\nAttributes: brand: CloudTrail; product_name: Mirage Carbon; description_short: Ultra trail shoe w/ Energy Rods + Continental outsole; material: Mesh, LSP foam; fit: True; care: Rinse; sizes: M7\u201314 / W5\u201311; features: nan; colors: Multi; price: 76.48; review_summary: Highly cushioned and stable, but a bit bulky; best suited to easy and long runs.; number_of_reviews: 847; rating: 4.6"
+          },
+          {
+            "uuid": "01b0ead9c0ef0dd5c096de3401abd3d7",
+            "text": "",
+            "name": "",
+            "score": 0,
+            "context": "Product UUID: 01b0ead9c0ef0dd5c096de3401abd3d7\nFamily: Road\nCategories: Men and Women, All-season, Road\nAttributes: brand: RoadRift; product_name: Horizon Road; description_short: Max-cushion bouncy ride w/ giant CloudTec pods; material: Mesh, Helion; fit: True; care: Wipe; sizes: M7\u201314 / W5\u201311; features: nan; colors: Multi; price: 474.9; review_summary: Very durable with excellent heel cushioning; fits true to size for most runners.; number_of_reviews: 560; rating: 4.0"
+          },
+          {
+            "uuid": "071a3cd388fc2e09390f5641e29baacf",
+            "text": "",
+            "name": "",
+            "score": 0,
+            "context": "Product UUID: 071a3cd388fc2e09390f5641e29baacf\nFamily: Road\nCategories: Men and Women, All-season, Road\nAttributes: brand: CloudTrail; product_name: GlideShift Race; description_short: Max cushion, softest Hoka; material: Mesh, EVA; fit: True; care: Wipe; sizes: M7\u201315 / W5\u201312; features: Wide fit, Arch Support; colors: White; price: 79.77; review_summary: Soft, comfortable upper but runs half a size small; great for daily mileage.; number_of_reviews: 4149; rating: 4.6"
+          },
+          {
+            "uuid": "f41b0c03f316210e1ebe52d4ee55c5c9",
+            "text": "",
+            "name": "",
+            "score": 0,
+            "context": "Product UUID: f41b0c03f316210e1ebe52d4ee55c5c9\nFamily: Trail\nCategories: All-season, Women, Trail\nAttributes: brand: FleetStep; product_name: Mirage Pro 2; description_short: Protective trail, ASICSGRIP; material: Mesh, FlyteFoam; fit: True; care: Rinse; sizes: M7\u201315 / W5\u201312; features: Wide fit, Arch Support; colors: Red; price: 187.23; review_summary: Highly cushioned and stable, but a bit bulky; best suited to easy and long runs.; number_of_reviews: 2118; rating: 4.5"
+          },
+          {
+            "uuid": "112da6cc8cdadc638df713f12a29399f",
+            "text": "",
+            "name": "",
+            "score": 0,
+            "context": "Product UUID: 112da6cc8cdadc638df713f12a29399f\nFamily: Road fast\nCategories: Men and Women, Road fast, Spring/Summer\nAttributes: brand: AeroStride; product_name: Ignite Elite; description_short: Light, fast trainer w/ DNA Flash; material: Woven mesh, TPU; fit: Snug; care: Wipe; sizes: M7\u201313 / W5\u201311; features: Wide fit; colors: Black; price: 73.01; review_summary: Very durable with excellent heel cushioning; fits true to size for most runners.; number_of_reviews: 2038; rating: 4.9"
+          }
+        ],
+        "num_results": 10,
+        "context_length": 4799,
+        "latency_ms": 223793,
+        "success": true,
+        "error": null,
+        "search_type": "hybrid_rag",
+        "retrieval_evaluation": {
+          "relevance": 4,
+          "coverage": 4,
+          "precision": 3,
+          "reasoning": "The query asks for trail running shoes under $200 with strong grip and high cushioning. Several retrieved products (e.g., Product 3, 4, 6, 9) are trail shoes under $200 and mention cushioning in reviews or descriptions, showing good relevance. Product 9 (FleetStep Mirage Pro 2) at $187.23 fits all criteria well. However, some results are road shoes (Products 5, 7, 8, 10), which are less relevant due to lack of trail-specific features like strong grip. While price and cushioning are reasonably covered, inclusion of non-trail and road-specific shoes reduces precision. Overall, coverage and relevance are solid but precision suffers due to mixed categories."
+        },
+        "response_evaluation": {
+          "accuracy": 4,
+          "hallucination": 4,
+          "helpfulness": 4,
+          "completeness": 3,
+          "usefulness": 4,
+          "reasoning": "The response correctly identifies the RoadRift StrideMax XT as a relevant product under $200 with strong grip and high cushioning, accurately reflecting its price, description, and materials from the context. It reasonably infers grip from 'TrailTrack' and rock plate, and cushioning from EVA. However, it does not mention other potentially relevant options like the RoadRift Ignite Cushion ($132.93), which also targets trail use and cushioning, making the completeness score lower. There is minor inference but no clear fabrication, so hallucination is not severe. The partial product focus and useful details make it helpful and usable for a shopper, though not exhaustive."
+        }
+      },
+      "keyword": {
+        "query": "What are the best trail running shoes under $200 with strong grip and high cushioning?",
+        "response": "Found 10 products (keyword match)",
+        "products": [
+          {
+            "name": "Showing 25 of 25 products TERRASPRINT",
+            "price": "$156.03",
+            "full_text": "Sort by:\nFeatured\nShowing 25 of 25 products\nRoad/Trail\n5\nTERRASPRINT\nFluxRide XT\nWaterproof Ultraboost w/ Gore-Tex\n$156.03\n5\n(972)\nRoad fast\n4.9\nAEROSTRIDE\nIgnite Elite\nLight, fast trainer w/ DNA Flash\n$73.01\n4.9\n(2,038)\nTrail\n4.9\nNIMBUSPATH\nTempest Ultra\nSpeedgoat challenger, max grip + cushion\n$29"
+          },
+          {
+            "name": "NIMBUSPATH Tempest Ultra",
+            "price": "$296.78",
+            "full_text": "Trail\n4.9\nNIMBUSPATH\nTempest Ultra\nSpeedgoat challenger, max grip + cushion\n$296.78\n4.9\n(2,555)"
+          },
+          {
+            "name": "ROADRIFT Ignite Road",
+            "price": "$294.35",
+            "full_text": "Trail\n4.6\nROADRIFT\nIgnite Road\nTechnical trail, Missiongrip + Speedboard\n$294.35\n4.6\n(3,610)"
+          },
+          {
+            "name": "ROADRIFT Ignite Cushion",
+            "price": "$132.93",
+            "full_text": "Trail\nROADRIFT\nIgnite Cushion\nHybrid road\u2013trail, ReactX + grip outsole\n$132.93\n3.1\n(2,989)"
+          },
+          {
+            "name": "TERRASPRINT FluxRide XT",
+            "price": "$156.03",
+            "full_text": "Road/Trail\n5\nTERRASPRINT\nFluxRide XT\nWaterproof Ultraboost w/ Gore-Tex\n$156.03\n5\n(972)"
+          },
+          {
+            "name": "CLOUDTRAIL FluxRide Road",
+            "price": "$172.88",
+            "full_text": "Trail\n4.7\nCLOUDTRAIL\nFluxRide Road\nUltra-distance trail, closed Cloud pods\n$172.88\n4.7\n(586)"
+          },
+          {
+            "name": "CLOUDTRAIL Velocity Road",
+            "price": "$219.35",
+            "full_text": "Road\n4.6\nCLOUDTRAIL\nVelocity Road\nPremium soft trainer, Light BOOST\n$219.35\n4.6\n(4,451)"
+          },
+          {
+            "name": "CLOUDTRAIL Mirage Carbon",
+            "price": "$76.48",
+            "full_text": "Trail\n4.6\nCLOUDTRAIL\nMirage Carbon\nUltra trail shoe w/ Energy Rods + Continental outsole\n$76.48\n4.6\n(847)"
+          },
+          {
+            "name": "Road race CLOUDTRAIL",
+            "price": "$376.78",
+            "full_text": "Road race\nCLOUDTRAIL\nVelocity Pro\nCarbon race flat, ProFly X foam\n$376.78\n3.8\n(2,551)"
+          },
+          {
+            "name": "NIMBUSPATH GlideShift Trail",
+            "price": "$273.94",
+            "full_text": "Road/gym\nNIMBUSPATH\nGlideShift Trail\nLightweight versatile trainer, Helion + CloudTec\n$273.94\n3.3\n(4,901)"
+          }
+        ],
+        "num_results": 10,
+        "latency_ms": 3189,
+        "success": true,
+        "error": null,
+        "search_type": "keyword",
+        "retrieval_evaluation": {
+          "relevance": 4,
+          "coverage": 4,
+          "precision": 3,
+          "reasoning": "Most retrieved products are trail running shoes with features related to grip and cushioning, which aligns with the user's query. Several options are under $200 (e.g., TERRASPRINT FluxRide XT at $156.03, CLOUDTRAIL Mirage Carbon at $76.48), meeting the price constraint. However, some products exceed $200 (e.g., NIMBUSPATH Tempest Ultra at $296.78) and may not be road/trail hybrids, slightly deviating from the budget. While key needs are covered, the inclusion of over-budget and less relevant road-specific models reduces precision."
+        },
+        "llm_response": "Based on your query for the **best trail running shoes under $200** with **strong grip** and **high cushioning**, here\u2019s a top recommendation from the list:\n\n**TERRASPRINT FluxRide XT** \u2013 Priced at **$156.03**, this shoe stands out with excellent grip and solid cushioning, thanks to its **waterproof Gore-Tex** build and **Ultraboost-derived tech**. It\u2019s highly rated (**5/5 from 972 reviews**) and designed for both road and trail, making it a versatile, durable choice for rugged terrain while staying comfortable on longer runs.\n\nWhile other shoes like the *NIMBUSPATH Tempest Ultra* and *ROADRIFT Ignite Road* offer great performance, they exceed your $200 budget. The **FluxRide XT** hits the sweet spot\u2014under $200, strong traction, and reliable cushioning for serious trail use.",
+        "response_evaluation": {
+          "accuracy": 5,
+          "hallucination": 5,
+          "helpfulness": 5,
+          "completeness": 4,
+          "usefulness": 5,
+          "reasoning": "The response accurately highlights the TERRASPRINT FluxRide XT, which is under $200, has a 5/5 rating, and includes features like Gore-Tex and cushioning technology. It correctly reflects the product data without inventing facts. It is highly helpful and useful, offering a specific, well-matched recommendation. Completeness is slightly reduced because the query asked for 'shoes' (plural), implying a list, but only one shoe is mentioned, though it is a strong match."
+        }
+      }
+    }
+  ]
+}

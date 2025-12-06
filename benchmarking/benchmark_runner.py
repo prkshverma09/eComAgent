@@ -118,7 +118,7 @@ Respond ONLY with JSON:
     def __init__(self, api_key: str):
         self.client = OpenAI(api_key=api_key, base_url="https://api.asi1.ai/v1")
 
-    def _call_llm(self, prompt: str) -> dict:
+    def _call_llm(self, prompt: str, max_tokens: int = 300) -> dict:
         """Make LLM call and parse JSON response"""
         try:
             completion = self.client.chat.completions.create(
@@ -128,22 +128,43 @@ Respond ONLY with JSON:
                     {"role": "user", "content": prompt}
                 ],
                 temperature=0.1,
-                max_tokens=200
+                max_tokens=max_tokens
             )
             result_text = completion.choices[0].message.content.strip()
 
             json_match = re.search(r'\{.*\}', result_text, re.DOTALL)
             if json_match:
                 return json.loads(json_match.group())
+            else:
+                print(f"  ⚠ LLM response not valid JSON: {result_text[:100]}...", flush=True)
         except Exception as e:
-            pass
+            print(f"  ⚠ LLM evaluation error: {type(e).__name__}: {str(e)[:100]}", flush=True)
         return {}
+
+    def _format_product(self, product: dict) -> str:
+        """Extract product info, preferring 'context' over empty 'name'/'text' fields."""
+        # First check if 'context' exists and has content (Hybrid RAG products)
+        if product.get('context'):
+            return product['context']
+        # Then check for non-empty name
+        if product.get('name') and product['name'].strip():
+            result = product['name']
+            if product.get('price'):
+                result += f" - {product['price']}"
+            if product.get('full_text') and product['full_text'] != product['name']:
+                result += f" ({product['full_text'][:100]})"
+            return result
+        # Then check for non-empty text
+        if product.get('text') and product['text'].strip():
+            return product['text']
+        # Fallback to string representation
+        return str(product)[:200]
 
     def evaluate_retrieval(self, query: str, products: list) -> dict:
         """Evaluate retrieval quality - how relevant are the retrieved products?"""
-        products_str = "\n".join([
-            f"- {p.get('name', p.get('text', str(p)[:150]))}"
-            for p in products[:10]
+        products_str = "\n\n".join([
+            f"Product {i+1}:\n{self._format_product(p)}"
+            for i, p in enumerate(products[:10])
         ]) if products else "No products found"
 
         prompt = self.RETRIEVAL_EVAL_PROMPT.format(
@@ -161,9 +182,9 @@ Respond ONLY with JSON:
 
     def evaluate_response(self, query: str, response: str, products: list) -> dict:
         """Evaluate response quality - accuracy, hallucination, helpfulness"""
-        products_str = "\n".join([
-            f"- {p.get('name', p.get('text', str(p)[:150]))}"
-            for p in products[:5]
+        products_str = "\n\n".join([
+            f"Product {i+1}:\n{self._format_product(p)}"
+            for i, p in enumerate(products[:5])
         ]) if products else "No products found"
 
         prompt = self.RESPONSE_EVAL_PROMPT.format(
@@ -255,27 +276,42 @@ class AgentFabricTester:
             if not data_path.exists():
                 data_path = Path(__file__).parent.parent / "data" / "Dummy_catalog_runningshoes.json"
 
+            print("\n" + "="*50)
             print("Initializing Hybrid RAG (MeTTa + Vector)...")
+            print("="*50)
 
             # Initialize MeTTa instance and knowledge graph
+            print("  [1/5] Creating MeTTa instance...", end=" ", flush=True)
             metta = MeTTa()
+            print("✓")
+
+            print(f"  [2/5] Loading knowledge graph from {data_path.name}...", end=" ", flush=True)
             initialize_pim_knowledge_graph(metta, str(data_path))
+            print("✓")
 
             # Initialize PIMRAG with MeTTa instance
+            print("  [3/5] Initializing PIMRAG...", end=" ", flush=True)
             self.pim_rag = PIMRAG(metta)
+            print("✓")
 
             # Load data for vector store
+            print("  [4/5] Loading vector store (ChromaDB)...", end=" ", flush=True)
             with open(data_path, 'r') as f:
                 pim_data = json.load(f)
 
             db_path = Path(__file__).parent / "chroma_db_benchmark"
             self.vector_store = PIMVectorStore(db_path=str(db_path))
             self.vector_store.ingest_pim_data(pim_data)
+            print("✓")
 
+            print("  [5/5] Initializing LLM client...", end=" ", flush=True)
             self.llm = LLM(self.api_key)
+            print("✓")
 
             self.rag_initialized = True
-            print("✓ Hybrid RAG initialized (MeTTa + ChromaDB)")
+            print("="*50)
+            print("✓ Hybrid RAG initialized successfully!")
+            print("="*50 + "\n")
             return True
 
         except Exception as e:
@@ -436,44 +472,112 @@ class KeywordSearchTester:
             # Scrape all visible products
             all_page_products = []
 
+            # Category/navigation words and UI elements to filter out
+            nav_words = {'all shoes', 'trail running', 'road running', 'running shoes',
+                        'shop all', 'view all', 'categories', 'filter', 'sort', 'sort by:',
+                        'home', 'about', 'contact', 'cart', 'checkout', 'menu', 'featured',
+                        'trail', 'road', 'road/trail', 'road/gym', 'road fast', 'showing',
+                        'price', 'rating', 'newest', 'best sellers', 'new arrivals'}
+
+            # Try multiple selectors for product cards
             product_selectors = [
-                "a[href*='/products/']",
-                ".grid a",
-                "[class*='card'] a",
+                # More specific product card selectors
+                "[class*='product-card']",
+                "[class*='ProductCard']",
+                ".grid > div",  # Grid children (product cards)
+                "[class*='card'] > a",  # Cards with links
+                "a[href*='/products/'][href*='-']",  # Product links with slugs (have hyphens)
             ]
 
             for selector in product_selectors:
                 try:
                     elements = self.driver.find_elements(By.CSS_SELECTOR, selector)
-                    if elements and len(elements) >= 3:
-                        for elem in elements[:30]:
-                            try:
-                                text = elem.text.strip()
-                                if not text or len(text) < 5:
-                                    continue
+                    if not elements:
+                        continue
 
-                                lines = text.split('\n')
-                                name = lines[0].strip() if lines else ""
-
-                                price = ""
-                                for line in lines:
-                                    if '$' in line or '£' in line:
-                                        price = line.strip()
-                                        break
-
-                                if name and len(name) > 3:
-                                    all_page_products.append({
-                                        "name": name,
-                                        "price": price,
-                                        "full_text": text[:300]
-                                    })
-                            except Exception:
+                    for elem in elements[:50]:
+                        try:
+                            text = elem.text.strip()
+                            if not text or len(text) < 10:
                                 continue
 
-                        if all_page_products:
-                            break
+                            lines = [l.strip() for l in text.split('\n') if l.strip()]
+                            if not lines:
+                                continue
+
+                            # Extract price first
+                            price = ""
+                            for line in lines:
+                                if '$' in line or '£' in line:
+                                    price = line.strip()
+                                    break
+
+                            # Smart name extraction: skip category/rating lines to find brand + product
+                            # Typical pattern: Category\nRating\nBRAND\nProduct Name\nDescription\nPrice
+                            name = ""
+                            brand = ""
+                            product_name = ""
+
+                            for i, line in enumerate(lines):
+                                line_lower = line.lower()
+                                # Skip navigation words, ratings (pure numbers), and short items
+                                if line_lower in nav_words or len(line) < 3:
+                                    continue
+                                # Skip lines that are just ratings like "4.9" or "(2,555)"
+                                if re.match(r'^[\d.]+$', line) or re.match(r'^\([\d,]+\)$', line):
+                                    continue
+                                # Skip price lines
+                                if '$' in line or '£' in line:
+                                    continue
+
+                                # First valid line is likely brand (often uppercase)
+                                if not brand:
+                                    brand = line
+                                # Second valid line is likely product name
+                                elif not product_name:
+                                    product_name = line
+                                    break
+
+                            # Construct name from brand + product
+                            if brand and product_name:
+                                name = f"{brand} {product_name}"
+                            elif brand:
+                                name = brand
+                            else:
+                                name = lines[0].strip()
+
+                            # Skip if name is still a nav word
+                            if name.lower() in nav_words or len(name) < 5:
+                                continue
+
+                            # Prefer entries with prices (real products usually have prices)
+                            if price or len(text) > 80:
+                                all_page_products.append({
+                                    "name": name,
+                                    "price": price,
+                                    "full_text": text[:300],
+                                    "has_price": bool(price)
+                                })
+                        except Exception:
+                            continue
+
+                    # If we found products with prices, we're done
+                    products_with_prices = [p for p in all_page_products if p.get('has_price')]
+                    if len(products_with_prices) >= 3:
+                        all_page_products = products_with_prices
+                        break
                 except Exception:
                     continue
+
+            # Remove duplicates by name
+            seen_names = set()
+            unique_products = []
+            for p in all_page_products:
+                if p['name'].lower() not in seen_names:
+                    seen_names.add(p['name'].lower())
+                    p.pop('has_price', None)
+                    unique_products.append(p)
+            all_page_products = unique_products
 
             # Keyword matching on scraped products
             products = []
@@ -964,9 +1068,8 @@ def main():
         runner.run_single_query(args.query, compare=not args.no_keyword, evaluate=args.evaluate)
     elif args.category:
         runner.run_category(args.category, evaluate=args.evaluate)
-    elif args.full or args.question_file:
-        runner.run_comparison(evaluate=args.evaluate, include_keyword=not args.no_keyword)
-    elif args.sample:
+    elif args.full or args.question_file or args.sample:
+        # Pass sample_size regardless of source (works with --full, --question_file, or --sample alone)
         runner.run_comparison(sample_size=args.sample, evaluate=args.evaluate,
                              include_keyword=not args.no_keyword)
     else:
