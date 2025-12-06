@@ -78,39 +78,90 @@ log("=" * 60)
 
 
 # ========================================
-# Product Search RAG Initialization
+# Product Search RAG (Lazy Initialization)
 # ========================================
-log("Initializing Product Search RAG...")
-metta = MeTTa()
-data_path = os.path.join(project_root, "data", "updated_running_shoes_full_catalog.json")
+# RAG is initialized on first search request to avoid blocking server startup
+_rag_state = {
+    "initialized": False,
+    "rag": None,
+    "vector_store": None,
+    "enabled": False
+}
 
-# Fallback to dummy catalog if full catalog not found
-if not os.path.exists(data_path):
-    data_path = os.path.join(project_root, "data", "Dummy_catalog_runningshoes.json")
 
-if os.path.exists(data_path):
-    initialize_pim_knowledge_graph(metta, data_path)
-    log(f"MeTTa knowledge graph initialized from {os.path.basename(data_path)}")
-else:
-    log(f"WARNING: No product data found")
+def _init_rag_if_needed():
+    """Initialize RAG on first use (lazy loading to avoid startup timeout)"""
+    if _rag_state["initialized"]:
+        return _rag_state["enabled"]
 
-# Initialize RAG
-rag = PIMRAG(metta)
+    _rag_state["initialized"] = True
 
-# Initialize Vector Store
-db_path = os.path.join(project_root, "chroma_db_consumer")
-vector_store = PIMVectorStore(db_path=db_path)
+    try:
+        log("Initializing Product Search RAG (lazy load)...")
 
-try:
-    with open(data_path, 'r') as f:
-        data = json.load(f)
-        vector_store.ingest_pim_data(data)
-    log(f"Vector store initialized with {len(data)} products")
-except Exception as e:
-    log(f"Error initializing vector store: {e}")
-    vector_store = None
+        # Suppress any stdout during initialization
+        _stdout_backup = sys.stdout
+        sys.stdout = io.StringIO()
 
-log("Product Search RAG ready")
+        metta = MeTTa()
+        data_path = os.path.join(project_root, "data", "updated_running_shoes_full_catalog.json")
+
+        # Fallback to dummy catalog if full catalog not found
+        if not os.path.exists(data_path):
+            data_path = os.path.join(project_root, "data", "Dummy_catalog_runningshoes.json")
+
+        if os.path.exists(data_path):
+            initialize_pim_knowledge_graph(metta, data_path)
+
+            # Initialize RAG
+            _rag_state["rag"] = PIMRAG(metta)
+
+            # Initialize Vector Store
+            db_path = os.path.join(project_root, "chroma_db_consumer")
+            _rag_state["vector_store"] = PIMVectorStore(db_path=db_path)
+
+            with open(data_path, 'r') as f:
+                data = json.load(f)
+                _rag_state["vector_store"].ingest_pim_data(data)
+
+            _rag_state["enabled"] = True
+
+        # Restore stdout
+        sys.stdout = _stdout_backup
+
+        if _rag_state["enabled"]:
+            log(f"Product Search RAG ready ({len(data)} products)")
+        else:
+            log("Product Search RAG: No data found, search disabled")
+
+    except Exception as e:
+        # Restore stdout in case of error
+        try:
+            sys.stdout = _stdout_backup
+        except:
+            pass
+        log(f"Product Search RAG initialization failed: {e}")
+
+    return _rag_state["enabled"]
+
+
+# Aliases for easier access
+def get_rag():
+    _init_rag_if_needed()
+    return _rag_state["rag"]
+
+
+def get_vector_store():
+    _init_rag_if_needed()
+    return _rag_state["vector_store"]
+
+
+def is_rag_enabled():
+    _init_rag_if_needed()
+    return _rag_state["enabled"]
+
+
+log("Product Search RAG: Will initialize on first search request")
 
 
 # ========================================
@@ -702,8 +753,16 @@ async def search_products_with_preferences(user_id: str, query: str) -> str:
     log(f">>> search_products_with_preferences: user={user_id}, query={query}")
     log("=" * 60)
 
-    if not vector_store:
-        return "Error: Product search not available (vector store not initialized)"
+    # Initialize RAG on first use (lazy loading)
+    if not is_rag_enabled():
+        return """Product search is not available in this session.
+
+The RAG system failed to initialize. You can still:
+- Save preferences: "I wear size 10"
+- Get preferences: "What are my preferences?"
+- Check blockchain sync: "Check blockchain sync"
+
+To enable product search, ensure the product data files exist and restart Claude Desktop."""
 
     # Step 1: Get user preferences
     prefs = store.get_preferences(user_id)
@@ -726,7 +785,7 @@ async def search_products_with_preferences(user_id: str, query: str) -> str:
 
     # Step 3: Search products using RAG
     try:
-        context = retrieve_pim_context(enhanced_query, rag, vector_store)
+        context = retrieve_pim_context(enhanced_query, get_rag(), get_vector_store())
 
         if not context:
             return f"""No products found matching your search.

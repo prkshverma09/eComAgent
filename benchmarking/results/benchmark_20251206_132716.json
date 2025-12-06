@@ -1,0 +1,1266 @@
+{
+  "benchmark_type": "hybrid_rag_comparison",
+  "timestamp": "2025-12-06T13:32:23.067505",
+  "source": "Excel: Sample Consumer Questions.xlsx",
+  "total_queries": 9,
+  "note": "Filtered to 9 valid results (API credits exhausted after query 9)",
+  "summary": {
+    "semantic_search": {
+      "type": "hybrid_rag",
+      "success": 9,
+      "failed": 0,
+      "avg_latency_ms": 14522.0,
+      "avg_results": 10.0,
+      "retrieval_quality": {
+        "relevance": 1.0,
+        "coverage": 1.0,
+        "precision": 1.0
+      },
+      "response_quality": {
+        "accuracy": 2.56,
+        "hallucination": 2.33,
+        "helpfulness": 2.33,
+        "completeness": 2.11
+      }
+    },
+    "keyword_search": {
+      "type": "keyword",
+      "success": 9,
+      "failed": 0,
+      "avg_latency_ms": 2666.0,
+      "avg_results": 2.0,
+      "retrieval_quality": {
+        "relevance": 1.5,
+        "coverage": 1.25,
+        "precision": 1.62
+      },
+      "response_quality": {
+        "accuracy": 4.25,
+        "hallucination": 4.62,
+        "helpfulness": 3.25,
+        "completeness": 2.62
+      }
+    },
+    "winner": {
+      "semantic_wins": 1,
+      "keyword_wins": 8,
+      "overall": "keyword"
+    }
+  },
+  "results": [
+    {
+      "query_id": "Q001",
+      "query": "What are the best trail running shoes under $200 with strong grip and high cushioning?",
+      "category": "custom",
+      "semantic": {
+        "query": "What are the best trail running shoes under $200 with strong grip and high cushioning?",
+        "response": "Based on your criteria \u2014 **best trail running shoes under $200**, with **strong grip** and **high cushioning** \u2014 here are the top options from our collection:\n\n### 1. **RoadRift StrideMax XT**  \n- **Price:** $70.13  \n- **Family:** Trail  \n- **Description:** Rugged trail shoe with rock plate for protection and durability  \n- **Cushioning:** EVA midsole provides solid cushioning; reviewers note it\u2019s *\"very comfortable straight out of the box\"*  \n- **Grip:** TrailTrack outsole offers reliable traction on rough terrain  \n- **Rating:** 3.4 (2,408 reviews)  \n- **Fit:** True to size, wide fit available  \n- **Care:** Rinse after use (ideal for muddy trails)  \n\u2705 *Excellent value for rugged trail use with lasting comfort*\n\n---\n\n### 2. **CloudTrail Mirage Carbon**  \n- **Price:** $76.48  \n- **Family:** Trail  \n- **Description:** Ultra trail shoe designed for long-distance off-road runs  \n- **Cushioning:** LSP foam delivers high cushioning; described as *\"highly cushioned and stable\"*  \n- **Grip:** **Continental outsole** \u2014 industry-leading grip, especially in wet and technical conditions  \n- **Rating:** 4.6 (847 reviews)  \n- **Fit:** True to size  \n- **Care:** Rinse  \n\u2705 *One of the highest-rated trail shoes here, excelling in both grip and comfort*\n\n---\n\n### 3. **FleetStep Mirage Pro 2**  \n- **Price:** $187.23  \n- **Family:** Trail  \n- **Description:** Protective trail shoe with ASICSGRIP technology  \n- **Cushioning:** FlyteFoam provides lightweight, responsive cushioning  \n- **Grip:** ASICSGRIP outsole delivers strong traction on varied terrain  \n- **Rating:** 4.5 (2,118 reviews)  \n- **Fit:** True to size, wide fit & arch support  \n- **Color:** Red  \n- **Care:** Rinse  \n\u2705 *Premium features under $200, with strong durability and support*\n\n---\n\n### Summary: Top Pick  \n\ud83e\udd47 **Best Overall (Grip + Cushioning + Value):**  \n\ud83d\udc49 **CloudTrail Mirage Carbon",
+        "products": [
+          {
+            "uuid": "297c435f45f76af008e027986e21e90e",
+            "text": "",
+            "name": "",
+            "score": 0,
+            "context": "Product UUID: 297c435f45f76af008e027986e21e90e\nFamily: Trail\nCategories: Trail, 3-season, Men and Women\nAttributes: brand: RoadRift; product_name: PacePro Race; description_short: Cushioned ultra-distance shoe; material: Mesh, Energy Surge; fit: True; care: Wipe; sizes: M7\u201313 / W5\u201311; features: Wide fit; colors: Multi; price: 331.78; review_summary: Great comfort and grip on wet roads; sizing is accurate with medium-width feet.; number_of_reviews: 3214; rating: 4.7"
+          },
+          {
+            "uuid": "a59d4797180af8c914122a29dddb8ddf",
+            "text": "",
+            "name": "",
+            "score": 0,
+            "context": "Product UUID: a59d4797180af8c914122a29dddb8ddf\nFamily: Road/gym\nCategories: Road/gym, Women, All-season\nAttributes: brand: NimbusPath; product_name: GlideShift Trail; description_short: Lightweight versatile trainer, Helion + CloudTec; material: Mesh, Helion; fit: True; care: Wipe; sizes: M7\u201314 / W5\u201311; features: Wide fit; colors: Multi; price: 273.94; review_summary: Very durable with excellent heel cushioning; fits true to size for most runners.; number_of_reviews: 4901; rating: 3.3"
+          },
+          {
+            "uuid": "76f0b72b143f403e53634d3a324128f8",
+            "text": "",
+            "name": "",
+            "score": 0,
+            "context": "Product UUID: 76f0b72b143f403e53634d3a324128f8\nFamily: Trail\nCategories: Trail, 3-season, Men and Women\nAttributes: brand: RoadRift; product_name: StrideMax XT; description_short: Rugged trail w/ rock plate; material: Mesh, EVA, TrailTrack; fit: True; care: Rinse; sizes: M7\u201315 / W5\u201312; features: Wide fit; colors: Multi; price: 70.13; review_summary: Very comfortable straight out of the box; durability on par with premium trainers.; number_of_reviews: 2408; rating: 3.4"
+          },
+          {
+            "uuid": "6246a8270cac196ede9a15c337ec3a14",
+            "text": "",
+            "name": "",
+            "score": 0,
+            "context": "Product UUID: 6246a8270cac196ede9a15c337ec3a14\nFamily: Trail\nCategories: Trail, All-terrain, Men and Women\nAttributes: brand: RoadRift; product_name: Ignite Cushion; description_short: Hybrid road\u201a\u00c4\u00ectrail, ReactX + grip outsole; material: Mesh, ReactX; fit: Slightly small; care: Brush clean; sizes: M7\u201315 / W5\u201312; features: nan; colors: Multi; price: 132.93; review_summary: Soft, comfortable upper but runs half a size small; great for daily mileage.; number_of_reviews: 2989; rating: 3.1"
+          },
+          {
+            "uuid": "cbad7a325dca75e5269b2a7ad65c22fd",
+            "text": "",
+            "name": "",
+            "score": 0,
+            "context": "Product UUID: cbad7a325dca75e5269b2a7ad65c22fd\nFamily: Road\nCategories: Road, All-season, Men and Women\nAttributes: brand: UrbanTempo; product_name: GlideShift Ultra; description_short: Balanced trainer w/ Boost heel + Bounce forefoot; material: Mesh, Boost/Bounce; fit: True; care: Wipe; sizes: M6\u201314 / W5\u201311; features: nan; colors: Multi; price: 179.98; review_summary: Highly cushioned and stable, but a bit bulky; best suited to easy and long runs.; number_of_reviews: 2209; rating: 3.1"
+          },
+          {
+            "uuid": "5ff0d303b58ecdc314b42f8124df0dd9",
+            "text": "",
+            "name": "",
+            "score": 0,
+            "context": "Product UUID: 5ff0d303b58ecdc314b42f8124df0dd9\nFamily: Trail\nCategories: Trail, Women\nAttributes: brand: CloudTrail; product_name: Mirage Carbon; description_short: Ultra trail shoe w/ Energy Rods + Continental outsole; material: Mesh, LSP foam; fit: True; care: Rinse; sizes: M7\u201314 / W5\u201311; features: nan; colors: Multi; price: 76.48; review_summary: Highly cushioned and stable, but a bit bulky; best suited to easy and long runs.; number_of_reviews: 847; rating: 4.6"
+          },
+          {
+            "uuid": "01b0ead9c0ef0dd5c096de3401abd3d7",
+            "text": "",
+            "name": "",
+            "score": 0,
+            "context": "Product UUID: 01b0ead9c0ef0dd5c096de3401abd3d7\nFamily: Road\nCategories: Road, All-season, Men and Women\nAttributes: brand: RoadRift; product_name: Horizon Road; description_short: Max-cushion bouncy ride w/ giant CloudTec pods; material: Mesh, Helion; fit: True; care: Wipe; sizes: M7\u201314 / W5\u201311; features: nan; colors: Multi; price: 474.9; review_summary: Very durable with excellent heel cushioning; fits true to size for most runners.; number_of_reviews: 560; rating: 4.0"
+          },
+          {
+            "uuid": "071a3cd388fc2e09390f5641e29baacf",
+            "text": "",
+            "name": "",
+            "score": 0,
+            "context": "Product UUID: 071a3cd388fc2e09390f5641e29baacf\nFamily: Road\nCategories: Road, All-season, Men and Women\nAttributes: brand: CloudTrail; product_name: GlideShift Race; description_short: Max cushion, softest Hoka; material: Mesh, EVA; fit: True; care: Wipe; sizes: M7\u201315 / W5\u201312; features: Wide fit, Arch Support; colors: White; price: 79.77; review_summary: Soft, comfortable upper but runs half a size small; great for daily mileage.; number_of_reviews: 4149; rating: 4.6"
+          },
+          {
+            "uuid": "f41b0c03f316210e1ebe52d4ee55c5c9",
+            "text": "",
+            "name": "",
+            "score": 0,
+            "context": "Product UUID: f41b0c03f316210e1ebe52d4ee55c5c9\nFamily: Trail\nCategories: All-season, Trail, Women\nAttributes: brand: FleetStep; product_name: Mirage Pro 2; description_short: Protective trail, ASICSGRIP; material: Mesh, FlyteFoam; fit: True; care: Rinse; sizes: M7\u201315 / W5\u201312; features: Wide fit, Arch Support; colors: Red; price: 187.23; review_summary: Highly cushioned and stable, but a bit bulky; best suited to easy and long runs.; number_of_reviews: 2118; rating: 4.5"
+          },
+          {
+            "uuid": "112da6cc8cdadc638df713f12a29399f",
+            "text": "",
+            "name": "",
+            "score": 0,
+            "context": "Product UUID: 112da6cc8cdadc638df713f12a29399f\nFamily: Road fast\nCategories: Spring/Summer, Men and Women, Road fast\nAttributes: brand: AeroStride; product_name: Ignite Elite; description_short: Light, fast trainer w/ DNA Flash; material: Woven mesh, TPU; fit: Snug; care: Wipe; sizes: M7\u201313 / W5\u201311; features: Wide fit; colors: Black; price: 73.01; review_summary: Very durable with excellent heel cushioning; fits true to size for most runners.; number_of_reviews: 2038; rating: 4.9"
+          }
+        ],
+        "num_results": 10,
+        "context_length": 4799,
+        "latency_ms": 110358,
+        "success": true,
+        "error": null,
+        "search_type": "hybrid_rag",
+        "retrieval_evaluation": {
+          "relevance": 1,
+          "coverage": 1,
+          "precision": 1,
+          "reasoning": "No products were retrieved, so they cannot be relevant, comprehensive, or precise. The list is empty, failing to address the user's query for trail running shoes under $200 with strong grip and high cushioning."
+        },
+        "response_evaluation": {
+          "accuracy": 4,
+          "hallucination": 4,
+          "helpfulness": 4,
+          "completeness": 3,
+          "reasoning": "The response provides a relevant product recommendation with accurate attributes like price, trail focus, cushioning, and grip. However, the product description is cut off ('reliable tract') and the 'Products Used as Context' list is empty, raising concerns about data source reliability. While no outright false claims are made, the incomplete context suggests potential risk of hallucination. The answer is helpful and well-structured for a shopper, but incompletely addresses the 'best' plural implies multiple options, and only one full product is detailed, making it somewhat incomplete."
+        }
+      },
+      "keyword": {
+        "query": "What are the best trail running shoes under $200 with strong grip and high cushioning?",
+        "response": "Found 3 products (keyword match)",
+        "products": [
+          {
+            "name": "Trail Running",
+            "price": "",
+            "full_text": "Trail Running"
+          },
+          {
+            "name": "All Shoes",
+            "price": "",
+            "full_text": "All Shoes"
+          },
+          {
+            "name": "Road Running",
+            "price": "",
+            "full_text": "Road Running"
+          }
+        ],
+        "num_results": 3,
+        "latency_ms": 2922,
+        "success": true,
+        "error": null,
+        "search_type": "keyword",
+        "retrieval_evaluation": {
+          "relevance": 1,
+          "coverage": 1,
+          "precision": 1,
+          "reasoning": "The retrieved products ('Trail Running', 'All Shoes', 'Road Running') are high-level categories, not specific shoes. They do not directly answer the query for specific trail running shoes under $200 with strong grip and high cushioning. The results lack product-level relevance, fail to cover the user's specific needs, and include irrelevant categories like 'Road Running' and broad links like 'All Shoes' which reduce precision."
+        },
+        "llm_response": "Great question! For trail running shoes under $200 that deliver **strong grip** and **high cushioning**, you\u2019ll want models designed for durability on rugged terrain while keeping your legs feeling fresh on long runs.\n\nWhile I can\u2019t browse live inventory, based on the product categories you\u2019ve listed\u2014**Trail Running**, **All Shoes**, and **Road Running**\u2014your best bet is to explore the **Trail Running** collection, as it\u2019s specifically curated for off-road performance. Look for key features like:\n\n- Aggressive outsoles (e.g., multi-directional lugs, Vibram\u00ae or equivalent) for superior traction  \n- EVA or foam midsoles with high stack height for plush cushioning  \n- Durable, weather-resistant uppers  \n\nBrands often offer premium trail models in this price range with excellent grip and comfort\u2014perfect for technical trails and long-distance runs.\n\n\ud83d\udc49 **Tip**: Filter the **Trail Running** category by price (under $200), cushioning level (high), and traction technology to find top-performing options.\n\nLet me know if you\u2019d like help narrowing it down by terrain type, weight, or drop! \ud83c\udfd4\ufe0f\ud83d\udc5f",
+        "response_evaluation": {
+          "accuracy": 3,
+          "hallucination": 4,
+          "helpfulness": 2,
+          "completeness": 1,
+          "reasoning": "The response is partially accurate in guiding the user toward the Trail Running category, which aligns with the query. However, it fails to name any specific shoe models, prices, grip features, or cushioning details\u2014none of which were provided in the context. It does not hallucinate specific products but offers minimal concrete help. The answer is incomplete and not sufficiently helpful for a shopper seeking specific recommendations under $200 with defined performance traits."
+        }
+      }
+    },
+    {
+      "query_id": "Q002",
+      "query": "Which trail shoes in your catalog have 5mm lugs for muddy terrain?",
+      "category": "custom",
+      "semantic": {
+        "query": "Which trail shoes in your catalog have 5mm lugs for muddy terrain?",
+        "response": "The trail shoes in our catalog with 5mm lugs suitable for muddy terrain are:\n\n1. **FluxRide Sprint** by *NimbusPath*  \n   - Description: Features Mud Contagrip with 5mm lugs  \n   - Fit: Narrow  \n   - Best for: Daily mileage in mud season  \n   - Rating: 4.5 (from 3,813 reviews)\n\n2. **Horizon Carbon** by *NovaStride*  \n   - Description: Technical trail shoe with Megagrip and 5mm lugs  \n   - Features: Arch Support  \n   - Rating: 3.2 (from 1,666 reviews)\n\nBoth are designed to handle muddy conditions effectively.",
+        "products": [
+          {
+            "uuid": "5ff0d303b58ecdc314b42f8124df0dd9",
+            "text": "",
+            "name": "",
+            "score": 0,
+            "context": "Product UUID: 5ff0d303b58ecdc314b42f8124df0dd9\nFamily: Trail\nCategories: Trail, Women\nAttributes: brand: CloudTrail; product_name: Mirage Carbon; description_short: Ultra trail shoe w/ Energy Rods + Continental outsole; material: Mesh, LSP foam; fit: True; care: Rinse; sizes: M7\u201314 / W5\u201311; features: nan; colors: Multi; price: 76.48; review_summary: Highly cushioned and stable, but a bit bulky; best suited to easy and long runs.; number_of_reviews: 847; rating: 4.6"
+          },
+          {
+            "uuid": "76f0b72b143f403e53634d3a324128f8",
+            "text": "",
+            "name": "",
+            "score": 0,
+            "context": "Product UUID: 76f0b72b143f403e53634d3a324128f8\nFamily: Trail\nCategories: Trail, 3-season, Men and Women\nAttributes: brand: RoadRift; product_name: StrideMax XT; description_short: Rugged trail w/ rock plate; material: Mesh, EVA, TrailTrack; fit: True; care: Rinse; sizes: M7\u201315 / W5\u201312; features: Wide fit; colors: Multi; price: 70.13; review_summary: Very comfortable straight out of the box; durability on par with premium trainers.; number_of_reviews: 2408; rating: 3.4"
+          },
+          {
+            "uuid": "db2b63d33e54eaf86bc800981ba6e5e7",
+            "text": "",
+            "name": "",
+            "score": 0,
+            "context": "Product UUID: db2b63d33e54eaf86bc800981ba6e5e7\nFamily: Trail\nCategories: Mud season, Trail, Women\nAttributes: brand: NimbusPath; product_name: FluxRide Sprint; description_short: Mud Contagrip, 5mm lugs; material: Anti-debris mesh; fit: Narrow; care: Rinse; sizes: M7\u201313 / W5\u201311; features: Wide fit; colors: Multi; price: 67.6; review_summary: Soft, comfortable upper but runs half a size small; great for daily mileage.; number_of_reviews: 3813; rating: 4.5"
+          },
+          {
+            "uuid": "297c435f45f76af008e027986e21e90e",
+            "text": "",
+            "name": "",
+            "score": 0,
+            "context": "Product UUID: 297c435f45f76af008e027986e21e90e\nFamily: Trail\nCategories: Trail, 3-season, Men and Women\nAttributes: brand: RoadRift; product_name: PacePro Race; description_short: Cushioned ultra-distance shoe; material: Mesh, Energy Surge; fit: True; care: Wipe; sizes: M7\u201313 / W5\u201311; features: Wide fit; colors: Multi; price: 331.78; review_summary: Great comfort and grip on wet roads; sizing is accurate with medium-width feet.; number_of_reviews: 3214; rating: 4.7"
+          },
+          {
+            "uuid": "a59d4797180af8c914122a29dddb8ddf",
+            "text": "",
+            "name": "",
+            "score": 0,
+            "context": "Product UUID: a59d4797180af8c914122a29dddb8ddf\nFamily: Road/gym\nCategories: Road/gym, Women, All-season\nAttributes: brand: NimbusPath; product_name: GlideShift Trail; description_short: Lightweight versatile trainer, Helion + CloudTec; material: Mesh, Helion; fit: True; care: Wipe; sizes: M7\u201314 / W5\u201311; features: Wide fit; colors: Multi; price: 273.94; review_summary: Very durable with excellent heel cushioning; fits true to size for most runners.; number_of_reviews: 4901; rating: 3.3"
+          },
+          {
+            "uuid": "93c86243e11419cb44f71793cd2e6a61",
+            "text": "",
+            "name": "",
+            "score": 0,
+            "context": "Product UUID: 93c86243e11419cb44f71793cd2e6a61\nFamily: Trail\nCategories: Trail, All-season, Men and Women\nAttributes: brand: RoadRift; product_name: Ignite Road; description_short: Technical trail, Missiongrip + Speedboard; material: Ripstop mesh, EVA; fit: True; care: Rinse; sizes: M7\u201313 / W5\u201310; features: Wide fit; colors: Multi; price: 294.35; review_summary: Highly cushioned and stable, but a bit bulky; best suited to easy and long runs.; number_of_reviews: 3610; rating: 4.6"
+          },
+          {
+            "uuid": "f41b0c03f316210e1ebe52d4ee55c5c9",
+            "text": "",
+            "name": "",
+            "score": 0,
+            "context": "Product UUID: f41b0c03f316210e1ebe52d4ee55c5c9\nFamily: Trail\nCategories: All-season, Trail, Women\nAttributes: brand: FleetStep; product_name: Mirage Pro 2; description_short: Protective trail, ASICSGRIP; material: Mesh, FlyteFoam; fit: True; care: Rinse; sizes: M7\u201315 / W5\u201312; features: Wide fit, Arch Support; colors: Red; price: 187.23; review_summary: Highly cushioned and stable, but a bit bulky; best suited to easy and long runs.; number_of_reviews: 2118; rating: 4.5"
+          },
+          {
+            "uuid": "8685f8f74f6ca85b2c5cdc137b04480b",
+            "text": "",
+            "name": "",
+            "score": 0,
+            "context": "Product UUID: 8685f8f74f6ca85b2c5cdc137b04480b\nFamily: Trail\nCategories: 3-season trail, Trail, Women\nAttributes: brand: NovaStride; product_name: Horizon Carbon; description_short: Technical trail w/ Megagrip & 5mm lugs; material: Mesh, CMEVA, Megagrip; fit: True; care: Rinse; sizes: M7\u201315 / W5\u201311; features: Arch Support; colors: Multi; price: 252.84; review_summary: Outstanding forefoot responsiveness and midfoot support; ideal for tempo runs.; number_of_reviews: 1666; rating: 3.2"
+          },
+          {
+            "uuid": "ff163db065404f9f961e029bba7276d6",
+            "text": "",
+            "name": "",
+            "score": 0,
+            "context": "Product UUID: ff163db065404f9f961e029bba7276d6\nFamily: Trail\nCategories: Trail, Women\nAttributes: brand: CloudTrail; product_name: FluxRide Road; description_short: Ultra-distance trail, closed Cloud pods; material: Mesh, Helion, Missiongrip; fit: Slightly narrow; care: Rinse; sizes: M7\u201314 / W5\u201311; features: nan; colors: Limited; price: 172.88; review_summary: Excellent arch support and lockdown; holds up well after hundreds of kilometers.; number_of_reviews: 586; rating: 4.7"
+          },
+          {
+            "uuid": "d89a45eea38a9ee7f84b8a4998ebc82e",
+            "text": "",
+            "name": "",
+            "score": 0,
+            "context": "Product UUID: d89a45eea38a9ee7f84b8a4998ebc82e\nFamily: Road/Trail\nCategories: Wet/winter, Men, Road/Trail\nAttributes: brand: TerraSprint; product_name: FluxRide XT; description_short: Waterproof Ultraboost w/ Gore-Tex; material: GTX mesh, BOOST; fit: True; care: Wipe; sizes: M6\u201313 / W5\u201311; features: Wide fit, Arch Support; colors: Few; price: 156.03; review_summary: Secure fit around the midfoot, slightly narrow toe box; cushioning is plush and bouncy.; number_of_reviews: 972; rating: 5.0"
+          }
+        ],
+        "num_results": 10,
+        "context_length": 4791,
+        "latency_ms": 3244,
+        "success": true,
+        "error": null,
+        "search_type": "hybrid_rag",
+        "retrieval_evaluation": {
+          "relevance": 1,
+          "coverage": 1,
+          "precision": 1,
+          "reasoning": "No products were retrieved, so they cannot be relevant to the query about trail shoes with 5mm lugs for muddy terrain. The results fail to address the user's needs entirely."
+        },
+        "response_evaluation": {
+          "accuracy": 1,
+          "hallucination": 1,
+          "helpfulness": 1,
+          "completeness": 1,
+          "reasoning": "The response lists specific trail shoes with 5mm lugs, but the 'Products Used as Context' section is empty, meaning there is no supporting product data to verify these claims. Therefore, the response invents details not present in the context, leading to complete inaccuracy and severe hallucination. As a result, it is unhelpful and incomplete for a real shopper."
+        }
+      },
+      "keyword": {
+        "query": "Which trail shoes in your catalog have 5mm lugs for muddy terrain?",
+        "response": "Found 2 products (keyword match)",
+        "products": [
+          {
+            "name": "All Shoes",
+            "price": "",
+            "full_text": "All Shoes"
+          },
+          {
+            "name": "Trail Running",
+            "price": "",
+            "full_text": "Trail Running"
+          }
+        ],
+        "num_results": 2,
+        "latency_ms": 2547,
+        "success": true,
+        "error": null,
+        "search_type": "keyword",
+        "retrieval_evaluation": {
+          "relevance": 1,
+          "coverage": 1,
+          "precision": 1,
+          "reasoning": "The retrieved products 'All Shoes' and 'Trail Running' are extremely generic and do not specifically address trail shoes with 5mm lugs for muddy terrain. They lack any filtering or relevance to the specified lug depth, making them completely irrelevant to the user's precise query."
+        },
+        "llm_response": "Hey there! While I\u2019d love to help you find trail shoes with exactly 5mm lugs for muddy terrain, I currently don\u2019t have access to a detailed product catalog or specs like lug depth for specific shoe models.  \n\nFor the best recommendations, I\u2019d suggest checking out performance trail running shoes from brands like Salomon, Hoka, or Altra \u2014 many of their aggressive trail models (like the Salomon Speedcross or Hoka Tecton X) are designed for muddy terrain with deep, multi-directional lugs around the 5mm range.  \n\nIf you\u2019re shopping through a specific retailer, using filters for \u201clug depth\u201d or \u201cterrain type\u201d can help narrow it down. Want me to help guide your search further or compare features of popular muddy-terrain trail shoes? Just let me know! \ud83c\udfc3\u200d\u2642\ufe0f\ud83c\udfde\ufe0f",
+        "response_evaluation": {
+          "accuracy": 4,
+          "hallucination": 4,
+          "helpfulness": 3,
+          "completeness": 2,
+          "reasoning": "The response accurately states the assistant's lack of access to a detailed product catalog, which is truthful. It does not outright invent specific shoe models with 5mm lugs, but it suggests models like Salomon Speedcross or Hoka Tecton X without confirming their lug depth, which could imply knowledge not supported by the given context, bordering on mild hallucination. The suggestions are generally helpful for muddy terrain, but the answer is incomplete as it doesn't confirm any actual product with 5mm lugs from the catalog. Helpfulness is moderate due to useful brand guidance, but not specific enough for a complete answer."
+        }
+      }
+    },
+    {
+      "query_id": "Q003",
+      "query": "Recommend trail shoes for women that offer excellent arch support and are under $190.",
+      "category": "custom",
+      "semantic": {
+        "query": "Recommend trail shoes for women that offer excellent arch support and are under $190.",
+        "response": "Based on your requirements, I recommend the **FleetStep Mirage Pro 2**.\n\nHere\u2019s why it\u2019s a great fit:\n- **Designed for women**: Yes, it's specifically categorized for women.\n- **Trail shoes**: It belongs to the Trail family and is built for rugged terrain.\n- **Arch support**: This model includes \"Arch Support\" as a key feature.\n- **Price**: At **$187.23**, it's under your $190 budget.\n- **Fit**: Runs true to size and offers a wide fit, which many runners appreciate for comfort.\n- **User feedback**: With a strong rating of **4.5** from 2,118 reviews, users describe it as highly cushioned and stable\u2014ideal for long and easy runs.\n\nThis shoe combines protection, support, and comfort, making it an excellent choice for female trail runners seeking reliable arch support without breaking the bank.",
+        "products": [
+          {
+            "uuid": "a59d4797180af8c914122a29dddb8ddf",
+            "text": "",
+            "name": "",
+            "score": 0,
+            "context": "Product UUID: a59d4797180af8c914122a29dddb8ddf\nFamily: Road/gym\nCategories: Road/gym, Women, All-season\nAttributes: brand: NimbusPath; product_name: GlideShift Trail; description_short: Lightweight versatile trainer, Helion + CloudTec; material: Mesh, Helion; fit: True; care: Wipe; sizes: M7\u201314 / W5\u201311; features: Wide fit; colors: Multi; price: 273.94; review_summary: Very durable with excellent heel cushioning; fits true to size for most runners.; number_of_reviews: 4901; rating: 3.3"
+          },
+          {
+            "uuid": "76f0b72b143f403e53634d3a324128f8",
+            "text": "",
+            "name": "",
+            "score": 0,
+            "context": "Product UUID: 76f0b72b143f403e53634d3a324128f8\nFamily: Trail\nCategories: Trail, 3-season, Men and Women\nAttributes: brand: RoadRift; product_name: StrideMax XT; description_short: Rugged trail w/ rock plate; material: Mesh, EVA, TrailTrack; fit: True; care: Rinse; sizes: M7\u201315 / W5\u201312; features: Wide fit; colors: Multi; price: 70.13; review_summary: Very comfortable straight out of the box; durability on par with premium trainers.; number_of_reviews: 2408; rating: 3.4"
+          },
+          {
+            "uuid": "297c435f45f76af008e027986e21e90e",
+            "text": "",
+            "name": "",
+            "score": 0,
+            "context": "Product UUID: 297c435f45f76af008e027986e21e90e\nFamily: Trail\nCategories: Trail, 3-season, Men and Women\nAttributes: brand: RoadRift; product_name: PacePro Race; description_short: Cushioned ultra-distance shoe; material: Mesh, Energy Surge; fit: True; care: Wipe; sizes: M7\u201313 / W5\u201311; features: Wide fit; colors: Multi; price: 331.78; review_summary: Great comfort and grip on wet roads; sizing is accurate with medium-width feet.; number_of_reviews: 3214; rating: 4.7"
+          },
+          {
+            "uuid": "5ff0d303b58ecdc314b42f8124df0dd9",
+            "text": "",
+            "name": "",
+            "score": 0,
+            "context": "Product UUID: 5ff0d303b58ecdc314b42f8124df0dd9\nFamily: Trail\nCategories: Trail, Women\nAttributes: brand: CloudTrail; product_name: Mirage Carbon; description_short: Ultra trail shoe w/ Energy Rods + Continental outsole; material: Mesh, LSP foam; fit: True; care: Rinse; sizes: M7\u201314 / W5\u201311; features: nan; colors: Multi; price: 76.48; review_summary: Highly cushioned and stable, but a bit bulky; best suited to easy and long runs.; number_of_reviews: 847; rating: 4.6"
+          },
+          {
+            "uuid": "6246a8270cac196ede9a15c337ec3a14",
+            "text": "",
+            "name": "",
+            "score": 0,
+            "context": "Product UUID: 6246a8270cac196ede9a15c337ec3a14\nFamily: Trail\nCategories: Trail, All-terrain, Men and Women\nAttributes: brand: RoadRift; product_name: Ignite Cushion; description_short: Hybrid road\u201a\u00c4\u00ectrail, ReactX + grip outsole; material: Mesh, ReactX; fit: Slightly small; care: Brush clean; sizes: M7\u201315 / W5\u201312; features: nan; colors: Multi; price: 132.93; review_summary: Soft, comfortable upper but runs half a size small; great for daily mileage.; number_of_reviews: 2989; rating: 3.1"
+          },
+          {
+            "uuid": "f41b0c03f316210e1ebe52d4ee55c5c9",
+            "text": "",
+            "name": "",
+            "score": 0,
+            "context": "Product UUID: f41b0c03f316210e1ebe52d4ee55c5c9\nFamily: Trail\nCategories: All-season, Trail, Women\nAttributes: brand: FleetStep; product_name: Mirage Pro 2; description_short: Protective trail, ASICSGRIP; material: Mesh, FlyteFoam; fit: True; care: Rinse; sizes: M7\u201315 / W5\u201312; features: Wide fit, Arch Support; colors: Red; price: 187.23; review_summary: Highly cushioned and stable, but a bit bulky; best suited to easy and long runs.; number_of_reviews: 2118; rating: 4.5"
+          },
+          {
+            "uuid": "cbad7a325dca75e5269b2a7ad65c22fd",
+            "text": "",
+            "name": "",
+            "score": 0,
+            "context": "Product UUID: cbad7a325dca75e5269b2a7ad65c22fd\nFamily: Road\nCategories: Road, All-season, Men and Women\nAttributes: brand: UrbanTempo; product_name: GlideShift Ultra; description_short: Balanced trainer w/ Boost heel + Bounce forefoot; material: Mesh, Boost/Bounce; fit: True; care: Wipe; sizes: M6\u201314 / W5\u201311; features: nan; colors: Multi; price: 179.98; review_summary: Highly cushioned and stable, but a bit bulky; best suited to easy and long runs.; number_of_reviews: 2209; rating: 3.1"
+          },
+          {
+            "uuid": "a7962ad9dfbeb60e6553699dd62a4fa5",
+            "text": "",
+            "name": "",
+            "score": 0,
+            "context": "Product UUID: a7962ad9dfbeb60e6553699dd62a4fa5\nFamily: Road\nCategories: Road, All-season, Men and Women\nAttributes: brand: FleetStep; product_name: Mirage XT; description_short: Very bouncy FF Blast+ ride; material: Mesh, FF Blast+; fit: True; care: Wipe; sizes: M6\u201313 / W5\u201312; features: Wide fit, Arch Support; colors: Black; price: 372.98; review_summary: Very durable with excellent heel cushioning; fits true to size for most runners.; number_of_reviews: 1579; rating: 3.8"
+          },
+          {
+            "uuid": "01b0ead9c0ef0dd5c096de3401abd3d7",
+            "text": "",
+            "name": "",
+            "score": 0,
+            "context": "Product UUID: 01b0ead9c0ef0dd5c096de3401abd3d7\nFamily: Road\nCategories: Road, All-season, Men and Women\nAttributes: brand: RoadRift; product_name: Horizon Road; description_short: Max-cushion bouncy ride w/ giant CloudTec pods; material: Mesh, Helion; fit: True; care: Wipe; sizes: M7\u201314 / W5\u201311; features: nan; colors: Multi; price: 474.9; review_summary: Very durable with excellent heel cushioning; fits true to size for most runners.; number_of_reviews: 560; rating: 4.0"
+          },
+          {
+            "uuid": "30f0fb2f5d2b30e08737f99c98969295",
+            "text": "",
+            "name": "",
+            "score": 0,
+            "context": "Product UUID: 30f0fb2f5d2b30e08737f99c98969295\nFamily: Road\nCategories: Road, All-season, Men and Women\nAttributes: brand: FleetStep; product_name: Mirage Ultra; description_short: Max softness, PureGEL heel; material: Knit, FF Blast+ Eco; fit: True; care: Wipe; sizes: M6\u201316 / W5\u201313; features: Wide fit, Arch Support; colors: Multi; price: 69.96; review_summary: Lightweight feel with firm cushioning; some users recommend sizing up half a size.; number_of_reviews: 490; rating: 3.2"
+          }
+        ],
+        "num_results": 10,
+        "context_length": 4803,
+        "latency_ms": 2623,
+        "success": true,
+        "error": null,
+        "search_type": "hybrid_rag",
+        "retrieval_evaluation": {
+          "relevance": 1,
+          "coverage": 1,
+          "precision": 1,
+          "reasoning": "No products were retrieved, so there is no relevance, coverage, or precision. The query asks for women's trail shoes with excellent arch support under $190, but the result list is empty, failing to meet any aspect of the user's needs."
+        },
+        "response_evaluation": {
+          "accuracy": 1,
+          "hallucination": 1,
+          "helpfulness": 1,
+          "completeness": 1,
+          "reasoning": "The response refers to a product 'FleetStep Mirage Pro 2' and provides detailed information about it, but the 'Products Used as Context' section is completely empty. Since there are no actual products provided in the context, the assistant has invented a product and its attributes, resulting in severe hallucination and inaccuracy. The response cannot be accurate, complete, or helpful without valid product data to draw from."
+        }
+      },
+      "keyword": {
+        "query": "Recommend trail shoes for women that offer excellent arch support and are under $190.",
+        "response": "Found 2 products (keyword match)",
+        "products": [
+          {
+            "name": "All Shoes",
+            "price": "",
+            "full_text": "All Shoes"
+          },
+          {
+            "name": "Trail Running",
+            "price": "",
+            "full_text": "Trail Running"
+          }
+        ],
+        "num_results": 2,
+        "latency_ms": 2748,
+        "success": true,
+        "error": null,
+        "search_type": "keyword",
+        "retrieval_evaluation": {
+          "relevance": 1,
+          "coverage": 1,
+          "precision": 1,
+          "reasoning": "The retrieved results 'All Shoes' and 'Trail Running' are overly broad categories and do not specifically identify trail shoes for women with excellent arch support under $190. They fail to address the key criteria of gender, arch support, price limit, and product type, making them largely irrelevant and imprecise with no meaningful coverage of the user's needs."
+        },
+        "llm_response": "I'm sorry, but I don't have access to real-time product catalogs or pricing, so I can't provide specific trail shoe recommendations under $190 with excellent arch support for women. My knowledge cutoff is January 15, 2025, and I can't browse current inventory.\n\nHowever, I recommend checking the **Trail Running** collection on trusted outdoor retailers like REI, Zappos, or Running Warehouse. Look for women\u2019s-specific models from top brands like **Hoka**, **Altra**, **Brooks**, or **Salomon**, which are known for strong arch support and cushioning\u2014ideal for long runs on uneven terrain.\n\nUse filters for \u201carch support,\u201d \u201cwomen\u2019s,\u201d and \u201cunder $190\u201d to narrow down the best options. Many of these sites also offer expert reviews and fit guides to help you choose wisely.\n\nLet me know if you\u2019d like tips on what to look for in trail shoes or how to assess arch support!",
+        "response_evaluation": {
+          "accuracy": 4,
+          "hallucination": 5,
+          "helpfulness": 3,
+          "completeness": 2,
+          "reasoning": "The response correctly acknowledges lack of real-time data and avoids fabricating specific product recommendations. It accurately guides the user toward relevant brands and retailers based on common knowledge. However, it falls short in completeness and helpfulness because it doesn't fully answer the query with available context or actionable alternatives, such as suggesting filtering options within the 'Trail Running' category for women's shoes with arch support. No hallucination is present as it does not invent specific products or false details."
+        }
+      }
+    },
+    {
+      "query_id": "Q004",
+      "query": "Which trail models are hybrids for both road and trail running?",
+      "category": "custom",
+      "semantic": {
+        "query": "Which trail models are hybrids for both road and trail running?",
+        "response": "Based on the provided product information, there are no trail models explicitly described as hybrids designed for both road and trail running. All listed trail models are primarily tailored for trail use, with features like rugged outsoles, rock plates, or deep lugs, and none are marketed as dual-surface hybrid shoes.\n\nIf you're looking for a versatile shoe that performs well on both surfaces, I\u2019d recommend considering the **GlideShift Trail** by NimbusPath \u2014 although it's categorized as a trail shoe, its description as a \"lightweight versatile trainer\" suggests adaptability, but it's still not confirmed as a true road-trail hybrid based on the given data.",
+        "products": [
+          {
+            "uuid": "297c435f45f76af008e027986e21e90e",
+            "text": "",
+            "name": "",
+            "score": 0,
+            "context": "Product UUID: 297c435f45f76af008e027986e21e90e\nFamily: Trail\nCategories: Trail, 3-season, Men and Women\nAttributes: brand: RoadRift; product_name: PacePro Race; description_short: Cushioned ultra-distance shoe; material: Mesh, Energy Surge; fit: True; care: Wipe; sizes: M7\u201313 / W5\u201311; features: Wide fit; colors: Multi; price: 331.78; review_summary: Great comfort and grip on wet roads; sizing is accurate with medium-width feet.; number_of_reviews: 3214; rating: 4.7"
+          },
+          {
+            "uuid": "a59d4797180af8c914122a29dddb8ddf",
+            "text": "",
+            "name": "",
+            "score": 0,
+            "context": "Product UUID: a59d4797180af8c914122a29dddb8ddf\nFamily: Road/gym\nCategories: Road/gym, Women, All-season\nAttributes: brand: NimbusPath; product_name: GlideShift Trail; description_short: Lightweight versatile trainer, Helion + CloudTec; material: Mesh, Helion; fit: True; care: Wipe; sizes: M7\u201314 / W5\u201311; features: Wide fit; colors: Multi; price: 273.94; review_summary: Very durable with excellent heel cushioning; fits true to size for most runners.; number_of_reviews: 4901; rating: 3.3"
+          },
+          {
+            "uuid": "76f0b72b143f403e53634d3a324128f8",
+            "text": "",
+            "name": "",
+            "score": 0,
+            "context": "Product UUID: 76f0b72b143f403e53634d3a324128f8\nFamily: Trail\nCategories: Trail, 3-season, Men and Women\nAttributes: brand: RoadRift; product_name: StrideMax XT; description_short: Rugged trail w/ rock plate; material: Mesh, EVA, TrailTrack; fit: True; care: Rinse; sizes: M7\u201315 / W5\u201312; features: Wide fit; colors: Multi; price: 70.13; review_summary: Very comfortable straight out of the box; durability on par with premium trainers.; number_of_reviews: 2408; rating: 3.4"
+          },
+          {
+            "uuid": "ff163db065404f9f961e029bba7276d6",
+            "text": "",
+            "name": "",
+            "score": 0,
+            "context": "Product UUID: ff163db065404f9f961e029bba7276d6\nFamily: Trail\nCategories: Trail, Women\nAttributes: brand: CloudTrail; product_name: FluxRide Road; description_short: Ultra-distance trail, closed Cloud pods; material: Mesh, Helion, Missiongrip; fit: Slightly narrow; care: Rinse; sizes: M7\u201314 / W5\u201311; features: nan; colors: Limited; price: 172.88; review_summary: Excellent arch support and lockdown; holds up well after hundreds of kilometers.; number_of_reviews: 586; rating: 4.7"
+          },
+          {
+            "uuid": "93c86243e11419cb44f71793cd2e6a61",
+            "text": "",
+            "name": "",
+            "score": 0,
+            "context": "Product UUID: 93c86243e11419cb44f71793cd2e6a61\nFamily: Trail\nCategories: Trail, All-season, Men and Women\nAttributes: brand: RoadRift; product_name: Ignite Road; description_short: Technical trail, Missiongrip + Speedboard; material: Ripstop mesh, EVA; fit: True; care: Rinse; sizes: M7\u201313 / W5\u201310; features: Wide fit; colors: Multi; price: 294.35; review_summary: Highly cushioned and stable, but a bit bulky; best suited to easy and long runs.; number_of_reviews: 3610; rating: 4.6"
+          },
+          {
+            "uuid": "63810e9aeaf5f928ff268b3aa9cef707",
+            "text": "",
+            "name": "",
+            "score": 0,
+            "context": "Product UUID: 63810e9aeaf5f928ff268b3aa9cef707\nFamily: Road race\nCategories: Unisex, Road race, Race\nAttributes: brand: UrbanTempo; product_name: Velocity Sprint; description_short: Marathon racer w/ EnergyRods 2.0 + Lightstrike Pro; material: Textile, Lightstrike Pro; fit: True; care: Wipe; sizes: M6\u201313; features: nan; colors: Limited; price: 136.49; review_summary: Great comfort and grip on wet roads; sizing is accurate with medium-width feet.; number_of_reviews: 4815; rating: 3.1"
+          },
+          {
+            "uuid": "cbad7a325dca75e5269b2a7ad65c22fd",
+            "text": "",
+            "name": "",
+            "score": 0,
+            "context": "Product UUID: cbad7a325dca75e5269b2a7ad65c22fd\nFamily: Road\nCategories: Road, All-season, Men and Women\nAttributes: brand: UrbanTempo; product_name: GlideShift Ultra; description_short: Balanced trainer w/ Boost heel + Bounce forefoot; material: Mesh, Boost/Bounce; fit: True; care: Wipe; sizes: M6\u201314 / W5\u201311; features: nan; colors: Multi; price: 179.98; review_summary: Highly cushioned and stable, but a bit bulky; best suited to easy and long runs.; number_of_reviews: 2209; rating: 3.1"
+          },
+          {
+            "uuid": "db2b63d33e54eaf86bc800981ba6e5e7",
+            "text": "",
+            "name": "",
+            "score": 0,
+            "context": "Product UUID: db2b63d33e54eaf86bc800981ba6e5e7\nFamily: Trail\nCategories: Mud season, Trail, Women\nAttributes: brand: NimbusPath; product_name: FluxRide Sprint; description_short: Mud Contagrip, 5mm lugs; material: Anti-debris mesh; fit: Narrow; care: Rinse; sizes: M7\u201313 / W5\u201311; features: Wide fit; colors: Multi; price: 67.6; review_summary: Soft, comfortable upper but runs half a size small; great for daily mileage.; number_of_reviews: 3813; rating: 4.5"
+          },
+          {
+            "uuid": "01b0ead9c0ef0dd5c096de3401abd3d7",
+            "text": "",
+            "name": "",
+            "score": 0,
+            "context": "Product UUID: 01b0ead9c0ef0dd5c096de3401abd3d7\nFamily: Road\nCategories: Road, All-season, Men and Women\nAttributes: brand: RoadRift; product_name: Horizon Road; description_short: Max-cushion bouncy ride w/ giant CloudTec pods; material: Mesh, Helion; fit: True; care: Wipe; sizes: M7\u201314 / W5\u201311; features: nan; colors: Multi; price: 474.9; review_summary: Very durable with excellent heel cushioning; fits true to size for most runners.; number_of_reviews: 560; rating: 4.0"
+          },
+          {
+            "uuid": "52f97b2fe0e851f98d8d0b91fc6d5b71",
+            "text": "",
+            "name": "",
+            "score": 0,
+            "context": "Product UUID: 52f97b2fe0e851f98d8d0b91fc6d5b71\nFamily: Trail fast\nCategories: Trail fast, Spring/Summer, Men and Women\nAttributes: brand: VelociRun; product_name: Velocity Pro 2; description_short: Fast trail, TPU Energy Blade; material: Matryx mesh, Energy Surge; fit: Narrow; care: Wipe; sizes: M7\u201312 / W5\u201310; features: Wide fit, Arch Support; colors: Limited; price: 189.92; review_summary: Excellent arch support and lockdown; holds up well after hundreds of kilometers.; number_of_reviews: 688; rating: 4.9"
+          }
+        ],
+        "num_results": 10,
+        "context_length": 4831,
+        "latency_ms": 2125,
+        "success": true,
+        "error": null,
+        "search_type": "hybrid_rag",
+        "retrieval_evaluation": {
+          "relevance": 1,
+          "coverage": 1,
+          "precision": 1,
+          "reasoning": "No products were retrieved, so they cannot be relevant, comprehensive, or precise. The query asks for hybrid trail models suitable for both road and trail running, but the list is empty."
+        },
+        "response_evaluation": {
+          "accuracy": 4,
+          "hallucination": 2,
+          "helpfulness": 3,
+          "completeness": 3,
+          "reasoning": "The response correctly states that no hybrid models are explicitly mentioned in the provided context, which aligns with the absence of product data. However, it introduces the 'GlideShift Trail' by NimbusPath as a recommendation, which is not supported by the given product list, constituting a hallucination. This weakens accuracy and completeness, as it fails to fully address the query without reliable data. The helpfulness is moderate because while it attempts to guide the user, the suggested product lacks grounding in the context."
+        }
+      },
+      "keyword": {
+        "query": "Which trail models are hybrids for both road and trail running?",
+        "response": "Found 2 products (keyword match)",
+        "products": [
+          {
+            "name": "Trail Running",
+            "price": "",
+            "full_text": "Trail Running"
+          },
+          {
+            "name": "Road Running",
+            "price": "",
+            "full_text": "Road Running"
+          }
+        ],
+        "num_results": 2,
+        "latency_ms": 2647,
+        "success": true,
+        "error": null,
+        "search_type": "keyword",
+        "retrieval_evaluation": {
+          "relevance": 2,
+          "coverage": 2,
+          "precision": 2,
+          "reasoning": "The retrieved products list 'Trail Running' and 'Road Running' as separate categories, but the user specifically asked for hybrid models that combine both trail and road running. While the individual categories are related, they do not directly address the need for hybrid trail models. Therefore, the relevance and coverage are low because no actual hybrid models are presented, and precision is moderate since neither result is entirely irrelevant, but neither fully satisfies the query."
+        },
+        "llm_response": "Currently, the **Trail Running** models are specifically designed for off-road terrain and are not marketed as hybrids for both trail and road running. If you're looking for versatility across both surfaces, you might want to consider certain **Road Running** models that offer durable outsoles and added protection, which can handle light trail use.\n\nFor a true hybrid experience, keep an eye out for specific \"all-road\" or \"adventure running\" models that balance cushioning, grip, and durability\u2014though these aren't listed in the current categories provided.\n\nWould you like me to help identify specific shoe features that make a running shoe suitable for both road and trail use?",
+        "response_evaluation": {
+          "accuracy": 5,
+          "hallucination": 5,
+          "helpfulness": 4,
+          "completeness": 4,
+          "reasoning": "The response accurately reflects the product data by stating that Trail Running models are designed for off-road use and are not marketed as hybrids. It does not invent any facts outside the provided context. It offers helpful guidance by suggesting Road Running models with durable outsoles for light trail use and mentioning the concept of 'all-road' or 'adventure running' models, which is reasonable given the context. However, the response is cut off mid-sentence, so it fails to complete its thought, reducing completeness and slightly impacting helpfulness."
+        }
+      }
+    },
+    {
+      "query_id": "Q005",
+      "query": "What trail shoes come in narrow fit options for technical terrain?",
+      "category": "custom",
+      "semantic": {
+        "query": "What trail shoes come in narrow fit options for technical terrain?",
+        "response": "Based on the provided product information, none of the trail shoes listed offer a narrow fit option. In fact, most of them feature either a \"True\" fit or specifically mention a \"Wide fit.\" Additionally, several note that they may even run slightly wide or have a narrow toe box, but there is no option explicitly designed for narrow feet.\n\nFor technical terrain, the closest match would be the **Horizon Carbon** by NovaStride (UUID: 8685f8f74f6ca85b2c5cdc137b04480b), which is built for technical trails with Megagrip and 5mm lugs, but it has a \"True\" fit and no narrow variant. Similarly, the **Ignite Road** by RoadRift (UUID: 93c86243e11419cb44f71793cd2e6a61) is designed for technical trail use but also comes only in a \"True\" fit with a \"Wide fit\" feature.\n\nTherefore, **there are no trail shoes in this collection that come in narrow fit options suitable for technical terrain.**",
+        "products": [
+          {
+            "uuid": "a59d4797180af8c914122a29dddb8ddf",
+            "text": "",
+            "name": "",
+            "score": 0,
+            "context": "Product UUID: a59d4797180af8c914122a29dddb8ddf\nFamily: Road/gym\nCategories: Road/gym, Women, All-season\nAttributes: brand: NimbusPath; product_name: GlideShift Trail; description_short: Lightweight versatile trainer, Helion + CloudTec; material: Mesh, Helion; fit: True; care: Wipe; sizes: M7\u201314 / W5\u201311; features: Wide fit; colors: Multi; price: 273.94; review_summary: Very durable with excellent heel cushioning; fits true to size for most runners.; number_of_reviews: 4901; rating: 3.3"
+          },
+          {
+            "uuid": "297c435f45f76af008e027986e21e90e",
+            "text": "",
+            "name": "",
+            "score": 0,
+            "context": "Product UUID: 297c435f45f76af008e027986e21e90e\nFamily: Trail\nCategories: Trail, 3-season, Men and Women\nAttributes: brand: RoadRift; product_name: PacePro Race; description_short: Cushioned ultra-distance shoe; material: Mesh, Energy Surge; fit: True; care: Wipe; sizes: M7\u201313 / W5\u201311; features: Wide fit; colors: Multi; price: 331.78; review_summary: Great comfort and grip on wet roads; sizing is accurate with medium-width feet.; number_of_reviews: 3214; rating: 4.7"
+          },
+          {
+            "uuid": "76f0b72b143f403e53634d3a324128f8",
+            "text": "",
+            "name": "",
+            "score": 0,
+            "context": "Product UUID: 76f0b72b143f403e53634d3a324128f8\nFamily: Trail\nCategories: Trail, 3-season, Men and Women\nAttributes: brand: RoadRift; product_name: StrideMax XT; description_short: Rugged trail w/ rock plate; material: Mesh, EVA, TrailTrack; fit: True; care: Rinse; sizes: M7\u201315 / W5\u201312; features: Wide fit; colors: Multi; price: 70.13; review_summary: Very comfortable straight out of the box; durability on par with premium trainers.; number_of_reviews: 2408; rating: 3.4"
+          },
+          {
+            "uuid": "5ff0d303b58ecdc314b42f8124df0dd9",
+            "text": "",
+            "name": "",
+            "score": 0,
+            "context": "Product UUID: 5ff0d303b58ecdc314b42f8124df0dd9\nFamily: Trail\nCategories: Trail, Women\nAttributes: brand: CloudTrail; product_name: Mirage Carbon; description_short: Ultra trail shoe w/ Energy Rods + Continental outsole; material: Mesh, LSP foam; fit: True; care: Rinse; sizes: M7\u201314 / W5\u201311; features: nan; colors: Multi; price: 76.48; review_summary: Highly cushioned and stable, but a bit bulky; best suited to easy and long runs.; number_of_reviews: 847; rating: 4.6"
+          },
+          {
+            "uuid": "93c86243e11419cb44f71793cd2e6a61",
+            "text": "",
+            "name": "",
+            "score": 0,
+            "context": "Product UUID: 93c86243e11419cb44f71793cd2e6a61\nFamily: Trail\nCategories: Trail, All-season, Men and Women\nAttributes: brand: RoadRift; product_name: Ignite Road; description_short: Technical trail, Missiongrip + Speedboard; material: Ripstop mesh, EVA; fit: True; care: Rinse; sizes: M7\u201313 / W5\u201310; features: Wide fit; colors: Multi; price: 294.35; review_summary: Highly cushioned and stable, but a bit bulky; best suited to easy and long runs.; number_of_reviews: 3610; rating: 4.6"
+          },
+          {
+            "uuid": "8685f8f74f6ca85b2c5cdc137b04480b",
+            "text": "",
+            "name": "",
+            "score": 0,
+            "context": "Product UUID: 8685f8f74f6ca85b2c5cdc137b04480b\nFamily: Trail\nCategories: 3-season trail, Trail, Women\nAttributes: brand: NovaStride; product_name: Horizon Carbon; description_short: Technical trail w/ Megagrip & 5mm lugs; material: Mesh, CMEVA, Megagrip; fit: True; care: Rinse; sizes: M7\u201315 / W5\u201311; features: Arch Support; colors: Multi; price: 252.84; review_summary: Outstanding forefoot responsiveness and midfoot support; ideal for tempo runs.; number_of_reviews: 1666; rating: 3.2"
+          },
+          {
+            "uuid": "d89a45eea38a9ee7f84b8a4998ebc82e",
+            "text": "",
+            "name": "",
+            "score": 0,
+            "context": "Product UUID: d89a45eea38a9ee7f84b8a4998ebc82e\nFamily: Road/Trail\nCategories: Wet/winter, Men, Road/Trail\nAttributes: brand: TerraSprint; product_name: FluxRide XT; description_short: Waterproof Ultraboost w/ Gore-Tex; material: GTX mesh, BOOST; fit: True; care: Wipe; sizes: M6\u201313 / W5\u201311; features: Wide fit, Arch Support; colors: Few; price: 156.03; review_summary: Secure fit around the midfoot, slightly narrow toe box; cushioning is plush and bouncy.; number_of_reviews: 972; rating: 5.0"
+          },
+          {
+            "uuid": "6246a8270cac196ede9a15c337ec3a14",
+            "text": "",
+            "name": "",
+            "score": 0,
+            "context": "Product UUID: 6246a8270cac196ede9a15c337ec3a14\nFamily: Trail\nCategories: Trail, All-terrain, Men and Women\nAttributes: brand: RoadRift; product_name: Ignite Cushion; description_short: Hybrid road\u201a\u00c4\u00ectrail, ReactX + grip outsole; material: Mesh, ReactX; fit: Slightly small; care: Brush clean; sizes: M7\u201315 / W5\u201312; features: nan; colors: Multi; price: 132.93; review_summary: Soft, comfortable upper but runs half a size small; great for daily mileage.; number_of_reviews: 2989; rating: 3.1"
+          },
+          {
+            "uuid": "578a909e0bd5a0f7e0e8ce109bc15992",
+            "text": "",
+            "name": "",
+            "score": 0,
+            "context": "Product UUID: 578a909e0bd5a0f7e0e8ce109bc15992\nFamily: Road\nCategories: Road, All-season, Men\nAttributes: brand: TerraSprint; product_name: Ignite Pro 2; description_short: Max-cushion ZoomX for long runs; material: Flyknit, ZoomX; fit: Slightly small; care: Wipe; sizes: M7\u201315 / W5\u201312; features: Wide fit; colors: Multi; price: 392.12; review_summary: Great comfort and grip on wet roads; sizing is accurate with medium-width feet.; number_of_reviews: 544; rating: 3.2"
+          },
+          {
+            "uuid": "ff163db065404f9f961e029bba7276d6",
+            "text": "",
+            "name": "",
+            "score": 0,
+            "context": "Product UUID: ff163db065404f9f961e029bba7276d6\nFamily: Trail\nCategories: Trail, Women\nAttributes: brand: CloudTrail; product_name: FluxRide Road; description_short: Ultra-distance trail, closed Cloud pods; material: Mesh, Helion, Missiongrip; fit: Slightly narrow; care: Rinse; sizes: M7\u201314 / W5\u201311; features: nan; colors: Limited; price: 172.88; review_summary: Excellent arch support and lockdown; holds up well after hundreds of kilometers.; number_of_reviews: 586; rating: 4.7"
+          }
+        ],
+        "num_results": 10,
+        "context_length": 4819,
+        "latency_ms": 1792,
+        "success": true,
+        "error": null,
+        "search_type": "hybrid_rag",
+        "retrieval_evaluation": {
+          "relevance": 1,
+          "coverage": 1,
+          "precision": 1,
+          "reasoning": "No products were retrieved, so they cannot be relevant, comprehensive, or precise. The query asks for trail shoes with narrow fit options suitable for technical terrain, but the absence of any results means the retrieval quality is minimal."
+        },
+        "response_evaluation": {
+          "accuracy": 5,
+          "hallucination": 5,
+          "helpfulness": 4,
+          "completeness": 4,
+          "reasoning": "The response correctly states that none of the listed trail shoes offer a narrow fit, accurately reflecting the context. It does not invent details not present and acknowledges the lack of narrow fit options. It partially answers the user's question by identifying a shoe suitable for technical terrain, though the response appears cut off. This minor incompleteness affects completeness and helpfulness slightly, but there is no hallucination and accuracy is high."
+        }
+      },
+      "keyword": {
+        "query": "What trail shoes come in narrow fit options for technical terrain?",
+        "response": "Found 2 products (keyword match)",
+        "products": [
+          {
+            "name": "All Shoes",
+            "price": "",
+            "full_text": "All Shoes"
+          },
+          {
+            "name": "Trail Running",
+            "price": "",
+            "full_text": "Trail Running"
+          }
+        ],
+        "num_results": 2,
+        "latency_ms": 2781,
+        "success": true,
+        "error": null,
+        "search_type": "keyword",
+        "retrieval_evaluation": {
+          "relevance": 2,
+          "coverage": 1,
+          "precision": 2,
+          "reasoning": "The retrieved products ('All Shoes', 'Trail Running') are too broad and generic. While 'Trail Running' is somewhat relevant to technical terrain, there is no indication of narrow fit options, which is a key user requirement. The results lack specificity and fail to target narrow fit trail shoes, resulting in poor coverage and low precision."
+        },
+        "llm_response": "Hey there! While I\u2019d love to give you specifics on trail running shoes with narrow fit options for technical terrain, I currently don\u2019t have access to real-time product catalogs or inventory details. However, many top trail running brands like **Hoka**, **Altra**, **Salomon**, and **Brooks** do offer models known for secure, snug fits that work well for narrow feet on rugged, technical trails.\n\nFor example:\n- **Salomon Speedcross** or **Trailcross** \u2013 often praised for their precise, narrow toe-box fit and aggressive grip.\n- **Brooks Cascadia** \u2013 available in narrow widths (in some models/regions), with great stability.\n- **Hoka Tecton X** or **Speedgoat** \u2013 snug heel and midfoot fit, though some find them roomy; worth trying in narrow if available.\n\nSince fit is so personal, I recommend checking out **REI\u2019s shoe finder** or **Running Warehouse**, where you can filter by width and terrain type. If you're in a region where **custom fitting** is available, visiting a specialty running store can make all the difference.\n\nLet me know your preferred brand or location\u2014I can help guide you further! \ud83c\udfd4\ufe0f\ud83d\udc5f",
+        "response_evaluation": {
+          "accuracy": 4,
+          "hallucination": 4,
+          "helpfulness": 4,
+          "completeness": 3,
+          "reasoning": "The response accurately mentions brands known for narrow fits and technical trail performance, aligning with general product knowledge. It avoids making up specific non-existent models but does not complete the thought on Salomon models, likely due to a cutoff. This partial information is helpful but not fully complete. There's no clear hallucination, though specifics like 'Trailcross' may not be verified. The assistant acknowledges its limitations, enhancing trustworthiness."
+        }
+      }
+    },
+    {
+      "query_id": "Q006",
+      "query": "Which trail shoes have Megagrip or Missiongrip outsoles for wet rock surfaces?",
+      "category": "custom",
+      "semantic": {
+        "query": "Which trail shoes have Megagrip or Missiongrip outsoles for wet rock surfaces?",
+        "response": "The trail shoes with **Megagrip** or **Missiongrip** outsoles suitable for wet rock surfaces are:\n\n1. **NovaStride Horizon Carbon** \u2013 Features **Megagrip** with 5mm lugs (designed for technical trail use and excellent grip on wet surfaces).  \n   - *Suitability:* Ideal for tempo runs on technical terrain.  \n   - *Rating:* 3.2 (based on 1,666 reviews)  \n   - *Price:* $252.84  \n\n2. **RoadRift Ignite Road** \u2013 Features **Missiongrip** outsole for enhanced traction on wet rocks and technical trails.  \n   - *Suitability:* Best for easy and long runs with stable, cushioned performance.  \n   - *Rating:* 4.6 (based on 3,610 reviews)  \n   - *Price:* $294.35  \n\nBoth models are designed for reliable grip on challenging, wet surfaces. Let me know if you\u2019d like help choosing between them!",
+        "products": [
+          {
+            "uuid": "f41b0c03f316210e1ebe52d4ee55c5c9",
+            "text": "",
+            "name": "",
+            "score": 0,
+            "context": "Product UUID: f41b0c03f316210e1ebe52d4ee55c5c9\nFamily: Trail\nCategories: All-season, Trail, Women\nAttributes: brand: FleetStep; product_name: Mirage Pro 2; description_short: Protective trail, ASICSGRIP; material: Mesh, FlyteFoam; fit: True; care: Rinse; sizes: M7\u201315 / W5\u201312; features: Wide fit, Arch Support; colors: Red; price: 187.23; review_summary: Highly cushioned and stable, but a bit bulky; best suited to easy and long runs.; number_of_reviews: 2118; rating: 4.5"
+          },
+          {
+            "uuid": "5ff0d303b58ecdc314b42f8124df0dd9",
+            "text": "",
+            "name": "",
+            "score": 0,
+            "context": "Product UUID: 5ff0d303b58ecdc314b42f8124df0dd9\nFamily: Trail\nCategories: Trail, Women\nAttributes: brand: CloudTrail; product_name: Mirage Carbon; description_short: Ultra trail shoe w/ Energy Rods + Continental outsole; material: Mesh, LSP foam; fit: True; care: Rinse; sizes: M7\u201314 / W5\u201311; features: nan; colors: Multi; price: 76.48; review_summary: Highly cushioned and stable, but a bit bulky; best suited to easy and long runs.; number_of_reviews: 847; rating: 4.6"
+          },
+          {
+            "uuid": "a59d4797180af8c914122a29dddb8ddf",
+            "text": "",
+            "name": "",
+            "score": 0,
+            "context": "Product UUID: a59d4797180af8c914122a29dddb8ddf\nFamily: Road/gym\nCategories: Road/gym, Women, All-season\nAttributes: brand: NimbusPath; product_name: GlideShift Trail; description_short: Lightweight versatile trainer, Helion + CloudTec; material: Mesh, Helion; fit: True; care: Wipe; sizes: M7\u201314 / W5\u201311; features: Wide fit; colors: Multi; price: 273.94; review_summary: Very durable with excellent heel cushioning; fits true to size for most runners.; number_of_reviews: 4901; rating: 3.3"
+          },
+          {
+            "uuid": "578a909e0bd5a0f7e0e8ce109bc15992",
+            "text": "",
+            "name": "",
+            "score": 0,
+            "context": "Product UUID: 578a909e0bd5a0f7e0e8ce109bc15992\nFamily: Road\nCategories: Road, All-season, Men\nAttributes: brand: TerraSprint; product_name: Ignite Pro 2; description_short: Max-cushion ZoomX for long runs; material: Flyknit, ZoomX; fit: Slightly small; care: Wipe; sizes: M7\u201315 / W5\u201312; features: Wide fit; colors: Multi; price: 392.12; review_summary: Great comfort and grip on wet roads; sizing is accurate with medium-width feet.; number_of_reviews: 544; rating: 3.2"
+          },
+          {
+            "uuid": "76f0b72b143f403e53634d3a324128f8",
+            "text": "",
+            "name": "",
+            "score": 0,
+            "context": "Product UUID: 76f0b72b143f403e53634d3a324128f8\nFamily: Trail\nCategories: Trail, 3-season, Men and Women\nAttributes: brand: RoadRift; product_name: StrideMax XT; description_short: Rugged trail w/ rock plate; material: Mesh, EVA, TrailTrack; fit: True; care: Rinse; sizes: M7\u201315 / W5\u201312; features: Wide fit; colors: Multi; price: 70.13; review_summary: Very comfortable straight out of the box; durability on par with premium trainers.; number_of_reviews: 2408; rating: 3.4"
+          },
+          {
+            "uuid": "8685f8f74f6ca85b2c5cdc137b04480b",
+            "text": "",
+            "name": "",
+            "score": 0,
+            "context": "Product UUID: 8685f8f74f6ca85b2c5cdc137b04480b\nFamily: Trail\nCategories: 3-season trail, Trail, Women\nAttributes: brand: NovaStride; product_name: Horizon Carbon; description_short: Technical trail w/ Megagrip & 5mm lugs; material: Mesh, CMEVA, Megagrip; fit: True; care: Rinse; sizes: M7\u201315 / W5\u201311; features: Arch Support; colors: Multi; price: 252.84; review_summary: Outstanding forefoot responsiveness and midfoot support; ideal for tempo runs.; number_of_reviews: 1666; rating: 3.2"
+          },
+          {
+            "uuid": "93c86243e11419cb44f71793cd2e6a61",
+            "text": "",
+            "name": "",
+            "score": 0,
+            "context": "Product UUID: 93c86243e11419cb44f71793cd2e6a61\nFamily: Trail\nCategories: Trail, All-season, Men and Women\nAttributes: brand: RoadRift; product_name: Ignite Road; description_short: Technical trail, Missiongrip + Speedboard; material: Ripstop mesh, EVA; fit: True; care: Rinse; sizes: M7\u201313 / W5\u201310; features: Wide fit; colors: Multi; price: 294.35; review_summary: Highly cushioned and stable, but a bit bulky; best suited to easy and long runs.; number_of_reviews: 3610; rating: 4.6"
+          },
+          {
+            "uuid": "cbad7a325dca75e5269b2a7ad65c22fd",
+            "text": "",
+            "name": "",
+            "score": 0,
+            "context": "Product UUID: cbad7a325dca75e5269b2a7ad65c22fd\nFamily: Road\nCategories: Road, All-season, Men and Women\nAttributes: brand: UrbanTempo; product_name: GlideShift Ultra; description_short: Balanced trainer w/ Boost heel + Bounce forefoot; material: Mesh, Boost/Bounce; fit: True; care: Wipe; sizes: M6\u201314 / W5\u201311; features: nan; colors: Multi; price: 179.98; review_summary: Highly cushioned and stable, but a bit bulky; best suited to easy and long runs.; number_of_reviews: 2209; rating: 3.1"
+          },
+          {
+            "uuid": "30f0fb2f5d2b30e08737f99c98969295",
+            "text": "",
+            "name": "",
+            "score": 0,
+            "context": "Product UUID: 30f0fb2f5d2b30e08737f99c98969295\nFamily: Road\nCategories: Road, All-season, Men and Women\nAttributes: brand: FleetStep; product_name: Mirage Ultra; description_short: Max softness, PureGEL heel; material: Knit, FF Blast+ Eco; fit: True; care: Wipe; sizes: M6\u201316 / W5\u201313; features: Wide fit, Arch Support; colors: Multi; price: 69.96; review_summary: Lightweight feel with firm cushioning; some users recommend sizing up half a size.; number_of_reviews: 490; rating: 3.2"
+          },
+          {
+            "uuid": "297c435f45f76af008e027986e21e90e",
+            "text": "",
+            "name": "",
+            "score": 0,
+            "context": "Product UUID: 297c435f45f76af008e027986e21e90e\nFamily: Trail\nCategories: Trail, 3-season, Men and Women\nAttributes: brand: RoadRift; product_name: PacePro Race; description_short: Cushioned ultra-distance shoe; material: Mesh, Energy Surge; fit: True; care: Wipe; sizes: M7\u201313 / W5\u201311; features: Wide fit; colors: Multi; price: 331.78; review_summary: Great comfort and grip on wet roads; sizing is accurate with medium-width feet.; number_of_reviews: 3214; rating: 4.7"
+          }
+        ],
+        "num_results": 10,
+        "context_length": 4802,
+        "latency_ms": 3051,
+        "success": true,
+        "error": null,
+        "search_type": "hybrid_rag",
+        "retrieval_evaluation": {
+          "relevance": 1,
+          "coverage": 1,
+          "precision": 1,
+          "reasoning": "No products were retrieved, so there is no relevance, coverage, or precision. The query specifically asks for trail shoes with Megagrip or Missiongrip outsoles for wet rock surfaces, but the results list is empty, failing to address the user's needs entirely."
+        },
+        "response_evaluation": {
+          "accuracy": 1,
+          "hallucination": 1,
+          "helpfulness": 1,
+          "completeness": 1,
+          "reasoning": "The response invents product details not present in the provided context, such as specific shoe models (NovaStride Horizon Carbon, RoadRift Ignite Road), features (5mm lugs, tempo runs), ratings, and prices. The context contains no product data, making any specific claims about models or features unfounded. This results in severe hallucination and inaccuracy, rendering the response unhelpful and incomplete."
+        }
+      },
+      "keyword": {
+        "query": "Which trail shoes have Megagrip or Missiongrip outsoles for wet rock surfaces?",
+        "response": "Found 2 products (keyword match)",
+        "products": [
+          {
+            "name": "All Shoes",
+            "price": "",
+            "full_text": "All Shoes"
+          },
+          {
+            "name": "Trail Running",
+            "price": "",
+            "full_text": "Trail Running"
+          }
+        ],
+        "num_results": 2,
+        "latency_ms": 2660,
+        "success": true,
+        "error": null,
+        "search_type": "keyword",
+        "retrieval_evaluation": {
+          "relevance": 2,
+          "coverage": 2,
+          "precision": 3,
+          "reasoning": "The retrieved products ('All Shoes', 'Trail Running') are overly broad and do not specifically target trail shoes with Megagrip or Missiongrip outsoles, which are critical for wet rock surfaces. While 'Trail Running' is somewhat related, the results lack specificity and fail to filter for the requested outsole technologies, reducing relevance and coverage. Precision is moderately low as the categories may include many irrelevant products without the desired grip technology."
+        },
+        "llm_response": "Hey there! \ud83d\ude0a Thanks for your question about trail running shoes with reliable grip for wet rock surfaces. While I'd love to give you specifics on models with Megagrip or Missiongrip outsoles, I don\u2019t currently have access to live product details or inventory. But here\u2019s the good news \u2014 shoes with **Vibram\u00ae Megagrip** outsoles are super popular in trail running for exactly that kind of condition \u2014 wet rocks, slippery trails, you name it! Missiongrip might be a mix-up (not a standard term), but Megagrip is definitely the gold standard.\n\nI\u2019d recommend checking out trail running shoes that specifically feature **Vibram\u00ae Megagrip** outsoles \u2014 they offer excellent traction, durability, and water dispersion. Brands like Salomon, Hoka, Altra, and Inov-8 often use Vibram Megagrip in their trail models.\n\nWant me to help guide you through some top-rated models (or where to find them) based on your running style or terrain? Just say the word! \ud83c\udfd4\ufe0f\ud83d\udc5f",
+        "response_evaluation": {
+          "accuracy": 4,
+          "hallucination": 5,
+          "helpfulness": 4,
+          "completeness": 3,
+          "reasoning": "The response correctly identifies Vibram\u00ae Megagrip as a common and reliable outsole for wet rock conditions and notes that 'Missiongrip' is not a standard term, which aligns with known product knowledge. It avoids inventing specific shoe models, thus avoiding severe hallucination. However, it does not list any actual trail shoes from the available product catalog that feature Megagrip outsoles, making the answer incomplete. While helpful in guiding the user, it falls short on completeness due to lack of specific product recommendations."
+        }
+      }
+    },
+    {
+      "query_id": "Q007",
+      "query": "What are the best all-season daily trainers for men with good wet-road grip?",
+      "category": "custom",
+      "semantic": {
+        "query": "What are the best all-season daily trainers for men with good wet-road grip?",
+        "response": "Based on the product information provided, the best all-season daily trainers for men with good wet-road grip are:\n\n### **AeroStride \u2013 Horizon Pro 3**  \n- **Family**: Road  \n- **Categories**: Road, All-season, Men  \n- **Key Features**:  \n  - Designed as a daily trainer with React + Zoom Air technology  \n  - Excellent comfort and **great grip on wet roads** (as noted in review summary)  \n  - True fit, wide fit option available  \n  - Price: $447.43 (highest in this selection, premium option)  \n  - Rating: 3.5 (based on 3,973 reviews)  \n  - Sizes: M7\u201315  \n\n### **CloudTrail \u2013 GlideShift Race**  \n- **Family**: Road  \n- **Categories**: Road, All-season, Men and Women  \n- **Key Features**:  \n  - Max cushioning with soft EVA foam \u2013 \"softest Hoka\"  \n  - Good for daily mileage, **comfortable upper**, performs well in varied conditions  \n  - Note: Runs half a size small \u2013 consider sizing up  \n  - Price: $79.77 (very affordable)  \n  - Rating: 4.6 (highly rated, 4,149 reviews)  \n  - Sizes: M7\u201315  \n\nWhile the **Horizon Pro 3** is explicitly mentioned to have **great grip on wet roads**, the **GlideShift Race** also supports daily use in all-season conditions and is praised for performance on wet surfaces in its review summary.\n\n**Top Recommendation**:  \nFor high grip and premium performance \u2014 **AeroStride Horizon Pro 3**  \nFor budget-friendly, highly cushioned daily miles \u2014 **CloudTrail GlideShift Race** (just size up).",
+        "products": [
+          {
+            "uuid": "cbad7a325dca75e5269b2a7ad65c22fd",
+            "text": "",
+            "name": "",
+            "score": 0,
+            "context": "Product UUID: cbad7a325dca75e5269b2a7ad65c22fd\nFamily: Road\nCategories: Road, All-season, Men and Women\nAttributes: brand: UrbanTempo; product_name: GlideShift Ultra; description_short: Balanced trainer w/ Boost heel + Bounce forefoot; material: Mesh, Boost/Bounce; fit: True; care: Wipe; sizes: M6\u201314 / W5\u201311; features: nan; colors: Multi; price: 179.98; review_summary: Highly cushioned and stable, but a bit bulky; best suited to easy and long runs.; number_of_reviews: 2209; rating: 3.1"
+          },
+          {
+            "uuid": "a59d4797180af8c914122a29dddb8ddf",
+            "text": "",
+            "name": "",
+            "score": 0,
+            "context": "Product UUID: a59d4797180af8c914122a29dddb8ddf\nFamily: Road/gym\nCategories: Road/gym, Women, All-season\nAttributes: brand: NimbusPath; product_name: GlideShift Trail; description_short: Lightweight versatile trainer, Helion + CloudTec; material: Mesh, Helion; fit: True; care: Wipe; sizes: M7\u201314 / W5\u201311; features: Wide fit; colors: Multi; price: 273.94; review_summary: Very durable with excellent heel cushioning; fits true to size for most runners.; number_of_reviews: 4901; rating: 3.3"
+          },
+          {
+            "uuid": "76f0b72b143f403e53634d3a324128f8",
+            "text": "",
+            "name": "",
+            "score": 0,
+            "context": "Product UUID: 76f0b72b143f403e53634d3a324128f8\nFamily: Trail\nCategories: Trail, 3-season, Men and Women\nAttributes: brand: RoadRift; product_name: StrideMax XT; description_short: Rugged trail w/ rock plate; material: Mesh, EVA, TrailTrack; fit: True; care: Rinse; sizes: M7\u201315 / W5\u201312; features: Wide fit; colors: Multi; price: 70.13; review_summary: Very comfortable straight out of the box; durability on par with premium trainers.; number_of_reviews: 2408; rating: 3.4"
+          },
+          {
+            "uuid": "297c435f45f76af008e027986e21e90e",
+            "text": "",
+            "name": "",
+            "score": 0,
+            "context": "Product UUID: 297c435f45f76af008e027986e21e90e\nFamily: Trail\nCategories: Trail, 3-season, Men and Women\nAttributes: brand: RoadRift; product_name: PacePro Race; description_short: Cushioned ultra-distance shoe; material: Mesh, Energy Surge; fit: True; care: Wipe; sizes: M7\u201313 / W5\u201311; features: Wide fit; colors: Multi; price: 331.78; review_summary: Great comfort and grip on wet roads; sizing is accurate with medium-width feet.; number_of_reviews: 3214; rating: 4.7"
+          },
+          {
+            "uuid": "594a33f5a870bccd117b8be7e9b42ec0",
+            "text": "",
+            "name": "",
+            "score": 0,
+            "context": "Product UUID: 594a33f5a870bccd117b8be7e9b42ec0\nFamily: Road\nCategories: Road, All-season, Men\nAttributes: brand: AeroStride; product_name: Horizon Pro 3; description_short: Daily trainer w/ React + Zoom Air; material: Mesh, React foam; fit: True; care: Spot clean; sizes: M7\u201315 / W5\u201312; features: Wide fit; colors: Multi; price: 447.43; review_summary: Great comfort and grip on wet roads; sizing is accurate with medium-width feet.; number_of_reviews: 3973; rating: 3.5"
+          },
+          {
+            "uuid": "39838ef9b45167194d8f560962a539f9",
+            "text": "",
+            "name": "",
+            "score": 0,
+            "context": "Product UUID: 39838ef9b45167194d8f560962a539f9\nFamily: Road\nCategories: All-season, Road, Women\nAttributes: brand: NimbusPath; product_name: GlideShift Elite; description_short: Soft everyday trainer, DNA Loft v2; material: Mesh, DNA Loft; fit: True; care: Air dry; sizes: M7\u201315 / W5\u201312; features: Wide fit; colors: Multi; price: 329.31; review_summary: Upper is breathable and secure, with solid durability over long distances.; number_of_reviews: 1147; rating: 4.5"
+          },
+          {
+            "uuid": "071a3cd388fc2e09390f5641e29baacf",
+            "text": "",
+            "name": "",
+            "score": 0,
+            "context": "Product UUID: 071a3cd388fc2e09390f5641e29baacf\nFamily: Road\nCategories: Road, All-season, Men and Women\nAttributes: brand: CloudTrail; product_name: GlideShift Race; description_short: Max cushion, softest Hoka; material: Mesh, EVA; fit: True; care: Wipe; sizes: M7\u201315 / W5\u201312; features: Wide fit, Arch Support; colors: White; price: 79.77; review_summary: Soft, comfortable upper but runs half a size small; great for daily mileage.; number_of_reviews: 4149; rating: 4.6"
+          },
+          {
+            "uuid": "75d8cb855edd918d16be3a4d9acba840",
+            "text": "",
+            "name": "",
+            "score": 0,
+            "context": "Product UUID: 75d8cb855edd918d16be3a4d9acba840\nFamily: Trail\nCategories: Trail, All-season, Men and Women\nAttributes: brand: AeroStride; product_name: Enduro Pro 2; description_short: Road\u201a\u00c4\u00ectrail hybrid, balanced cushioning; material: Mesh, Energy Foam; fit: True; care: Wipe; sizes: M7\u201313 / W5\u201310.5; features: Arch Support; colors: Multi; price: 55.24; review_summary: Highly cushioned and stable, but a bit bulky; best suited to easy and long runs.; number_of_reviews: 3912; rating: 3.5"
+          },
+          {
+            "uuid": "112da6cc8cdadc638df713f12a29399f",
+            "text": "",
+            "name": "",
+            "score": 0,
+            "context": "Product UUID: 112da6cc8cdadc638df713f12a29399f\nFamily: Road fast\nCategories: Spring/Summer, Men and Women, Road fast\nAttributes: brand: AeroStride; product_name: Ignite Elite; description_short: Light, fast trainer w/ DNA Flash; material: Woven mesh, TPU; fit: Snug; care: Wipe; sizes: M7\u201313 / W5\u201311; features: Wide fit; colors: Black; price: 73.01; review_summary: Very durable with excellent heel cushioning; fits true to size for most runners.; number_of_reviews: 2038; rating: 4.9"
+          },
+          {
+            "uuid": "d89a45eea38a9ee7f84b8a4998ebc82e",
+            "text": "",
+            "name": "",
+            "score": 0,
+            "context": "Product UUID: d89a45eea38a9ee7f84b8a4998ebc82e\nFamily: Road/Trail\nCategories: Wet/winter, Men, Road/Trail\nAttributes: brand: TerraSprint; product_name: FluxRide XT; description_short: Waterproof Ultraboost w/ Gore-Tex; material: GTX mesh, BOOST; fit: True; care: Wipe; sizes: M6\u201313 / W5\u201311; features: Wide fit, Arch Support; colors: Few; price: 156.03; review_summary: Secure fit around the midfoot, slightly narrow toe box; cushioning is plush and bouncy.; number_of_reviews: 972; rating: 5.0"
+          }
+        ],
+        "num_results": 10,
+        "context_length": 4811,
+        "latency_ms": 1888,
+        "success": true,
+        "error": null,
+        "search_type": "hybrid_rag",
+        "retrieval_evaluation": {
+          "relevance": 1,
+          "coverage": 1,
+          "precision": 1,
+          "reasoning": "No products were retrieved, so there is no relevance, coverage, or precision. The result set is empty and fails to address the user's query for all-season daily trainers with good wet-road grip."
+        },
+        "response_evaluation": {
+          "accuracy": 1,
+          "hallucination": 1,
+          "helpfulness": 1,
+          "completeness": 1,
+          "reasoning": "The response refers to a product (AeroStride \u2013 Horizon Pro 3) and specific features such as 'React + Zoom Air technology' and 'great grip on wet roads', but the 'Products Used as Context' section is empty. Since there is no product data provided to base the response on, all details in the response are hallucinated. The response appears confident and detailed but cannot be accurate or complete without supporting context. Therefore, all scores are at the lowest level."
+        }
+      },
+      "keyword": {
+        "query": "What are the best all-season daily trainers for men with good wet-road grip?",
+        "response": "Found 0 products (keyword match)",
+        "products": [],
+        "num_results": 0,
+        "latency_ms": 2493,
+        "success": true,
+        "error": null,
+        "search_type": "keyword",
+        "retrieval_evaluation": {
+          "relevance": 0,
+          "coverage": 0,
+          "precision": 0,
+          "reasoning": "Evaluation failed"
+        },
+        "llm_response": "No products found matching your query.",
+        "response_evaluation": {
+          "accuracy": 5,
+          "hallucination": 5,
+          "helpfulness": 2,
+          "completeness": 2,
+          "reasoning": "The response is accurate and does not hallucinate since no products were found in the context. However, it is not very helpful or complete for a real shopper, as it provides no alternative suggestions or guidance on how to proceed despite the lack of matching products."
+        }
+      }
+    },
+    {
+      "query_id": "Q008",
+      "query": "Which road shoes offer the softest cushioning for easy mileage days?",
+      "category": "custom",
+      "semantic": {
+        "query": "Which road shoes offer the softest cushioning for easy mileage days?",
+        "response": "Based on the product descriptions and review summaries, the road shoes that offer the **softest cushioning** ideal for **easy mileage days** are:\n\n### 1. **GlideShift Race** (Brand: CloudTrail)  \n- **Description_short**: \"Max cushion, softest Hoka\"  \n- **Price**: $79.77  \n- **Rating**: 4.6  \n- **Review_summary**: \"Soft, comfortable upper but runs half a size small; great for daily mileage.\"  \n- **Features**: Wide fit, Arch Support  \n- **Fit**: True to size  \n\nThis shoe is explicitly marketed as the *\"softest Hoka\"* and is highly rated (4.6/5), making it one of the top choices for soft cushioning on easy days.\n\n---\n\n### 2. **Mirage Ultra** (Brand: FleetStep)  \n- **Description_short**: \"Max softness, PureGEL heel\"  \n- **Price**: $69.96  \n- **Rating**: 3.2  \n- **Review_summary**: \"Lightweight feel with firm cushioning; some users recommend sizing up half a size.\"  \n\nWhile it promises *max softness* and has gel heel technology, the reviews note the cushioning feels a bit **firmer** than expected. Still, the design targets soft impact absorption.\n\n---\n\n### \u2705 **Top Recommendation: GlideShift Race**  \nFor the absolute **softest cushioning** best suited to **easy, daily mileage**, the **GlideShift Race by CloudTrail** stands out due to its high rating, comfort, and branding as the \"softest Hoka.\"\n\nLet me know if you'd like options with wide fit, arch support, or best value too!",
+        "products": [
+          {
+            "uuid": "6246a8270cac196ede9a15c337ec3a14",
+            "text": "",
+            "name": "",
+            "score": 0,
+            "context": "Product UUID: 6246a8270cac196ede9a15c337ec3a14\nFamily: Trail\nCategories: Trail, All-terrain, Men and Women\nAttributes: brand: RoadRift; product_name: Ignite Cushion; description_short: Hybrid road\u201a\u00c4\u00ectrail, ReactX + grip outsole; material: Mesh, ReactX; fit: Slightly small; care: Brush clean; sizes: M7\u201315 / W5\u201312; features: nan; colors: Multi; price: 132.93; review_summary: Soft, comfortable upper but runs half a size small; great for daily mileage.; number_of_reviews: 2989; rating: 3.1"
+          },
+          {
+            "uuid": "01b0ead9c0ef0dd5c096de3401abd3d7",
+            "text": "",
+            "name": "",
+            "score": 0,
+            "context": "Product UUID: 01b0ead9c0ef0dd5c096de3401abd3d7\nFamily: Road\nCategories: Road, All-season, Men and Women\nAttributes: brand: RoadRift; product_name: Horizon Road; description_short: Max-cushion bouncy ride w/ giant CloudTec pods; material: Mesh, Helion; fit: True; care: Wipe; sizes: M7\u201314 / W5\u201311; features: nan; colors: Multi; price: 474.9; review_summary: Very durable with excellent heel cushioning; fits true to size for most runners.; number_of_reviews: 560; rating: 4.0"
+          },
+          {
+            "uuid": "297c435f45f76af008e027986e21e90e",
+            "text": "",
+            "name": "",
+            "score": 0,
+            "context": "Product UUID: 297c435f45f76af008e027986e21e90e\nFamily: Trail\nCategories: Trail, 3-season, Men and Women\nAttributes: brand: RoadRift; product_name: PacePro Race; description_short: Cushioned ultra-distance shoe; material: Mesh, Energy Surge; fit: True; care: Wipe; sizes: M7\u201313 / W5\u201311; features: Wide fit; colors: Multi; price: 331.78; review_summary: Great comfort and grip on wet roads; sizing is accurate with medium-width feet.; number_of_reviews: 3214; rating: 4.7"
+          },
+          {
+            "uuid": "a59d4797180af8c914122a29dddb8ddf",
+            "text": "",
+            "name": "",
+            "score": 0,
+            "context": "Product UUID: a59d4797180af8c914122a29dddb8ddf\nFamily: Road/gym\nCategories: Road/gym, Women, All-season\nAttributes: brand: NimbusPath; product_name: GlideShift Trail; description_short: Lightweight versatile trainer, Helion + CloudTec; material: Mesh, Helion; fit: True; care: Wipe; sizes: M7\u201314 / W5\u201311; features: Wide fit; colors: Multi; price: 273.94; review_summary: Very durable with excellent heel cushioning; fits true to size for most runners.; number_of_reviews: 4901; rating: 3.3"
+          },
+          {
+            "uuid": "071a3cd388fc2e09390f5641e29baacf",
+            "text": "",
+            "name": "",
+            "score": 0,
+            "context": "Product UUID: 071a3cd388fc2e09390f5641e29baacf\nFamily: Road\nCategories: Road, All-season, Men and Women\nAttributes: brand: CloudTrail; product_name: GlideShift Race; description_short: Max cushion, softest Hoka; material: Mesh, EVA; fit: True; care: Wipe; sizes: M7\u201315 / W5\u201312; features: Wide fit, Arch Support; colors: White; price: 79.77; review_summary: Soft, comfortable upper but runs half a size small; great for daily mileage.; number_of_reviews: 4149; rating: 4.6"
+          },
+          {
+            "uuid": "30f0fb2f5d2b30e08737f99c98969295",
+            "text": "",
+            "name": "",
+            "score": 0,
+            "context": "Product UUID: 30f0fb2f5d2b30e08737f99c98969295\nFamily: Road\nCategories: Road, All-season, Men and Women\nAttributes: brand: FleetStep; product_name: Mirage Ultra; description_short: Max softness, PureGEL heel; material: Knit, FF Blast+ Eco; fit: True; care: Wipe; sizes: M6\u201316 / W5\u201313; features: Wide fit, Arch Support; colors: Multi; price: 69.96; review_summary: Lightweight feel with firm cushioning; some users recommend sizing up half a size.; number_of_reviews: 490; rating: 3.2"
+          },
+          {
+            "uuid": "39838ef9b45167194d8f560962a539f9",
+            "text": "",
+            "name": "",
+            "score": 0,
+            "context": "Product UUID: 39838ef9b45167194d8f560962a539f9\nFamily: Road\nCategories: All-season, Road, Women\nAttributes: brand: NimbusPath; product_name: GlideShift Elite; description_short: Soft everyday trainer, DNA Loft v2; material: Mesh, DNA Loft; fit: True; care: Air dry; sizes: M7\u201315 / W5\u201312; features: Wide fit; colors: Multi; price: 329.31; review_summary: Upper is breathable and secure, with solid durability over long distances.; number_of_reviews: 1147; rating: 4.5"
+          },
+          {
+            "uuid": "cbad7a325dca75e5269b2a7ad65c22fd",
+            "text": "",
+            "name": "",
+            "score": 0,
+            "context": "Product UUID: cbad7a325dca75e5269b2a7ad65c22fd\nFamily: Road\nCategories: Road, All-season, Men and Women\nAttributes: brand: UrbanTempo; product_name: GlideShift Ultra; description_short: Balanced trainer w/ Boost heel + Bounce forefoot; material: Mesh, Boost/Bounce; fit: True; care: Wipe; sizes: M6\u201314 / W5\u201311; features: nan; colors: Multi; price: 179.98; review_summary: Highly cushioned and stable, but a bit bulky; best suited to easy and long runs.; number_of_reviews: 2209; rating: 3.1"
+          },
+          {
+            "uuid": "a7962ad9dfbeb60e6553699dd62a4fa5",
+            "text": "",
+            "name": "",
+            "score": 0,
+            "context": "Product UUID: a7962ad9dfbeb60e6553699dd62a4fa5\nFamily: Road\nCategories: Road, All-season, Men and Women\nAttributes: brand: FleetStep; product_name: Mirage XT; description_short: Very bouncy FF Blast+ ride; material: Mesh, FF Blast+; fit: True; care: Wipe; sizes: M6\u201313 / W5\u201312; features: Wide fit, Arch Support; colors: Black; price: 372.98; review_summary: Very durable with excellent heel cushioning; fits true to size for most runners.; number_of_reviews: 1579; rating: 3.8"
+          },
+          {
+            "uuid": "9d711fa9fdd50443a6c0f247cdb15aad",
+            "text": "",
+            "name": "",
+            "score": 0,
+            "context": "Product UUID: 9d711fa9fdd50443a6c0f247cdb15aad\nFamily: Road stability\nCategories: All-season, Women, Road stability\nAttributes: brand: NovaStride; product_name: GlideShift Road; description_short: Adaptive stability + soft FF Blast+; material: Knit mesh, FF Blast+; fit: True; care: Wipe; sizes: M7\u201316 / W5\u201313; features: Arch Support; colors: Multi; price: 77.53; review_summary: Lightweight feel with firm cushioning; some users recommend sizing up half a size.; number_of_reviews: 3672; rating: 4.5"
+          }
+        ],
+        "num_results": 10,
+        "context_length": 4826,
+        "latency_ms": 2021,
+        "success": true,
+        "error": null,
+        "search_type": "hybrid_rag",
+        "retrieval_evaluation": {
+          "relevance": 1,
+          "coverage": 1,
+          "precision": 1,
+          "reasoning": "No products were retrieved, so there is no relevance, coverage, or precision. The query asks for road shoes with soft cushioning for easy mileage days, but the results list is empty."
+        },
+        "response_evaluation": {
+          "accuracy": 5,
+          "hallucination": 5,
+          "helpfulness": 5,
+          "completeness": 4,
+          "reasoning": "The response accurately reflects the product data provided, specifically highlighting the GlideShift Race as having maximum cushioning and being the softest Hoka, with relevant details like price, rating, and fit. There are no hallucinated facts. It is highly helpful for a shopper seeking soft cushioning for easy runs. Completeness is slightly reduced because the response appears cut off mid-sentence and does not list alternative options, limiting full exploration of choices despite focusing on the top candidate."
+        }
+      },
+      "keyword": {
+        "query": "Which road shoes offer the softest cushioning for easy mileage days?",
+        "response": "Found 2 products (keyword match)",
+        "products": [
+          {
+            "name": "All Shoes",
+            "price": "",
+            "full_text": "All Shoes"
+          },
+          {
+            "name": "Road Running",
+            "price": "",
+            "full_text": "Road Running"
+          }
+        ],
+        "num_results": 2,
+        "latency_ms": 2515,
+        "success": true,
+        "error": null,
+        "search_type": "keyword",
+        "retrieval_evaluation": {
+          "relevance": 2,
+          "coverage": 1,
+          "precision": 2,
+          "reasoning": "The retrieved products are too broad (e.g., 'All Shoes', 'Road Running') and do not specifically address shoes with the softest cushioning for easy mileage days. While road running shoes may include cushioned options, the results lack specificity and fail to target the key need for maximum cushioning comfort. Thus, relevance and precision are low, and coverage is poor due to absence of specific cushioned models."
+        },
+        "llm_response": "For easy mileage days, you\u2019ll want road running shoes with plush, soft cushioning that provide comfort and support over long distances. While I can\u2019t access real-time product inventories or specific brand offerings, I recommend looking for models known for maximum cushioning\u2014typically from top running shoe brands like Hoka, Brooks, Saucony, or ASICS.\n\nHere are some popular options known for soft cushioning:\n\n- **Hoka Bondi series** \u2013 Renowned for maximal cushioning and a plush ride, ideal for recovery and easy runs.\n- **Brooks Glycerin** \u2013 Offers a luxuriously soft feel with smooth transitions, perfect for comfortable daily mileage.\n- **Saucony Triumph** \u2013 Features PWRRUN foam for a soft, durable ride that\u2019s great on easy days.\n- **ASICS GEL-Nimbus** \u2013 Combines soft gel cushioning with excellent shock absorption.\n\nCheck the **Road Running** collection at your favorite retailer and filter by \"maximum cushioning\" or \"plush feel\" to find the best match. These models are typically highlighted for comfort-focused runs.\n\nLet me know if you\u2019d like help comparing specific shoes or finding ones suited to your weight, gait, or terrain!",
+        "response_evaluation": {
+          "accuracy": 5,
+          "hallucination": 5,
+          "helpfulness": 4,
+          "completeness": 4,
+          "reasoning": "The response accurately recommends brands and a specific model (Hoka Bondi) known for soft cushioning, aligning with road running shoes suitable for easy mileage. It avoids inventing specific product details not in context. It is highly helpful and mostly complete, though slightly cut off mid-sentence, limiting full completeness."
+        }
+      }
+    },
+    {
+      "query_id": "Q009",
+      "query": "Recommend road running shoes that fit wide feet and are under $150.",
+      "category": "custom",
+      "semantic": {
+        "query": "Recommend road running shoes that fit wide feet and are under $150.",
+        "response": "Here are the recommended **road running shoes** that fit **wide feet** and are priced **under $150**:\n\n---\n\n### \u2705 **FleetStep Mirage Ultra**  \n- **Price:** $69.96  \n- **Fit:** True to size  \n- **Features:** Wide fit, Arch Support  \n- **Material:** Knit, FF Blast+ Eco  \n- **Care:** Wipe  \n- **Sizes:** M6\u201316 / W5\u201313  \n- **Rating:** 3.2 (490 reviews)  \n- **Review Summary:** Lightweight feel with firm cushioning; some users recommend sizing up half a size.\n\n> A budget-friendly option with a wide fit and supportive design, suitable for runners needing extra room and arch support.\n\n---\n\n### \u2705 **CloudTrail GlideShift Race**  \n- **Price:** $79.77  \n- **Fit:** True to size (runs half a size small \u2013 consider sizing up)  \n- **Features:** Wide fit, Arch Support  \n- **Material:** Mesh, EVA  \n- **Care:** Wipe  \n- **Sizes:** M7\u201315 / W5\u201312  \n- **Rating:** 4.6 (4,149 reviews)  \n- **Review Summary:** Soft, comfortable upper but runs half a size small; great for daily mileage.\n\n> Highly rated for comfort and daily running, with excellent cushioning and a wide fit. One of the top picks in this category.\n\n---\n\nBoth options are under $150, offer wide fit, and are designed for road running.  \n\n\ud83d\udca1 **Top pick:** *CloudTrail GlideShift Race* \u2014 due to its high rating, comfort, and strong performance for daily runs.\n\nLet me know if you'd like help choosing based on running style or foot shape!",
+        "products": [
+          {
+            "uuid": "297c435f45f76af008e027986e21e90e",
+            "text": "",
+            "name": "",
+            "score": 0,
+            "context": "Product UUID: 297c435f45f76af008e027986e21e90e\nFamily: Trail\nCategories: Trail, 3-season, Men and Women\nAttributes: brand: RoadRift; product_name: PacePro Race; description_short: Cushioned ultra-distance shoe; material: Mesh, Energy Surge; fit: True; care: Wipe; sizes: M7\u201313 / W5\u201311; features: Wide fit; colors: Multi; price: 331.78; review_summary: Great comfort and grip on wet roads; sizing is accurate with medium-width feet.; number_of_reviews: 3214; rating: 4.7"
+          },
+          {
+            "uuid": "76f0b72b143f403e53634d3a324128f8",
+            "text": "",
+            "name": "",
+            "score": 0,
+            "context": "Product UUID: 76f0b72b143f403e53634d3a324128f8\nFamily: Trail\nCategories: Trail, 3-season, Men and Women\nAttributes: brand: RoadRift; product_name: StrideMax XT; description_short: Rugged trail w/ rock plate; material: Mesh, EVA, TrailTrack; fit: True; care: Rinse; sizes: M7\u201315 / W5\u201312; features: Wide fit; colors: Multi; price: 70.13; review_summary: Very comfortable straight out of the box; durability on par with premium trainers.; number_of_reviews: 2408; rating: 3.4"
+          },
+          {
+            "uuid": "a59d4797180af8c914122a29dddb8ddf",
+            "text": "",
+            "name": "",
+            "score": 0,
+            "context": "Product UUID: a59d4797180af8c914122a29dddb8ddf\nFamily: Road/gym\nCategories: Road/gym, Women, All-season\nAttributes: brand: NimbusPath; product_name: GlideShift Trail; description_short: Lightweight versatile trainer, Helion + CloudTec; material: Mesh, Helion; fit: True; care: Wipe; sizes: M7\u201314 / W5\u201311; features: Wide fit; colors: Multi; price: 273.94; review_summary: Very durable with excellent heel cushioning; fits true to size for most runners.; number_of_reviews: 4901; rating: 3.3"
+          },
+          {
+            "uuid": "01b0ead9c0ef0dd5c096de3401abd3d7",
+            "text": "",
+            "name": "",
+            "score": 0,
+            "context": "Product UUID: 01b0ead9c0ef0dd5c096de3401abd3d7\nFamily: Road\nCategories: Road, All-season, Men and Women\nAttributes: brand: RoadRift; product_name: Horizon Road; description_short: Max-cushion bouncy ride w/ giant CloudTec pods; material: Mesh, Helion; fit: True; care: Wipe; sizes: M7\u201314 / W5\u201311; features: nan; colors: Multi; price: 474.9; review_summary: Very durable with excellent heel cushioning; fits true to size for most runners.; number_of_reviews: 560; rating: 4.0"
+          },
+          {
+            "uuid": "cbad7a325dca75e5269b2a7ad65c22fd",
+            "text": "",
+            "name": "",
+            "score": 0,
+            "context": "Product UUID: cbad7a325dca75e5269b2a7ad65c22fd\nFamily: Road\nCategories: Road, All-season, Men and Women\nAttributes: brand: UrbanTempo; product_name: GlideShift Ultra; description_short: Balanced trainer w/ Boost heel + Bounce forefoot; material: Mesh, Boost/Bounce; fit: True; care: Wipe; sizes: M6\u201314 / W5\u201311; features: nan; colors: Multi; price: 179.98; review_summary: Highly cushioned and stable, but a bit bulky; best suited to easy and long runs.; number_of_reviews: 2209; rating: 3.1"
+          },
+          {
+            "uuid": "071a3cd388fc2e09390f5641e29baacf",
+            "text": "",
+            "name": "",
+            "score": 0,
+            "context": "Product UUID: 071a3cd388fc2e09390f5641e29baacf\nFamily: Road\nCategories: Road, All-season, Men and Women\nAttributes: brand: CloudTrail; product_name: GlideShift Race; description_short: Max cushion, softest Hoka; material: Mesh, EVA; fit: True; care: Wipe; sizes: M7\u201315 / W5\u201312; features: Wide fit, Arch Support; colors: White; price: 79.77; review_summary: Soft, comfortable upper but runs half a size small; great for daily mileage.; number_of_reviews: 4149; rating: 4.6"
+          },
+          {
+            "uuid": "6246a8270cac196ede9a15c337ec3a14",
+            "text": "",
+            "name": "",
+            "score": 0,
+            "context": "Product UUID: 6246a8270cac196ede9a15c337ec3a14\nFamily: Trail\nCategories: Trail, All-terrain, Men and Women\nAttributes: brand: RoadRift; product_name: Ignite Cushion; description_short: Hybrid road\u201a\u00c4\u00ectrail, ReactX + grip outsole; material: Mesh, ReactX; fit: Slightly small; care: Brush clean; sizes: M7\u201315 / W5\u201312; features: nan; colors: Multi; price: 132.93; review_summary: Soft, comfortable upper but runs half a size small; great for daily mileage.; number_of_reviews: 2989; rating: 3.1"
+          },
+          {
+            "uuid": "93c86243e11419cb44f71793cd2e6a61",
+            "text": "",
+            "name": "",
+            "score": 0,
+            "context": "Product UUID: 93c86243e11419cb44f71793cd2e6a61\nFamily: Trail\nCategories: Trail, All-season, Men and Women\nAttributes: brand: RoadRift; product_name: Ignite Road; description_short: Technical trail, Missiongrip + Speedboard; material: Ripstop mesh, EVA; fit: True; care: Rinse; sizes: M7\u201313 / W5\u201310; features: Wide fit; colors: Multi; price: 294.35; review_summary: Highly cushioned and stable, but a bit bulky; best suited to easy and long runs.; number_of_reviews: 3610; rating: 4.6"
+          },
+          {
+            "uuid": "30f0fb2f5d2b30e08737f99c98969295",
+            "text": "",
+            "name": "",
+            "score": 0,
+            "context": "Product UUID: 30f0fb2f5d2b30e08737f99c98969295\nFamily: Road\nCategories: Road, All-season, Men and Women\nAttributes: brand: FleetStep; product_name: Mirage Ultra; description_short: Max softness, PureGEL heel; material: Knit, FF Blast+ Eco; fit: True; care: Wipe; sizes: M6\u201316 / W5\u201313; features: Wide fit, Arch Support; colors: Multi; price: 69.96; review_summary: Lightweight feel with firm cushioning; some users recommend sizing up half a size.; number_of_reviews: 490; rating: 3.2"
+          },
+          {
+            "uuid": "6f499a72ea6b6febc6a0e75431e48e5c",
+            "text": "",
+            "name": "",
+            "score": 0,
+            "context": "Product UUID: 6f499a72ea6b6febc6a0e75431e48e5c\nFamily: Road\nCategories: Spring/Summer, Road, Women\nAttributes: brand: PulseTrack; product_name: Tempest Pro 2; description_short: Lightweight road shoe w/ Energy Blade; material: 3D mesh, Energy Foam; fit: True; care: Wipe; sizes: M7\u201313 / W5.5\u201310.5; features: nan; colors: Few; price: 127.11; review_summary: Very comfortable straight out of the box; durability on par with premium trainers.; number_of_reviews: 1030; rating: 3.7"
+          }
+        ],
+        "num_results": 10,
+        "context_length": 4816,
+        "latency_ms": 3592,
+        "success": true,
+        "error": null,
+        "search_type": "hybrid_rag",
+        "retrieval_evaluation": {
+          "relevance": 1,
+          "coverage": 1,
+          "precision": 1,
+          "reasoning": "No products were retrieved, so they cannot be relevant, comprehensive, or precise. The query asks for road running shoes for wide feet under $150, but the result list is empty."
+        },
+        "response_evaluation": {
+          "accuracy": 1,
+          "hallucination": 1,
+          "helpfulness": 1,
+          "completeness": 1,
+          "reasoning": "The response lists a product, 'FleetStep Mirage Ultra,' with detailed specifications, but no valid product data was provided in the context. This indicates the assistant completely hallucinated the product details, making the response inaccurate, unhelpful, and incomplete for a real shopper. There is no evidence the recommended shoe exists or meets the criteria, resulting in the lowest possible scores across all criteria."
+        }
+      },
+      "keyword": {
+        "query": "Recommend road running shoes that fit wide feet and are under $150.",
+        "response": "Found 3 products (keyword match)",
+        "products": [
+          {
+            "name": "Road Running",
+            "price": "",
+            "full_text": "Road Running"
+          },
+          {
+            "name": "All Shoes",
+            "price": "",
+            "full_text": "All Shoes"
+          },
+          {
+            "name": "Trail Running",
+            "price": "",
+            "full_text": "Trail Running"
+          }
+        ],
+        "num_results": 3,
+        "latency_ms": 2677,
+        "success": true,
+        "error": null,
+        "search_type": "keyword",
+        "retrieval_evaluation": {
+          "relevance": 1,
+          "coverage": 1,
+          "precision": 1,
+          "reasoning": "The retrieved results ('Road Running', 'All Shoes', 'Trail Running') are high-level categories, not specific products, and do not directly address the user's request for road running shoes suitable for wide feet under $150. They lack specificity, price filtering, width accommodation, and product-level detail, making them irrelevant, incomplete, and imprecise."
+        },
+        "llm_response": "Great choice focusing on comfort and value! For road running shoes that accommodate **wide feet** and stay **under $150**, here are some top-recommended options available in the **Road Running** category:\n\n1. **Brooks Ghost 15 (Wide Width Available)**  \n   - Known for its balanced cushioning and spacious toe box, the Ghost 15 is a favorite among runners with wider feet.  \n   - Smooth ride, durable outsole, and excellent arch support.  \n   - Typically priced around $130\u2013$140 for the standard width; wide widths (2E/4E) are reasonably priced and widely available.\n\n2. **ASICS Gel-Cumulus 24 (Wide & Extra Wide Options)**  \n   - Offers plush cushioning and a roomier forefoot design.  \n   - Great for daily training and long runs.  \n   - Often found on sale under $150 (originally $140\u2013$150). Look for \u201c2E\u201d or \u201c4E\u201d width options.\n\n3. **New Balance Fresh Foam 1080v12 (Wide & X-Wide)**  \n   - Designed with a wider forefoot platform and soft Fresh Foam midsole.  \n   - Highly breathable mesh upper with a secure fit.  \n   - Retired models (v11 or v12) are frequently discounted under $150 \u2014 perfect deal for wide-foot",
+        "response_evaluation": {
+          "accuracy": 0,
+          "hallucination": 0,
+          "helpfulness": 0,
+          "completeness": 0,
+          "reasoning": "Evaluation failed"
+        }
+      }
+    }
+  ]
+}
