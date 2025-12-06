@@ -356,13 +356,19 @@ Verify preferences are synced to blockchain.
   - shoe_size: 10
   - max_budget: 200
 
-**Blockchain (Membase Hub):**
-  - Found 1 conversation(s) on chain
-    - preferences_aswin
-  - Data synced: Yes
+**Blockchain (Membase Memories):**
+  - ✅ Found 2 preference(s) on blockchain!
+  - Bucket: `preferences_aswin`
+  - Synced preferences:
+    - shoe_size: 10
+    - max_budget: 200
 
 **Hub URL:** https://testnet.hub.membase.io
 **Membase ID:** ecomagent_consumer_prefs
+
+**Verify on Blockchain (Manual):**
+  - Memories: https://testnet.hub.membase.io/needle.html?owner=aswin
+  - Look for: `preferences_aswin`
 ```
 
 ---
@@ -376,24 +382,23 @@ In Claude Desktop, ask:
 "Check if my preferences are synced to blockchain"
 ```
 
-### Method 2: Direct API Query
+This will show both local and blockchain data with synced preferences.
 
-```bash
-curl -X POST https://testnet.hub.membase.io/api/conversation \
-  -H "Content-Type: application/x-www-form-urlencoded" \
-  -d "owner=YOUR_USER_ID"
+### Method 2: Membase Hub Dashboard (Browser)
+
+Visit the Memories page directly:
+```
+https://testnet.hub.membase.io/needle.html?owner=YOUR_USER_ID
 ```
 
-**Success Response:**
-```json
-["preferences_YOUR_USER_ID"]
-```
+Look for `preferences_YOUR_USER_ID` entry. Click `[click to show]` to see data.
 
 ### Method 3: Check MCP Server Logs
 
 Look for these messages:
 ```
-Background upload queued: user_id/preference_key
+Background sync queued: user_id
+Downloading from hub for user: user_id
 ```
 
 **Error indicators:**
@@ -401,9 +406,14 @@ Background upload queued: user_id/preference_key
 Error during upload: 599 Server Error
 ```
 
-### Method 4: Membase Hub Dashboard
+### Method 4: Python SDK
 
-Visit: https://hub.membase.io/ (or testnet.hub.membase.io)
+```python
+from membase.storage.hub import hub_client
+hub_client.initialize("https://testnet.hub.membase.io")
+data = hub_client.download_hub(owner="YOUR_USER_ID", filename="preferences_YOUR_USER_ID")
+print(data)
+```
 
 ---
 
@@ -662,6 +672,13 @@ data = hub_client.download_hub(owner="user_id", filename="pref_shoe_size")
 ---
 
 ## Changelog
+
+### v1.0.3 (2025-12-06)
+- Fixed `check_blockchain_sync` to use `hub_client.download_hub()`
+- Data is stored in Membase Memories (needle), not Conversations
+- Now shows actual synced preferences from blockchain
+- Added direct verification link to needle.html
+- Updated all documentation with correct verification methods
 
 ### v1.0.2 (2025-12-06)
 - Added `check_blockchain_sync` tool for verification
