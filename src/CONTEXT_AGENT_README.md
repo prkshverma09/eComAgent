@@ -130,7 +130,7 @@ Product UUID: 1a2b3c4d5e6f7g8h9i0k
   ```python
   class ContextRequest(Model):
       query: str  # The search query
-  
+
   class ContextResponse(Model):
       context: str  # Raw product context
   ```
@@ -373,4 +373,43 @@ The agent uses `data/updated_running_shoes_full_catalog.json` containing:
 - [Agentverse Documentation](https://docs.fetch.ai/agentverse/)
 - [MeTTa Language](https://metta-lang.dev/)
 - [ChromaDB Documentation](https://docs.trychroma.com/)
+
+---
+
+## 📄 License
+
+This project is licensed under the **MIT License**.
+
+```
+MIT License
+
+Copyright (c) 2024 Prakash Verma
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+```
+
+---
+
+## 📬 Contact
+
+**Prakash Verma**
+
+- GitHub: [@prkshverma09](https://github.com/prkshverma09)
+- Project Repository: [eComAgent](https://github.com/prkshverma09/eComAgent)
 

@@ -25,42 +25,33 @@ The PIM Agent is a smart product assistant that:
 
 ## 🏗️ Architecture Overview
 
-```mermaid
-flowchart TB
-    subgraph External["☁️ External Communication"]
-        UI["🖥️ Agentverse UI / ASI:One Chat"]
-        Mailbox["📬 Agentverse Mailbox"]
-    end
-
-    subgraph Agent["🤖 PIM Agent"]
-        direction TB
-        Framework["⚙️ uAgents Framework"]
-        ChatProto["💬 Chat Protocol v0.3.0"]
-        
-        subgraph RAG["🔍 Hybrid RAG System"]
-            direction LR
-            Vector["🗄️ ChromaDB<br/>Vector Store<br/><i>Semantic Search</i>"]
-            KG["🕸️ MeTTa<br/>Knowledge Graph<br/><i>Structured Data</i>"]
-        end
-        
-        LLM["🧠 ASI-1 LLM<br/><i>Response Synthesis</i>"]
-    end
-
-    subgraph Data["💾 Data Layer"]
-        Catalog["📦 Product Catalog<br/><i>JSON</i>"]
-    end
-
-    UI -->|"ChatMessage"| Mailbox
-    Mailbox -->|"ChatMessage"| ChatProto
-    ChatProto --> Framework
-    Framework --> RAG
-    Vector -->|"Relevant UUIDs"| KG
-    KG -->|"Enriched Context"| LLM
-    LLM -->|"Natural Response"| ChatProto
-    ChatProto -->|"ChatMessage"| Mailbox
-    Mailbox -->|"Response"| UI
-    Catalog -.->|"Ingest"| Vector
-    Catalog -.->|"Ingest"| KG
+```
+┌─────────────────────────────────────────────────────────────────┐
+│                        PIM Agent                                │
+├─────────────────────────────────────────────────────────────────┤
+│                                                                 │
+│  ┌──────────────┐    ┌──────────────┐    ┌──────────────────┐   │
+│  │   uAgents    │    │  Chat Proto  │    │  Agentverse      │   │
+│  │  Framework   │◄───│  (v0.3.0)    │◄───│  Mailbox         │   │
+│  └──────────────┘    └──────────────┘    └──────────────────┘   │
+│         │                                                       │
+│         ▼                                                       │
+│  ┌──────────────────────────────────────────────────────────┐   │
+│  │              Hybrid RAG System                           │   │
+│  │  ┌─────────────────┐      ┌─────────────────────────┐    │   │
+│  │  │   ChromaDB      │      │   MeTTa Knowledge       │    │   │
+│  │  │  Vector Store   │      │   Graph                 │    │   │
+│  │  │  (Semantic)     │      │   (Structured)          │    │   │
+│  │  └────────┬────────┘      └───────────┬─────────────┘    │   │
+│  │           │                           │                  │   │
+│  │           └───────────┬───────────────┘                  │   │
+│  │                       ▼                                  │   │
+│  │              ┌─────────────────┐                         │   │
+│  │              │   ASI-1 LLM     │                         │   │
+│  │              │   (Synthesis)   │                         │   │
+│  │              └─────────────────┘                         │   │
+│  └──────────────────────────────────────────────────────────┘   │
+└─────────────────────────────────────────────────────────────────┘
 ```
 
 ---
@@ -310,4 +301,43 @@ The agent uses `data/updated_running_shoes_full_catalog.json` containing:
 - [MeTTa Language](https://metta-lang.dev/)
 - [ChromaDB Documentation](https://docs.trychroma.com/)
 - [ASI-1 API](https://asi1.ai/docs)
+
+---
+
+## 📄 License
+
+This project is licensed under the **MIT License**.
+
+```
+MIT License
+
+Copyright (c) 2024 Prakash Verma
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+```
+
+---
+
+## 📬 Contact
+
+**Prakash Verma**
+
+- GitHub: [@prkshverma09](https://github.com/prkshverma09)
+- Project Repository: [eComAgent](https://github.com/prkshverma09/eComAgent)
 
