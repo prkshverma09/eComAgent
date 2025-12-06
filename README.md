@@ -197,6 +197,17 @@ Attributes: brand: TerraSprint; product_name: Trail Master; price: 179.99; ...
 | **Hub URL** | https://testnet.hub.membase.io |
 | **Tools** | 6 MCP tools for preference management |
 
+**Available Tools:**
+
+| Tool | Description |
+|------|-------------|
+| `save_preference` | Save a single preference (shoe_size, max_budget, etc.) |
+| `get_preferences` | Retrieve all saved preferences for a user |
+| `clear_preferences` | Delete all preferences for a user |
+| `get_personalized_query` | Enhance a search query with user preferences |
+| `save_multiple_preferences` | Save multiple preferences at once |
+| `check_blockchain_sync` | Verify if preferences are synced to blockchain |
+
 **Example Interaction:**
 ```
 User: "I wear size 10 shoes and my budget is under £200"
@@ -327,6 +338,10 @@ CONTEXT_AGENT_NAME="Context Retrieval Agent"
 
 # Required for Agentverse UI Chat
 AGENTVERSE_MAILBOX_KEY=your_mailbox_key_here
+
+# Consumer Preferences (Membase blockchain storage)
+MEMBASE_ID=your_membase_id
+MEMBASE_HUB=https://testnet.hub.membase.io
 
 # Suppress warnings
 TOKENIZERS_PARALLELISM=false
