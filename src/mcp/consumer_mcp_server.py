@@ -616,8 +616,8 @@ async def check_blockchain_sync(user_id: str) -> str:
                         except:
                             pass
                 else:
-                    results.append("  - No data found on blockchain yet")
-                    results.append("  - Note: Sync may take a few moments")
+                    results.append("  - No data in conversations API")
+                    results.append("  - Data may be in Memories (needle) - check link below")
             else:
                 results.append(f"  - Hub returned status: {response.status_code}")
 
@@ -630,6 +630,12 @@ async def check_blockchain_sync(user_id: str) -> str:
     results.append("")
     results.append(f"**Hub URL:** {store.membase_hub}")
     results.append(f"**Membase ID:** {store.membase_id}")
+
+    # Add direct verification links
+    results.append("")
+    results.append("**Verify on Blockchain (Manual):**")
+    results.append(f"  - Memories: {store.membase_hub}/needle.html?owner={user_id}")
+    results.append(f"  - Look for: `preferences_{user_id}`")
 
     return "\n".join(results)
 
