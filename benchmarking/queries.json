@@ -1,0 +1,647 @@
+{
+  "queries": [
+    {
+      "id": "Q001",
+      "category": "specific_product",
+      "query": "Show me Nike Air Zoom Pegasus",
+      "expected_behavior": "exact_match_or_not_found",
+      "difficulty": "easy"
+    },
+    {
+      "id": "Q002",
+      "category": "specific_product",
+      "query": "Do you have Adidas Ultraboost 22?",
+      "expected_behavior": "exact_match_or_not_found",
+      "difficulty": "easy"
+    },
+    {
+      "id": "Q003",
+      "category": "specific_product",
+      "query": "AeroStride CloudTrail Pro",
+      "expected_behavior": "exact_match_or_not_found",
+      "difficulty": "easy"
+    },
+    {
+      "id": "Q004",
+      "category": "specific_product",
+      "query": "Find me the NimbusPath Marathon Runner",
+      "expected_behavior": "exact_match_or_not_found",
+      "difficulty": "easy"
+    },
+    {
+      "id": "Q005",
+      "category": "specific_product",
+      "query": "FleetStep TrailBlazer X3",
+      "expected_behavior": "exact_match_or_not_found",
+      "difficulty": "easy"
+    },
+    {
+      "id": "Q006",
+      "category": "attribute_based",
+      "query": "Waterproof trail running shoes",
+      "expected_attributes": {
+        "Type": "Trail",
+        "Season": "Winter"
+      },
+      "difficulty": "medium"
+    },
+    {
+      "id": "Q007",
+      "category": "attribute_based",
+      "query": "Lightweight shoes for marathon",
+      "expected_attributes": {
+        "Type": "Road"
+      },
+      "difficulty": "medium"
+    },
+    {
+      "id": "Q008",
+      "category": "attribute_based",
+      "query": "Cushioned shoes for overpronation",
+      "expected_attributes": {},
+      "difficulty": "hard"
+    },
+    {
+      "id": "Q009",
+      "category": "attribute_based",
+      "query": "Carbon plate racing shoes",
+      "expected_attributes": {},
+      "difficulty": "medium"
+    },
+    {
+      "id": "Q010",
+      "category": "attribute_based",
+      "query": "Stability shoes for flat feet",
+      "expected_attributes": {},
+      "difficulty": "hard"
+    },
+    {
+      "id": "Q011",
+      "category": "attribute_based",
+      "query": "Breathable summer running shoes",
+      "expected_attributes": {
+        "Season": "Summer"
+      },
+      "difficulty": "easy"
+    },
+    {
+      "id": "Q012",
+      "category": "attribute_based",
+      "query": "Durable trail shoes",
+      "expected_attributes": {
+        "Type": "Trail"
+      },
+      "difficulty": "medium"
+    },
+    {
+      "id": "Q013",
+      "category": "attribute_based",
+      "query": "Minimalist zero-drop shoes",
+      "expected_attributes": {},
+      "difficulty": "hard"
+    },
+    {
+      "id": "Q014",
+      "category": "attribute_based",
+      "query": "Wide fit running shoes",
+      "expected_attributes": {},
+      "difficulty": "medium"
+    },
+    {
+      "id": "Q015",
+      "category": "attribute_based",
+      "query": "High ankle support trail shoes",
+      "expected_attributes": {
+        "Type": "Trail"
+      },
+      "difficulty": "hard"
+    },
+    {
+      "id": "Q016",
+      "category": "budget_constrained",
+      "query": "Trail running shoes under \u00a3200",
+      "max_price": 200,
+      "expected_attributes": {
+        "Type": "Trail"
+      },
+      "difficulty": "medium"
+    },
+    {
+      "id": "Q017",
+      "category": "budget_constrained",
+      "query": "Best marathon shoes between \u00a3100-\u00a3150",
+      "min_price": 100,
+      "max_price": 150,
+      "expected_attributes": {
+        "Type": "Road"
+      },
+      "difficulty": "medium"
+    },
+    {
+      "id": "Q018",
+      "category": "budget_constrained",
+      "query": "Affordable running shoes under \u00a380",
+      "max_price": 80,
+      "difficulty": "easy"
+    },
+    {
+      "id": "Q019",
+      "category": "budget_constrained",
+      "query": "Premium running shoes over \u00a3200",
+      "min_price": 200,
+      "difficulty": "easy"
+    },
+    {
+      "id": "Q020",
+      "category": "budget_constrained",
+      "query": "Budget trail shoes",
+      "max_price": 100,
+      "expected_attributes": {
+        "Type": "Trail"
+      },
+      "difficulty": "medium"
+    },
+    {
+      "id": "Q021",
+      "category": "budget_constrained",
+      "query": "Cheapest waterproof running shoes",
+      "expected_attributes": {
+        "Season": "Winter"
+      },
+      "difficulty": "medium"
+    },
+    {
+      "id": "Q022",
+      "category": "budget_constrained",
+      "query": "Running shoes under \u00a350",
+      "max_price": 50,
+      "difficulty": "easy"
+    },
+    {
+      "id": "Q023",
+      "category": "budget_constrained",
+      "query": "Mid-range cushioned shoes around \u00a3120",
+      "min_price": 100,
+      "max_price": 140,
+      "difficulty": "medium"
+    },
+    {
+      "id": "Q024",
+      "category": "comparison",
+      "query": "Compare Nike Pegasus vs Adidas Ultraboost",
+      "expected_behavior": "comparison",
+      "difficulty": "hard"
+    },
+    {
+      "id": "Q025",
+      "category": "comparison",
+      "query": "What's better for trail running: Hoka vs Salomon?",
+      "expected_behavior": "comparison",
+      "expected_attributes": {
+        "Type": "Trail"
+      },
+      "difficulty": "hard"
+    },
+    {
+      "id": "Q026",
+      "category": "comparison",
+      "query": "Difference between Pegasus 39 and Pegasus 40",
+      "expected_behavior": "comparison",
+      "difficulty": "hard"
+    },
+    {
+      "id": "Q027",
+      "category": "comparison",
+      "query": "Brooks Ghost vs ASICS Gel-Nimbus",
+      "expected_behavior": "comparison",
+      "difficulty": "hard"
+    },
+    {
+      "id": "Q028",
+      "category": "comparison",
+      "query": "Carbon plate shoes comparison",
+      "expected_behavior": "comparison",
+      "difficulty": "hard"
+    },
+    {
+      "id": "Q029",
+      "category": "complex_multi_attribute",
+      "query": "Waterproof trail shoes for wide feet under \u00a3200",
+      "max_price": 200,
+      "expected_attributes": {
+        "Type": "Trail",
+        "Season": "Winter"
+      },
+      "difficulty": "hard"
+    },
+    {
+      "id": "Q030",
+      "category": "complex_multi_attribute",
+      "query": "Lightweight carbon-plated racing shoes for marathon under \u00a3250",
+      "max_price": 250,
+      "expected_attributes": {
+        "Type": "Road"
+      },
+      "difficulty": "hard"
+    },
+    {
+      "id": "Q031",
+      "category": "complex_multi_attribute",
+      "query": "Durable trail shoes with good grip for muddy conditions",
+      "expected_attributes": {
+        "Type": "Trail"
+      },
+      "difficulty": "hard"
+    },
+    {
+      "id": "Q032",
+      "category": "complex_multi_attribute",
+      "query": "Cushioned shoes for long distance with wide toe box",
+      "expected_attributes": {
+        "Type": "Road"
+      },
+      "difficulty": "hard"
+    },
+    {
+      "id": "Q033",
+      "category": "complex_multi_attribute",
+      "query": "Trail running shoes for women under \u00a3150 waterproof",
+      "max_price": 150,
+      "expected_attributes": {
+        "Type": "Trail",
+        "Gender": "Women",
+        "Season": "Winter"
+      },
+      "difficulty": "hard"
+    },
+    {
+      "id": "Q034",
+      "category": "complex_multi_attribute",
+      "query": "Summer trail shoes breathable and lightweight under \u00a3180",
+      "max_price": 180,
+      "expected_attributes": {
+        "Type": "Trail",
+        "Season": "Summer"
+      },
+      "difficulty": "hard"
+    },
+    {
+      "id": "Q035",
+      "category": "complex_multi_attribute",
+      "query": "Stability shoes for overpronation carbon plate",
+      "difficulty": "very_hard"
+    },
+    {
+      "id": "Q036",
+      "category": "complex_multi_attribute",
+      "query": "Trail shoes for beginners durable under \u00a3120",
+      "max_price": 120,
+      "expected_attributes": {
+        "Type": "Trail"
+      },
+      "difficulty": "hard"
+    },
+    {
+      "id": "Q037",
+      "category": "complex_multi_attribute",
+      "query": "Marathon shoes lightweight fast under \u00a3200",
+      "max_price": 200,
+      "expected_attributes": {
+        "Type": "Road"
+      },
+      "difficulty": "hard"
+    },
+    {
+      "id": "Q038",
+      "category": "complex_multi_attribute",
+      "query": "Winter running shoes waterproof warm grip",
+      "expected_attributes": {
+        "Season": "Winter"
+      },
+      "difficulty": "hard"
+    },
+    {
+      "id": "Q039",
+      "category": "complex_multi_attribute",
+      "query": "Recovery shoes cushioned wide under \u00a3100",
+      "max_price": 100,
+      "difficulty": "hard"
+    },
+    {
+      "id": "Q040",
+      "category": "complex_multi_attribute",
+      "query": "Trail shoes rocky terrain ankle support under \u00a3220",
+      "max_price": 220,
+      "expected_attributes": {
+        "Type": "Trail"
+      },
+      "difficulty": "very_hard"
+    },
+    {
+      "id": "Q041",
+      "category": "conversational",
+      "query": "Good shoes for trail running",
+      "expected_attributes": {
+        "Type": "Trail"
+      },
+      "difficulty": "medium"
+    },
+    {
+      "id": "Q042",
+      "category": "conversational",
+      "query": "Something durable",
+      "difficulty": "very_hard"
+    },
+    {
+      "id": "Q043",
+      "category": "conversational",
+      "query": "What do you recommend for beginners?",
+      "difficulty": "hard"
+    },
+    {
+      "id": "Q044",
+      "category": "conversational",
+      "query": "I need shoes for my first marathon",
+      "expected_attributes": {
+        "Type": "Road"
+      },
+      "difficulty": "medium"
+    },
+    {
+      "id": "Q045",
+      "category": "conversational",
+      "query": "Best shoes for rainy weather",
+      "expected_attributes": {
+        "Season": "Winter"
+      },
+      "difficulty": "medium"
+    },
+    {
+      "id": "Q046",
+      "category": "conversational",
+      "query": "Comfortable daily trainer",
+      "expected_attributes": {
+        "Type": "Road"
+      },
+      "difficulty": "medium"
+    },
+    {
+      "id": "Q047",
+      "category": "conversational",
+      "query": "Shoes for rocky trails",
+      "expected_attributes": {
+        "Type": "Trail"
+      },
+      "difficulty": "medium"
+    },
+    {
+      "id": "Q048",
+      "category": "conversational",
+      "query": "I run 50 miles per week, what should I get?",
+      "difficulty": "hard"
+    },
+    {
+      "id": "Q049",
+      "category": "conversational",
+      "query": "Something for speed work",
+      "difficulty": "hard"
+    },
+    {
+      "id": "Q050",
+      "category": "conversational",
+      "query": "Shoes that won't hurt my knees",
+      "difficulty": "very_hard"
+    },
+    {
+      "id": "Q051",
+      "category": "sample_consumer",
+      "query": "What are the best trail running shoes under $200 with strong grip and high cushioning?",
+      "difficulty": "medium",
+      "source": "Sample Consumer Questions.xlsx"
+    },
+    {
+      "id": "Q052",
+      "category": "sample_consumer",
+      "query": "Which trail shoes in your catalog have 5mm lugs for muddy terrain?",
+      "difficulty": "medium",
+      "source": "Sample Consumer Questions.xlsx"
+    },
+    {
+      "id": "Q053",
+      "category": "sample_consumer",
+      "query": "Recommend trail shoes for women that offer excellent arch support and are under $190.",
+      "difficulty": "medium",
+      "source": "Sample Consumer Questions.xlsx"
+    },
+    {
+      "id": "Q054",
+      "category": "sample_consumer",
+      "query": "Which trail models are hybrids for both road and trail running?",
+      "difficulty": "medium",
+      "source": "Sample Consumer Questions.xlsx"
+    },
+    {
+      "id": "Q055",
+      "category": "sample_consumer",
+      "query": "What trail shoes come in narrow fit options for technical terrain?",
+      "difficulty": "medium",
+      "source": "Sample Consumer Questions.xlsx"
+    },
+    {
+      "id": "Q056",
+      "category": "sample_consumer",
+      "query": "Which trail shoes have Megagrip or Missiongrip outsoles for wet rock surfaces?",
+      "difficulty": "medium",
+      "source": "Sample Consumer Questions.xlsx"
+    },
+    {
+      "id": "Q057",
+      "category": "sample_consumer",
+      "query": "What are the best all-season daily trainers for men with good wet-road grip?",
+      "difficulty": "medium",
+      "source": "Sample Consumer Questions.xlsx"
+    },
+    {
+      "id": "Q058",
+      "category": "sample_consumer",
+      "query": "Which road shoes offer the softest cushioning for easy mileage days?",
+      "difficulty": "medium",
+      "source": "Sample Consumer Questions.xlsx"
+    },
+    {
+      "id": "Q059",
+      "category": "sample_consumer",
+      "query": "Recommend road running shoes that fit wide feet and are under $150.",
+      "difficulty": "medium",
+      "source": "Sample Consumer Questions.xlsx"
+    },
+    {
+      "id": "Q060",
+      "category": "sample_consumer",
+      "query": "What road shoes have the bounciest midsole for long runs?",
+      "difficulty": "medium",
+      "source": "Sample Consumer Questions.xlsx"
+    },
+    {
+      "id": "Q061",
+      "category": "sample_consumer",
+      "query": "Which road shoes are most durable based on user reviews?",
+      "difficulty": "medium",
+      "source": "Sample Consumer Questions.xlsx"
+    },
+    {
+      "id": "Q062",
+      "category": "sample_consumer",
+      "query": "Which lightweight road-fast shoes would you recommend for speed workouts in summer?",
+      "difficulty": "medium",
+      "source": "Sample Consumer Questions.xlsx"
+    },
+    {
+      "id": "Q063",
+      "category": "sample_consumer",
+      "query": "What marathon racing shoes are best for men with slightly narrow feet?",
+      "difficulty": "medium",
+      "source": "Sample Consumer Questions.xlsx"
+    },
+    {
+      "id": "Q064",
+      "category": "sample_consumer",
+      "query": "Which shoes with carbon plates are available for under $350?",
+      "difficulty": "medium",
+      "source": "Sample Consumer Questions.xlsx"
+    },
+    {
+      "id": "Q065",
+      "category": "sample_consumer",
+      "query": "Which racing shoes run small and require sizing up?",
+      "difficulty": "medium",
+      "source": "Sample Consumer Questions.xlsx"
+    },
+    {
+      "id": "Q066",
+      "category": "sample_consumer",
+      "query": "Which women\u2019s running shoes offer the most arch support?",
+      "difficulty": "medium",
+      "source": "Sample Consumer Questions.xlsx"
+    },
+    {
+      "id": "Q067",
+      "category": "sample_consumer",
+      "query": "What wide-fit shoes are available for both men and women?",
+      "difficulty": "medium",
+      "source": "Sample Consumer Questions.xlsx"
+    },
+    {
+      "id": "Q068",
+      "category": "sample_consumer",
+      "query": "Which models fit slightly small and would require sizing up?",
+      "difficulty": "medium",
+      "source": "Sample Consumer Questions.xlsx"
+    },
+    {
+      "id": "Q069",
+      "category": "sample_consumer",
+      "query": "What narrow-fit trail shoes do you recommend for technical descents?",
+      "difficulty": "medium",
+      "source": "Sample Consumer Questions.xlsx"
+    },
+    {
+      "id": "Q070",
+      "category": "sample_consumer",
+      "query": "Which shoes are best for runners who need both wide fit and arch support?",
+      "difficulty": "medium",
+      "source": "Sample Consumer Questions.xlsx"
+    },
+    {
+      "id": "Q071",
+      "category": "sample_consumer",
+      "query": "What are the best road shoes under $80 with strong comfort reviews?",
+      "difficulty": "medium",
+      "source": "Sample Consumer Questions.xlsx"
+    },
+    {
+      "id": "Q072",
+      "category": "sample_consumer",
+      "query": "Show me the highest-rated trail shoes under $100.",
+      "difficulty": "medium",
+      "source": "Sample Consumer Questions.xlsx"
+    },
+    {
+      "id": "Q073",
+      "category": "sample_consumer",
+      "query": "What\u2019s the most affordable hybrid road-trail shoe with good stability?",
+      "difficulty": "medium",
+      "source": "Sample Consumer Questions.xlsx"
+    },
+    {
+      "id": "Q074",
+      "category": "sample_consumer",
+      "query": "Which shoes deliver premium cushioning but cost less than $150?",
+      "difficulty": "medium",
+      "source": "Sample Consumer Questions.xlsx"
+    },
+    {
+      "id": "Q075",
+      "category": "sample_consumer",
+      "query": "Which running shoes are best for wet or winter conditions?",
+      "difficulty": "medium",
+      "source": "Sample Consumer Questions.xlsx"
+    },
+    {
+      "id": "Q076",
+      "category": "sample_consumer",
+      "query": "What are the best spring/summer fast trainers with snug fits?",
+      "difficulty": "medium",
+      "source": "Sample Consumer Questions.xlsx"
+    },
+    {
+      "id": "Q077",
+      "category": "sample_consumer",
+      "query": "Which waterproof road/trail shoes are available for men?",
+      "difficulty": "medium",
+      "source": "Sample Consumer Questions.xlsx"
+    },
+    {
+      "id": "Q078",
+      "category": "sample_consumer",
+      "query": "What are the best options for ultra-distance trail runs?",
+      "difficulty": "medium",
+      "source": "Sample Consumer Questions.xlsx"
+    },
+    {
+      "id": "Q079",
+      "category": "sample_consumer",
+      "query": "Which shoes are best for gym + road hybrid training?",
+      "difficulty": "medium",
+      "source": "Sample Consumer Questions.xlsx"
+    },
+    {
+      "id": "Q080",
+      "category": "sample_consumer",
+      "query": "Recommend shoes for runners who prefer firm cushioning and need stability support.",
+      "difficulty": "medium",
+      "source": "Sample Consumer Questions.xlsx"
+    }
+  ],
+  "metadata": {
+    "total_queries": 80,
+    "categories": {
+      "specific_product": 5,
+      "attribute_based": 10,
+      "budget_constrained": 8,
+      "comparison": 5,
+      "complex_multi_attribute": 12,
+      "conversational": 10,
+      "sample_consumer": 30
+    },
+    "difficulty_distribution": {
+      "easy": 7,
+      "medium": 18,
+      "hard": 20,
+      "very_hard": 5
+    },
+    "target_website": "https://dash-stride-shop.lovable.app/",
+    "agentfabric_endpoint": "http://127.0.0.1:8007",
+    "last_updated": "2025-12-06"
+  }
+}
