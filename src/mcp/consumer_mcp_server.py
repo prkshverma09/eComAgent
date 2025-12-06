@@ -29,6 +29,8 @@ Tools:
   - get_preferences: Get all preferences for a user
   - clear_preferences: Clear all preferences for a user
   - get_personalized_query: Enhance a product query with user preferences
+  - search_products_with_preferences: Search products with preferences automatically applied
+  - check_blockchain_sync: Verify preferences are synced to blockchain
 """
 
 import os
@@ -48,6 +50,12 @@ sys.stdout = io.StringIO()
 
 from mcp.server.fastmcp import FastMCP
 from dotenv import load_dotenv
+from hyperon import MeTTa
+
+from pim_rag import PIMRAG
+from pim_knowledge import initialize_pim_knowledge_graph
+from pim_utils import retrieve_pim_context
+from vector_store import PIMVectorStore
 
 # Restore stdout
 sys.stdout = _real_stdout
@@ -67,6 +75,42 @@ load_dotenv(env_path)
 log("=" * 60)
 log("Consumer Preferences MCP Server Starting...")
 log("=" * 60)
+
+
+# ========================================
+# Product Search RAG Initialization
+# ========================================
+log("Initializing Product Search RAG...")
+metta = MeTTa()
+data_path = os.path.join(project_root, "data", "updated_running_shoes_full_catalog.json")
+
+# Fallback to dummy catalog if full catalog not found
+if not os.path.exists(data_path):
+    data_path = os.path.join(project_root, "data", "Dummy_catalog_runningshoes.json")
+
+if os.path.exists(data_path):
+    initialize_pim_knowledge_graph(metta, data_path)
+    log(f"MeTTa knowledge graph initialized from {os.path.basename(data_path)}")
+else:
+    log(f"WARNING: No product data found")
+
+# Initialize RAG
+rag = PIMRAG(metta)
+
+# Initialize Vector Store
+db_path = os.path.join(project_root, "chroma_db_consumer")
+vector_store = PIMVectorStore(db_path=db_path)
+
+try:
+    with open(data_path, 'r') as f:
+        data = json.load(f)
+        vector_store.ingest_pim_data(data)
+    log(f"Vector store initialized with {len(data)} products")
+except Exception as e:
+    log(f"Error initializing vector store: {e}")
+    vector_store = None
+
+log("Product Search RAG ready")
 
 
 # ========================================
@@ -634,11 +678,95 @@ async def check_blockchain_sync(user_id: str) -> str:
     return "\n".join(results)
 
 
+@mcp.tool()
+async def search_products_with_preferences(user_id: str, query: str) -> str:
+    """
+    Search for products with user preferences automatically applied.
+
+    This is the RECOMMENDED way to search for products. It combines:
+    1. User's saved preferences (size, budget, colors, brands, etc.)
+    2. The search query
+    3. Product database search via RAG
+
+    The result is personalized product recommendations based on both
+    what the user is looking for AND their stored preferences.
+
+    Args:
+        user_id: The user's identifier (to fetch their preferences)
+        query: The product search query (e.g., "running shoes", "trail shoes")
+
+    Returns:
+        Personalized product recommendations with applied preferences
+    """
+    log("=" * 60)
+    log(f">>> search_products_with_preferences: user={user_id}, query={query}")
+    log("=" * 60)
+
+    if not vector_store:
+        return "Error: Product search not available (vector store not initialized)"
+
+    # Step 1: Get user preferences
+    prefs = store.get_preferences(user_id)
+    prefs_applied = []
+
+    # Step 2: Build enhanced query with preferences
+    enhanced_query = query
+
+    if prefs:
+        enhancement = preferences_to_query_enhancement(prefs)
+        if enhancement:
+            enhanced_query = f"{query} {enhancement}".strip()
+
+        # Track what preferences were applied
+        for key, data in prefs.items():
+            value = data.get('value', data) if isinstance(data, dict) else data
+            prefs_applied.append(f"- {key.replace('_', ' ').title()}: {value}")
+
+    log(f"Enhanced query: {enhanced_query}")
+
+    # Step 3: Search products using RAG
+    try:
+        context = retrieve_pim_context(enhanced_query, rag, vector_store)
+
+        if not context:
+            return f"""No products found matching your search.
+
+**Search query:** {query}
+**Enhanced query:** {enhanced_query}
+
+Try a different search term or adjust your preferences."""
+
+        # Step 4: Format response with preference info
+        response = []
+
+        if prefs_applied:
+            response.append("**Your Preferences Applied:**")
+            response.extend(prefs_applied)
+            response.append("")
+
+        response.append(f"**Search:** {query}")
+        if enhanced_query != query:
+            response.append(f"**Personalized as:** {enhanced_query}")
+        response.append("")
+        response.append("---")
+        response.append("")
+        response.append(context)
+
+        log(f"SUCCESS: Found products for user {user_id}")
+        return "\n".join(response)
+
+    except Exception as e:
+        log(f"ERROR in search: {e}")
+        import traceback
+        log(traceback.format_exc())
+        return f"Error searching products: {str(e)}"
+
+
 log("=" * 60)
 log("Consumer Preferences MCP Server READY")
 log("Tools: save_preference, get_preferences, clear_preferences,")
 log("       get_personalized_query, save_multiple_preferences,")
-log("       check_blockchain_sync")
+log("       check_blockchain_sync, search_products_with_preferences")
 log("=" * 60)
 
 
