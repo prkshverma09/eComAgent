@@ -1,6 +1,20 @@
 # eComAgent - Hybrid RAG E-Commerce Agent System
 
+![tag:innovationlab](https://img.shields.io/badge/innovationlab-3D8BD3)
+![tag:hackathon](https://img.shields.io/badge/hackathon-5F43F1)
+
 A multi-agent e-commerce system built on the **Fetch.ai uAgents framework** that provides intelligent product information retrieval using a **Hybrid RAG (Retrieval Augmented Generation)** architecture combining **MeTTa Knowledge Graphs**, **ChromaDB Vector Database**, and **ASI-1 LLM**.
+
+---
+
+## 🤖 Deployed Agents
+
+| Agent | Name | Handle | Address | Agentverse Profile |
+|-------|------|--------|---------|-------------------|
+| **PIM Agent** | E-Commerce Agent | `@e-com-agent` | `agent1qdkcpq3239pvygtscjmd78fxgh3cmedgm5gw0xqy9wsvrevqvplr5jlyeg5` | [View Profile](https://agentverse.ai/agents/details/agent1qdkcpq3239pvygtscjmd78fxgh3cmedgm5gw0xqy9wsvrevqvplr5jlyeg5/profile) |
+| **Context Agent** | E-Com Context Retrieval Agent | `@e-com-context-retrieval-agent` | `agent1q05xsy54st3hpq09nqjznp2vs3dqhatdk0vknk0gxzm47gt94k5wklpj5h8` | [View Profile](https://agentverse.ai/agents/details/agent1q05xsy54st3hpq09nqjznp2vs3dqhatdk0vknk0gxzm47gt94k5wklpj5h8/profile) |
+
+---
 
 ## 🌟 Key Features
 
@@ -67,23 +81,27 @@ A multi-agent e-commerce system built on the **Fetch.ai uAgents framework** that
 
 ## 🤖 Agents Overview
 
-### PIM Agent (Product Information Management)
+### PIM Agent (E-Commerce Agent)
 
 **Purpose**: Conversational AI assistant for natural language product queries
 
 | Feature | Details |
 |---------|---------|
+| **Name** | E-Commerce Agent |
+| **Handle** | `@e-com-agent` |
+| **Address** | `agent1qdkcpq3239pvygtscjmd78fxgh3cmedgm5gw0xqy9wsvrevqvplr5jlyeg5` |
 | **Port** | 8006 |
 | **Protocol** | Agent Chat Protocol v0.3.0 |
 | **LLM** | ASI-1 (asi1-mini) |
 | **Response** | Natural language |
 | **Best For** | Human-to-agent interaction |
+| **Agentverse** | [View Profile](https://agentverse.ai/agents/details/agent1qdkcpq3239pvygtscjmd78fxgh3cmedgm5gw0xqy9wsvrevqvplr5jlyeg5/profile) |
 
 **Example Interaction:**
 ```
 User: "Show me waterproof trail running shoes under $200"
 
-Agent: "Based on the product catalog, here are the waterproof trail 
+Agent: "Based on the product catalog, here are the waterproof trail
 running shoes available:
 
 1. **TerraSprint Trail Master** ($179.99)
@@ -96,17 +114,21 @@ running shoes available:
 
 ---
 
-### Context Agent (Raw Data Retrieval)
+### Context Agent (E-Com Context Retrieval Agent)
 
 **Purpose**: Fast, deterministic product context retrieval without LLM processing
 
 | Feature | Details |
 |---------|---------|
+| **Name** | E-Com Context Retrieval Agent |
+| **Handle** | `@e-com-context-retrieval-agent` |
+| **Address** | `agent1q05xsy54st3hpq09nqjznp2vs3dqhatdk0vknk0gxzm47gt94k5wklpj5h8` |
 | **Port** | 8007 |
 | **Protocols** | Agent Chat Protocol v0.3.0 + Context Retrieval v1.0.0 |
 | **LLM** | None (raw data only) |
 | **Response** | Structured context |
 | **Best For** | Agent-to-agent, MCP Server |
+| **Agentverse** | [View Profile](https://agentverse.ai/agents/details/agent1q05xsy54st3hpq09nqjznp2vs3dqhatdk0vknk0gxzm47gt94k5wklpj5h8/profile) |
 
 **Example Response:**
 ```
@@ -376,6 +398,18 @@ The agents use `data/updated_running_shoes_full_catalog.json` containing:
 ### "No relevant context found"
 - Check that the product catalog JSON file exists
 - Verify ChromaDB was initialized correctly
+
+---
+
+## 🔗 Extra Resources Required
+
+To run this project, you will need:
+
+| Resource | Description | Link |
+|----------|-------------|------|
+| **ASI-1 API Key** | Required for LLM-powered responses in PIM Agent | [Get API Key](https://asi1.ai) |
+| **Agentverse Account** | Required for Mailbox and cloud chat functionality | [Sign Up](https://agentverse.ai) |
+| **Python 3.10+** | Required for `uagents-core` package | [Download](https://www.python.org/downloads/) |
 
 ---
 
