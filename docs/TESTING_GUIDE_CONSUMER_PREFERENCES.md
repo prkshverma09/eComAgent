@@ -262,13 +262,19 @@ Expected response:
   - shoe_size: 10
   - max_budget: 200
 
-**Blockchain (Membase Hub):**
-  - Found 1 conversation(s) on chain
-    - preferences_[your_user_id]
-  - Data synced: Yes
+**Blockchain (Membase Memories):**
+  - ✅ Found 2 preference(s) on blockchain!
+  - Bucket: `preferences_Aswin`
+  - Synced preferences:
+    - shoe_size: 10
+    - max_budget: 200
 
 **Hub URL:** https://testnet.hub.membase.io
 **Membase ID:** ecomagent_consumer_prefs
+
+**Verify on Blockchain (Manual):**
+  - Memories: https://testnet.hub.membase.io/needle.html?owner=Aswin
+  - Look for: `preferences_Aswin`
 ```
 
 ### Step 3.6: Test Personalized Search
@@ -282,23 +288,26 @@ Claude should use your preferences to enhance the search query.
 
 ---
 
-## Part 4: Verify On-Chain Storage (Terminal)
+## Part 4: Verify On-Chain Storage (Browser)
 
 ### Step 4.1: Check Your Data on Membase Hub
 
-After saving preferences in Claude Desktop, verify in terminal:
+After saving preferences in Claude Desktop, verify in browser:
 
-```bash
-# Replace YOUR_USER_ID with the user_id shown in Claude Desktop
-curl -X POST https://testnet.hub.membase.io/api/conversation \
-  -H "Content-Type: application/x-www-form-urlencoded" \
-  -d "owner=YOUR_USER_ID"
-```
+1. Open: `https://testnet.hub.membase.io/needle.html?owner=YOUR_USER_ID`
+   - Replace `YOUR_USER_ID` with your user ID (e.g., `Aswin`)
 
-Expected output:
-```json
-["preferences_YOUR_USER_ID"]
-```
+2. Look for `preferences_YOUR_USER_ID` entry:
+   ```
+   preferences_Aswin
+   Aswin
+   preferences_Aswin
+   [block_number]
+   [size] bytes
+   [timestamp]
+   ```
+
+3. Click `[click to show]` to see the stored preference data
 
 ### Step 4.2: Check MCP Server Logs
 

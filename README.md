@@ -438,10 +438,9 @@ python pim_agent_client.py "Show me waterproof trail running shoes"
    ```
 
 5. Verify blockchain sync:
-   ```bash
-   curl -X POST https://testnet.hub.membase.io/api/conversation \
-     -d "owner=default_user"
-   ```
+   - Ask Claude: "Check my blockchain sync status"
+   - Or visit: `https://testnet.hub.membase.io/needle.html?owner=YOUR_USER_ID`
+   - Look for `preferences_YOUR_USER_ID` in the Memories list
 
 ---
 
@@ -470,11 +469,11 @@ python tests/test_context_agent_integration.py
 ```bash
 # Test consumer preferences with blockchain sync
 python tests/test_consumer_preferences.py
-
-# Verify blockchain storage
-curl -X POST https://testnet.hub.membase.io/api/conversation \
-  -d "owner=default_user"
 ```
+
+**Verify blockchain storage in browser:**
+- Visit: `https://testnet.hub.membase.io/needle.html?owner=YOUR_USER_ID`
+- Look for: `preferences_YOUR_USER_ID`
 
 ---
 
