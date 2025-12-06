@@ -3,16 +3,39 @@
 ![tag:innovationlab](https://img.shields.io/badge/innovationlab-3D8BD3)
 ![tag:hackathon](https://img.shields.io/badge/hackathon-5F43F1)
 
-A multi-agent e-commerce system built on the **Fetch.ai uAgents framework** that provides intelligent product information retrieval using a **Hybrid RAG (Retrieval Augmented Generation)** architecture combining **MeTTa Knowledge Graphs**, **ChromaDB Vector Database**, and **ASI-1 LLM**.
+---
+
+## 📋 Quick Reference (Hackathon Submission)
+
+| | |
+|---|---|
+| **GitHub Repository** | [https://github.com/prkshverma09/eComAgent](https://github.com/prkshverma09/eComAgent) |
+
+### Agent 1: E-Commerce Agent (PIM Agent)
+
+| | |
+|---|---|
+| **Name** | E-Commerce Agent |
+| **Handle** | `@e-com-agent` |
+| **Address** | `agent1qdkcpq3239pvygtscjmd78fxgh3cmedgm5gw0xqy9wsvrevqvplr5jlyeg5` |
+| **Purpose** | Conversational AI assistant that answers natural language product queries using Hybrid RAG + ASI-1 LLM |
+| **Agentverse** | [View Profile](https://agentverse.ai/agents/details/agent1qdkcpq3239pvygtscjmd78fxgh3cmedgm5gw0xqy9wsvrevqvplr5jlyeg5/profile) |
+
+### Agent 2: E-Com Context Retrieval Agent (Context Agent)
+
+| | |
+|---|---|
+| **Name** | E-Com Context Retrieval Agent |
+| **Handle** | `@e-com-context-retrieval-agent` |
+| **Address** | `agent1q05xsy54st3hpq09nqjznp2vs3dqhatdk0vknk0gxzm47gt94k5wklpj5h8` |
+| **Purpose** | Fast, deterministic raw product data retrieval for agent-to-agent communication and MCP Server integration |
+| **Agentverse** | [View Profile](https://agentverse.ai/agents/details/agent1q05xsy54st3hpq09nqjznp2vs3dqhatdk0vknk0gxzm47gt94k5wklpj5h8/profile) |
 
 ---
 
-## 🤖 Deployed Agents
+## 📖 Project Overview
 
-| Agent | Name | Handle | Address | Agentverse Profile |
-|-------|------|--------|---------|-------------------|
-| **PIM Agent** | E-Commerce Agent | `@e-com-agent` | `agent1qdkcpq3239pvygtscjmd78fxgh3cmedgm5gw0xqy9wsvrevqvplr5jlyeg5` | [View Profile](https://agentverse.ai/agents/details/agent1qdkcpq3239pvygtscjmd78fxgh3cmedgm5gw0xqy9wsvrevqvplr5jlyeg5/profile) |
-| **Context Agent** | E-Com Context Retrieval Agent | `@e-com-context-retrieval-agent` | `agent1q05xsy54st3hpq09nqjznp2vs3dqhatdk0vknk0gxzm47gt94k5wklpj5h8` | [View Profile](https://agentverse.ai/agents/details/agent1q05xsy54st3hpq09nqjznp2vs3dqhatdk0vknk0gxzm47gt94k5wklpj5h8/profile) |
+A multi-agent e-commerce system built on the **Fetch.ai uAgents framework** that provides intelligent product information retrieval using a **Hybrid RAG (Retrieval Augmented Generation)** architecture combining **MeTTa Knowledge Graphs**, **ChromaDB Vector Database**, and **ASI-1 LLM**.
 
 ---
 
