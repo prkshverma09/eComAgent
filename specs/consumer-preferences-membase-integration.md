@@ -567,10 +567,17 @@ print(f'Result: {result}')
 
 ### Verify Blockchain Sync
 
-```bash
-curl -X POST https://testnet.hub.membase.io/api/conversation \
-  -H "Content-Type: application/x-www-form-urlencoded" \
-  -d "owner=test_user"
+Visit in browser:
+```
+https://testnet.hub.membase.io/needle.html?owner=test_user
+```
+
+Or use Python SDK:
+```python
+from membase.storage.hub import hub_client
+hub_client.initialize("https://testnet.hub.membase.io")
+data = hub_client.download_hub(owner="test_user", filename="preferences_test_user")
+print(data)
 ```
 
 ### Run MCP Server Manually

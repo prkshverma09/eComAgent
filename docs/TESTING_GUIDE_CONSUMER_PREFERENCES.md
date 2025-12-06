@@ -143,14 +143,11 @@ print('Preference saved to memory!')
 print('Waiting for hub sync...')
 time.sleep(3)
 
-# Verify on hub
-import requests
-response = requests.post(
-    'https://testnet.hub.membase.io/api/conversation',
-    data={'owner': 'blockchain_test_user'},
-    timeout=10
-)
-print(f'Hub response: {response.json()}')
+# Verify on hub using download_hub
+from membase.storage.hub import hub_client
+hub_client.initialize('https://testnet.hub.membase.io')
+data = hub_client.download_hub(owner='blockchain_test_user', filename='test_preferences')
+print(f'Hub response: {data[:100] if data else None}')
 "
 ```
 
@@ -160,7 +157,7 @@ Creating Membase memory...
 Saving preference...
 Preference saved to memory!
 Waiting for hub sync...
-Hub response: ['test_preferences']
+Hub response: b'[{"__module__": "membase.memory.message"...
 ```
 
 ---
@@ -385,10 +382,12 @@ Save these preferences: size 11, budget £300, colors blue and green, brand Nike
 
 1. Check if hub is accessible:
    ```bash
-   curl https://testnet.hub.membase.io/api/conversation -X POST -d "owner=test"
+   curl -I https://testnet.hub.membase.io
    ```
 
-2. Look for 599 errors in logs (hub overloaded, try later)
+2. Verify data in browser: `https://testnet.hub.membase.io/needle.html?owner=YOUR_USER_ID`
+
+3. Look for 599 errors in logs (hub overloaded, try later)
 
 ### Preferences Not Persisting
 
