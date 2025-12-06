@@ -8,3 +8,15 @@ python-dotenv
 uagents-core>=0.4.0
 chromadb
 sentence-transformers
+
+# MCP Server
+mcp
+
+# Benchmarking
+selenium
+webdriver-manager
+tqdm
+
+# Unibase Membase (Decentralized Memory Layer)
+# Install separately: pip install git+https://github.com/unibaseio/membase.git
+# Or clone: git clone https://github.com/unibaseio/membase.git && pip install -e membase/
