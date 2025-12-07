@@ -39,6 +39,7 @@
 | **Storage** | Local JSON + BNB Chain (Membase) |
 | **Purpose** | Store user shopping preferences on blockchain for persistent, decentralized memory |
 | **Hub URL** | https://testnet.hub.membase.io |
+| **Video Demo** | [Watch Demo](https://drive.google.com/file/d/1LM7KBssAwbmKXyw3WdruReh4lO3lDEB4/view?usp=drive_link) |
 
 ---
 
@@ -218,6 +219,8 @@ Claude: Preference saved! ⛓️ (syncing to BNB Chain in background)
 ```
 
 📖 **Detailed Documentation**: [docs/USER_GUIDE_CONSUMER_PREFERENCES.md](docs/USER_GUIDE_CONSUMER_PREFERENCES.md)
+
+🎬 **Video Demo**: [Consumer Preferences with Membase Demo](https://drive.google.com/file/d/1LM7KBssAwbmKXyw3WdruReh4lO3lDEB4/view?usp=drive_link)
 
 ---
 
