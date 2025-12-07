@@ -39,6 +39,7 @@
 | **Storage** | Local JSON + BNB Chain (Membase) |
 | **Purpose** | Store user shopping preferences on blockchain for persistent, decentralized memory |
 | **Hub URL** | https://testnet.hub.membase.io |
+| **Video Demo** | [Watch Demo](https://drive.google.com/file/d/1LM7KBssAwbmKXyw3WdruReh4lO3lDEB4/view?usp=drive_link) |
 
 ---
 
@@ -197,6 +198,17 @@ Attributes: brand: TerraSprint; product_name: Trail Master; price: 179.99; ...
 | **Hub URL** | https://testnet.hub.membase.io |
 | **Tools** | 6 MCP tools for preference management |
 
+**Available Tools:**
+
+| Tool | Description |
+|------|-------------|
+| `save_preference` | Save a single preference (shoe_size, max_budget, etc.) |
+| `get_preferences` | Retrieve all saved preferences for a user |
+| `clear_preferences` | Delete all preferences for a user |
+| `get_personalized_query` | Enhance a search query with user preferences |
+| `save_multiple_preferences` | Save multiple preferences at once |
+| `check_blockchain_sync` | Verify if preferences are synced to blockchain |
+
 **Example Interaction:**
 ```
 User: "I wear size 10 shoes and my budget is under £200"
@@ -207,6 +219,8 @@ Claude: Preference saved! ⛓️ (syncing to BNB Chain in background)
 ```
 
 📖 **Detailed Documentation**: [docs/USER_GUIDE_CONSUMER_PREFERENCES.md](docs/USER_GUIDE_CONSUMER_PREFERENCES.md)
+
+🎬 **Video Demo**: [Consumer Preferences with Membase Demo](https://drive.google.com/file/d/1LM7KBssAwbmKXyw3WdruReh4lO3lDEB4/view?usp=drive_link)
 
 ---
 
@@ -328,6 +342,10 @@ CONTEXT_AGENT_NAME="Context Retrieval Agent"
 # Required for Agentverse UI Chat
 AGENTVERSE_MAILBOX_KEY=your_mailbox_key_here
 
+# Consumer Preferences (Membase blockchain storage)
+MEMBASE_ID=your_membase_id
+MEMBASE_HUB=https://testnet.hub.membase.io
+
 # Suppress warnings
 TOKENIZERS_PARALLELISM=false
 ```
@@ -423,10 +441,9 @@ python pim_agent_client.py "Show me waterproof trail running shoes"
    ```
 
 5. Verify blockchain sync:
-   ```bash
-   curl -X POST https://testnet.hub.membase.io/api/conversation \
-     -d "owner=default_user"
-   ```
+   - Ask Claude: "Check my blockchain sync status"
+   - Or visit: `https://testnet.hub.membase.io/needle.html?owner=YOUR_USER_ID`
+   - Look for `preferences_YOUR_USER_ID` in the Memories list
 
 ---
 
@@ -455,11 +472,11 @@ python tests/test_context_agent_integration.py
 ```bash
 # Test consumer preferences with blockchain sync
 python tests/test_consumer_preferences.py
-
-# Verify blockchain storage
-curl -X POST https://testnet.hub.membase.io/api/conversation \
-  -d "owner=default_user"
 ```
+
+**Verify blockchain storage in browser:**
+- Visit: `https://testnet.hub.membase.io/needle.html?owner=YOUR_USER_ID`
+- Look for: `preferences_YOUR_USER_ID`
 
 ---
 

@@ -564,8 +564,6 @@ async def check_blockchain_sync(user_id: str) -> str:
     """
     log(f">>> check_blockchain_sync: user={user_id}")
 
-    import requests
-
     results = []
 
     # Check local storage
@@ -576,60 +574,72 @@ async def check_blockchain_sync(user_id: str) -> str:
         for key, data in local_prefs.items():
             results.append(f"  - {key}: {data.get('value', 'N/A')}")
 
-    # Check Membase hub
+    # Check Membase hub using SDK
     results.append("")
-    results.append("**Blockchain (Membase Hub):**")
+    results.append("**Blockchain (Membase Memories):**")
 
     if not store.membase_enabled:
         results.append("  - Membase not enabled (MEMBASE_ID not set)")
     else:
         try:
-            hub_url = store.membase_hub
-            response = requests.post(
-                f"{hub_url}/api/conversation",
-                data={"owner": user_id},
-                headers={"Content-Type": "application/x-www-form-urlencoded"},
-                timeout=10
-            )
+            # Use hub_client to download data directly
+            from membase.storage.hub import hub_client
 
-            if response.status_code == 200:
-                conversations = response.json()
-                if conversations and conversations != "null":
-                    results.append(f"  - Found {len(conversations)} conversation(s) on chain")
-                    for conv in conversations[:5]:  # Show first 5
-                        results.append(f"    - {conv}")
+            # Initialize hub client
+            hub_client.initialize(store.membase_hub)
 
-                    # Try to get preference data
-                    for conv in conversations[:3]:
+            # Try to download from hub
+            log(f"Downloading from hub for user: {user_id}")
+            data = hub_client.download_hub(owner=user_id, filename=f"preferences_{user_id}")
+
+            if data:
+                # Parse the downloaded data
+                messages = json.loads(data.decode('utf-8'))
+
+                if messages and len(messages) > 0:
+                    results.append(f"  - ✅ Found {len(messages)} preference(s) on blockchain!")
+                    results.append(f"  - Bucket: `preferences_{user_id}`")
+
+                    # Show preferences from blockchain
+                    blockchain_prefs = {}
+                    for msg in messages:
                         try:
-                            detail_resp = requests.post(
-                                f"{hub_url}/api/conversation",
-                                data={"owner": user_id, "id": conv},
-                                headers={"Content-Type": "application/x-www-form-urlencoded"},
-                                timeout=5
-                            )
-                            if detail_resp.status_code == 200:
-                                detail = detail_resp.json()
-                                if detail:
-                                    results.append(f"  - Data synced: Yes")
-                                    break
+                            if 'content' in msg:
+                                content_data = json.loads(msg['content'])
+                                if 'key' in content_data and 'value' in content_data:
+                                    blockchain_prefs[content_data['key']] = content_data['value']
                         except:
                             pass
+
+                    if blockchain_prefs:
+                        results.append("  - Synced preferences:")
+                        for key, value in blockchain_prefs.items():
+                            results.append(f"    - {key}: {value}")
                 else:
                     results.append("  - No data found on blockchain yet")
-                    results.append("  - Note: Sync may take a few moments")
+                    results.append("  - Sync may still be in progress")
             else:
-                results.append(f"  - Hub returned status: {response.status_code}")
+                results.append("  - No data found on blockchain yet")
+                results.append("  - Sync may still be in progress")
 
-        except requests.Timeout:
-            results.append("  - Hub timeout (server may be busy)")
         except Exception as e:
-            results.append(f"  - Error checking hub: {str(e)[:50]}")
+            error_msg = str(e)
+            log(f"Blockchain check error: {error_msg}")
+            if "not found" in error_msg.lower() or "404" in error_msg:
+                results.append("  - No data synced to blockchain yet")
+            else:
+                results.append(f"  - Error: {error_msg[:60]}")
 
     # Add hub URL for manual verification
     results.append("")
     results.append(f"**Hub URL:** {store.membase_hub}")
     results.append(f"**Membase ID:** {store.membase_id}")
+
+    # Add direct verification links
+    results.append("")
+    results.append("**Verify on Blockchain (Manual):**")
+    results.append(f"  - Memories: {store.membase_hub}/needle.html?owner={user_id}")
+    results.append(f"  - Look for: `preferences_{user_id}`")
 
     return "\n".join(results)
 

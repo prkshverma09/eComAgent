@@ -69,12 +69,19 @@ You'll see:
 Local Storage: 3 preferences
   - shoe_size: 10
   - max_budget: 200
-  - preferred_colors: ["black", "gray"]
+  - preferred_colors: black, gray
 
-Blockchain (Membase Hub):
-  - Found 1 conversation(s) on chain
-    - preferences_your_user_id
-  - Data synced: Yes
+Blockchain (Membase Memories):
+  - ✅ Found 3 preference(s) on blockchain!
+  - Bucket: `preferences_Aswin`
+  - Synced preferences:
+    - shoe_size: 10
+    - max_budget: 200
+    - preferred_colors: black, gray
+
+Verify on Blockchain (Manual):
+  - Memories: https://testnet.hub.membase.io/needle.html?owner=Aswin
+  - Look for: `preferences_Aswin`
 ```
 
 ## Available Commands
